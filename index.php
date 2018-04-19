@@ -34,7 +34,7 @@
 		<div id="search-list"></div>
 		<div id="chatmain">
             <div id="messagePanel"></div>
-            <textarea id="chatmessage" placeholder="Nhập tin nhắn..." disabled style="height:50px; resize: none;" /></textarea>
+            <input type="text" id="chatmessage" placeholder="Nhập tin nhắn..." disabled />
             <input type="button" id="sendmessage" value="Gửi" onclick="sendMessage()" />
         </div>
 

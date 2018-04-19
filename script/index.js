@@ -30,8 +30,8 @@ function resizeWindow() {
     $('div#search-list').css('height', (h - 150) + 'px');
     $('div#chatmain').css('width', (w - 360) + 'px');
     $('div#chatmain').css('height', (h - 150) + 'px');
-    $('div#messagePanel').css('height', (h - 260) + 'px');
-    $('textarea#chatmessage').css('width', (w - 510) + 'px');
+    $('div#messagePanel').css('height', (h - 240) + 'px');
+    $('#chatmessage').css('width', (w - 510) + 'px');
 }
 
 var friend_id = -1;
