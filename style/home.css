@@ -135,7 +135,7 @@ div#info {
 .message-row {
     border-radius: 5px;
     width: 97%;
-    margin-bottom: 3px;
+    /* margin-bottom: 3px; */
     margin-left: 15px;
     position: relative;
     display: block;
