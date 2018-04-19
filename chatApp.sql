@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 19, 2018 at 06:46 AM
--- Server version: 10.1.22-MariaDB
--- PHP Version: 7.1.4
+-- Generation Time: Apr 19, 2018 at 05:08 PM
+-- Server version: 10.1.31-MariaDB
+-- PHP Version: 7.2.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -87,7 +87,6 @@ SELECT * FROM
 (
     SELECT
         `user1_id` + `user2_id` - uid AS user_id,
-        MAX(c.`time`) AS maxtime,
         u.`alias`
     FROM
         conversion c,
@@ -99,16 +98,20 @@ SELECT * FROM
         AND (l.`user1_id` = uid OR l.`user2_id` = uid)
     GROUP BY user_id
     ORDER BY MAX(c.`time`) DESC
-) t1
+) as t1
 UNION
 (
-select u.`id`, `time`, u.`alias`
-from users u left join conversion c on c.`sender_id`=u.`id`
+select u.`id`, u.alias
+from users u
 where u.`id` not in (
     SELECT
-        `user1_id` + `user2_id` - uid AS user_id
+        `user1_id` + `user2_id` - uid
     FROM
-        conversions_list
+        conversion c,
+        conversions_list l
+    WHERE
+        c.`conversion_id` = l.`id`
+        AND (l.`user1_id` = uid OR l.`user2_id` = uid)
     )
     and u.`id` != uid
 )$$
@@ -176,7 +179,10 @@ INSERT INTO `conversion` (`id`, `conversion_id`, `message_content`, `sender_id`,
 (73, 39, 'alo', 1, '2018-04-19 11:43:46'),
 (74, 39, 'co tien chua', 1, '2018-04-19 11:43:48'),
 (75, 40, 'dao nay lam an the nao roi`', 1, '2018-04-19 11:44:00'),
-(76, 41, 'trung bua', 1, '2018-04-19 11:45:32');
+(76, 41, 'trung bua', 1, '2018-04-19 11:45:32'),
+(77, 31, 'e biet ma', 8, '2018-04-19 21:36:50'),
+(78, 31, 'khong bat ngo', 8, '2018-04-19 21:36:53'),
+(79, 42, 'NGU!!!!!!!', 9, '2018-04-19 22:04:30');
 
 -- --------------------------------------------------------
 
@@ -206,7 +212,8 @@ INSERT INTO `conversions_list` (`id`, `user1_id`, `user2_id`) VALUES
 (38, 1, 11),
 (39, 1, 10),
 (40, 1, 29),
-(41, 1, 12);
+(41, 1, 12),
+(42, 9, 3);
 
 -- --------------------------------------------------------
 
@@ -285,17 +292,20 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `conversion`
 --
 ALTER TABLE `conversion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+
 --
 -- AUTO_INCREMENT for table `conversions_list`
 --
 ALTER TABLE `conversions_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+
 --
 -- Constraints for dumped tables
 --
