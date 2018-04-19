@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Login</title>
+		<link rel="stylesheet" type="text/css" href="style/animate.css" />
+		<link rel="stylesheet" type="text/css" href="style/home.css" />
+		<link rel="Shortcut Icon" href="images/O6n_HQxozp9.ico" type="image/x-icon" />
+
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<script type="text/javascript" src="script/jquery-1.12.4.min.js"></script>
+		<script type="text/javascript" src="script/login.js"></script>
+		<script type="text/javascript" src="script/index.js"></script>
+	</head>
+	<body onresize="resizeWindow()">
+		<?php
+			include('default.php');
+			session_start();
+			$path = 'index';
+			if (!isset($_SESSION['user'])) {
+				include('include/index_loginform.php');
+				include('include/close_tag.php');
+				return;
+			}
+			else {
+				include('include/welcome.php');
+				include('include/navigation.php');
+			}
+		?>
+		<div id="search">
+			<label>Tìm kiếm</label>
+			<input type="text" id="searchtb" placeholder="Tìm kiếm thành viên" autofocus="true" />
+			<input type="button" id="searchbt" onclick="searchList()" value="Tìm kiếm" />
+		</div>
+		<div id="search-list"></div>
+		<div id="chatmain">
+            <div id="messagePanel"></div>
+            <textarea id="chatmessage" placeholder="Nhập tin nhắn..." disabled style="height:50px; resize: none;" /></textarea>
+            <input type="button" id="sendmessage" value="Gửi" onclick="sendMessage()" />
+        </div>
+
+        <?php include('include/index_script.php'); ?>
+	</body>
+</html>

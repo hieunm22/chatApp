@@ -1,0 +1,182 @@
+* {
+    font-family: "SF Pro Text","Myriad Set Pro",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","SF Pro Icons","Apple Legacy Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+    font-size: 13px;
+}
+.login-info {
+	width: 400px;
+	margin: 0 auto;
+	padding-bottom: 5px;
+}
+.register-info {
+	width: 500px;
+	margin: 0 auto;
+	padding-bottom: 5px;
+}
+.center {
+	width: 50%;
+	margin: 0 auto;
+}
+.login-message {
+	height: 18px;
+	width: 400px;
+	margin: 0 auto;
+	display: table;
+	color: red;
+}
+.register {
+    margin-left:50px;
+	width: 140px;
+}
+.cancel {
+	width: 140px;
+	margin-bottom: 15px;
+}
+.lbl {
+	display: inline-block;
+}
+.login {
+	width: 90px;
+}
+.required {
+	color: red;
+}
+.header {
+	font-size: 18px;
+	color: #4ebf82;
+}
+a {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+span#usr {
+    font-weight: bold;
+    display: inline-block;
+    width: 310px;
+}
+input[type="text"],input[type="password"],textarea {
+	width: 300px;
+    border-radius: 4px;
+	height: 20px;
+}
+input[type="text"]:focus,input[type="password"]:focus ,textarea:focus{
+    outline:none;
+    background-color:#ffffd0;
+    /* box-shadow:0 0 5px red; */
+}
+input[type="button"] {
+	width: 80px;
+	/* border-radius: 2px; */
+}
+div#info {
+	width: 550px;
+	border:1px solid #a09797;
+	margin: 0 auto;
+	border-radius: 15px;
+}
+.search-result {
+    width: 180px;
+}
+.search-chat {
+    width: 50px;
+}
+#search {
+	width: 80%;
+	padding-top: 15px;
+    padding-left: 150px;
+}
+#searchtb {
+	width: 80%;
+    margin-left: 30px;
+}
+#searchbt {
+    margin-left: 20px;
+}
+#search-list {
+    border: 1px solid #b7b3b3;
+    border-radius: 10px;
+    overflow-y: scroll;
+	width: 300px;
+	height: 100%;
+    display: inline-block;
+	margin-top: 25px;
+}
+#search-list ul li {
+
+}
+#chatmain {
+    position:relative;
+    border: 1px solid #b7b3b3;
+    border-radius: 10px;
+    display: inline-block;
+	margin-top: 25px;
+}
+#chatmessage {
+    position: absolute;
+	bottom: 15px;
+	margin-left: 25px;
+}
+#sendmessage {
+    position: absolute;
+	bottom: 15px;
+	right: 25px;
+}
+#messagePanel {
+    border: 1px solid #b7b3b3;
+    overflow-y: scroll;
+    width: 95%;
+    height: 82%;
+    position: absolute;
+	top: 15px;
+	left: 25px;
+    padding-top: 15px;
+}
+.message-row {
+    border-radius: 5px;
+    width: 97%;
+    margin-bottom: 3px;
+    margin-left: 15px;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    height:auto;
+
+}
+.message-content {
+    max-width: 50%;
+    margin-bottom: 3px;
+}
+.tooltiptext {
+    visibility: hidden;
+    /* width: 120px; */
+    background-color: #7f7676;
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px;
+    /* Position the tooltip */
+    z-index: 1;
+    margin: 0 15px;
+}
+.message-row:hover .tooltiptext {
+    visibility: visible;
+}
+.user1 {
+    background-color: #0084ff;
+    border: 1px solid #0084ff;
+    border-radius: 15px;
+    color: #fff;
+    float: right;
+    padding: 6px 12px;
+}
+.user2 {
+    background-color: #f1f0f0;
+	border: 1px solid #f1f0f0;
+    border-radius: 15px;
+    float: left;
+    padding: 6px 12px;    
+}
+.alias {
+    font-weight: bold;
+}
+

@@ -1,0 +1,1 @@
+<div class="register-info">Bạn chưa đăng nhập. Bấm vào <a href="index.php">đây</a> để về trang đăng nhập</div>
