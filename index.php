@@ -11,11 +11,12 @@
 		<script type="text/javascript" src="script/login.js"></script>
 		<script type="text/javascript" src="script/index.js"></script>
 	</head>
-	<body onresize="resizeWindow()">
+	<body>
 		<?php
 			include('default.php');
 			session_start();
-			$path = 'index';
+			// $path = 'index';
+			$path = basename($_SERVER['SCRIPT_FILENAME']);
 			if (!isset($_SESSION['user'])) {
 				include('include/index_loginform.php');
 				include('include/close_tag.php');
@@ -29,13 +30,13 @@
 		<div id="search">
 			<label>Tìm kiếm</label>
 			<input type="text" id="searchtb" placeholder="Tìm kiếm thành viên" autofocus="true" />
-			<input type="button" id="searchbt" onclick="searchList()" value="Tìm kiếm" />
+			<input type="button" id="searchbt" value="Tìm kiếm" />
 		</div>
 		<div id="search-list"></div>
 		<div id="chatmain">
             <div id="messagePanel"></div>
             <input type="text" id="chatmessage" placeholder="Nhập tin nhắn..." disabled />
-            <input type="button" id="sendmessage" value="Gửi" onclick="sendMessage()" />
+            <input type="button" id="sendmessage" value="Gửi" />
         </div>
 
         <?php include('include/index_script.php'); ?>

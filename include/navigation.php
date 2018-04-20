@@ -1,17 +1,18 @@
 <?php
 	$strNav = '';
-	if ($path == 'index') {
+    $path = basename($_SERVER['SCRIPT_FILENAME']);
+	if ($path == 'index.php') {
 		$strNav = 'Trang chủ';
 	}
 	else {
 		$strNav = '
         <a href="/chatApp">Trang chủ</a>';
 		switch ($path) {
-			case 'register': $strNav .= ' > Đăng ký';
+			case 'register.php': $strNav .= ' > Đăng ký';
 				break;
-			case 'usercp': $strNav .= ' > Đổi thông tin cá nhân';
+			case 'usercp.php': $strNav .= ' > Đổi thông tin cá nhân';
 				break;
-			case 'profile': 
+			case 'profile.php': 
                 if ($profile !== null) 
                     $strNav .= ' > '.$profile['alias'];               
 				break;

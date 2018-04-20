@@ -11,6 +11,16 @@ function blinkText(selector, sender) {
     }, 450);
 }
 
+function logout() {
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            window.location.href = "index.php";
+        }
+    };
+    xmlhttp.open("GET", "controller/index_logout.php", true);
+    xmlhttp.send();
+}
+
 function searchList() {
 	var text = $('.searchtb').val();
     xmlhttp.onreadystatechange = function() {
@@ -53,9 +63,8 @@ function openChat(id) {
     xmlhttp.send();
 }
 
-function sendMessage() {
-    var text = $('textarea#chatmessage').val();
-    $('textarea#chatmessage').val('');
+function sendMessage(text) {
+    $('#chatmessage').val('');
 	if (text.trim() == '') return;
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
