@@ -26,6 +26,18 @@
 			include('include/welcome.php');
 			include('include/navigation.php');
         ?>
+        <script type="text/javascript">
+			$(document).ready(function(){
+				$('input.register').on('click', function(e) {
+					save();
+				});
+				$('input.cancel').on('click', function(e) {
+					window.location.href='index.php';
+				});
+			});
+		</script>
+
+        
 		<div id="info">
 			<div class="register-info">
 				<h2 class="header">Thay đổi thông tin cá nhân</h2>
@@ -39,13 +51,14 @@
 			<div class="register-info">
 				<h2 class="header">Đổi mật khẩu</h2>
 			</div>
+			<div class="register-info"><span class="lbl register">Mật khẩu cũ</span><input type="password" name="oldpwd" id="oldpwd" placeholder="Nhập mật khẩu cũ" /></div>
 			<div class="register-info"><span class="lbl register">Mật khẩu mới</span><input type="password" name="pwd" id="pwd" placeholder="(Bỏ qua nếu không đổi mật khẩu)" /></div>
 			<div class="register-info"><span class="lbl register">Xác nhận mật khẩu</span><input type="password" name="pwd2" id="pwd2" placeholder="Xác nhận mật khẩu" /></div>
 			<div class="register-info login-message"></div>
 			<div class="register-info">
 				<center>
-					<input type="button" name="register" class="register" value="Lưu" onclick="save()" />
-					<input type="button" name="cancel" class="cancel" value="Huỷ" onclick="window.location.href='index.php'" />
+					<input type="button" name="register" class="register" value="Lưu" />
+					<input type="button" name="cancel" class="cancel" value="Huỷ" />
 				</center>
 			</div>
 		</div>
