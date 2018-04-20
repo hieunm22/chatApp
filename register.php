@@ -20,7 +20,6 @@
 	</head>
 	<body>
 		<?php 
-			$path = 'register'; 
 			include('include/navigation.php');
 			echo '<hr />';
 		?>

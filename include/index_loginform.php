@@ -3,17 +3,8 @@
 	<div class="login-info login-message"></div>
 	<div class="login-info">
 		<center>
-			<input type="button" name="login" class="login" value="Đăng nhập" onclick="flogin()" />
+			<input type="button" name="login" class="login" value="Đăng nhập" />
             <a class="register" href="register.php">Đăng ký</a>
 		</center>
 	</div>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$('input[type="text"], input[type="password"]').on("keyup", function(e) {
-				$("div.login-message").text("");
-				if (e.keyCode == 13) {
-					flogin();
-				}
-			});
-		});
-	</script>
+    <?php include('include/index_script.php'); ?>

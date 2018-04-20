@@ -15,7 +15,6 @@
 		<?php
 			include('default.php');
             session_start();
-			$path = 'profile';
             if (!isset($_SESSION['user'])) {
                 include('include/non_authorize.php');
                 include('include/close_tag.php');

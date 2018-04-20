@@ -15,10 +15,9 @@
 		<?php
 			include('default.php');
 			session_start();
-			// $path = 'index';
-			$path = basename($_SERVER['SCRIPT_FILENAME']);
 			if (!isset($_SESSION['user'])) {
 				include('include/index_loginform.php');
+				include('include/index_script.php');
 				include('include/close_tag.php');
 				return;
 			}

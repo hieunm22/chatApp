@@ -23,7 +23,6 @@
                 return;
             }
             $user = $_SESSION["user"];
-			$path = 'usercp';
 			include('include/welcome.php');
 			include('include/navigation.php');
         ?>
