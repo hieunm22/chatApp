@@ -87,6 +87,9 @@ SELECT * FROM
 (
     SELECT
         `user1_id` + `user2_id` - uid AS user_id,
+    	u.`name`,
+    	u.`phone`,
+    	u.`email`,
         u.`alias`
     FROM
         conversion c,
@@ -96,24 +99,43 @@ SELECT * FROM
         c.`conversion_id` = l.`id`
         AND u.id = `user1_id` + `user2_id` - uid
         AND (l.`user1_id` = uid OR l.`user2_id` = uid)
+        AND (
+            u.`name` like concat('%',txt,'%')
+            or u.`alias` like concat('%',txt,'%')
+            or u.`email` like concat('%',txt,'%')
+            or u.`phone`=txt
+        )
     GROUP BY user_id
     ORDER BY MAX(c.`time`) DESC
 ) as t1
 UNION
 (
-select u.`id`, u.alias
+select
+    u.`id`,
+    u.`name`,
+    u.`phone`,
+    u.`email`,
+    u.`alias`
 from users u
 where u.`id` not in (
     SELECT
         `user1_id` + `user2_id` - uid
     FROM
         conversion c,
-        conversions_list l
+        conversions_list l,
+        users u
     WHERE
         c.`conversion_id` = l.`id`
+        AND u.id = `user1_id` + `user2_id` - uid
         AND (l.`user1_id` = uid OR l.`user2_id` = uid)
     )
     and u.`id` != uid
+    AND (
+        u.`name` like concat('%',txt,'%')
+        or u.`alias` like concat('%',txt,'%')
+        or u.`email` like concat('%',txt,'%')
+        or u.`phone`=txt
+    )
 )$$
 
 DELIMITER ;
