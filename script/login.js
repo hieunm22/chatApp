@@ -81,9 +81,14 @@ function save() {
     }    
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+			if (this.responseText==='0') {
+				$('div.login-message').text('Mật khẩu cũ không đúng');
+				blinkText('div.login-message');
+				return;
+			}
             window.location.href = "index.php";
         }
     };
-    xmlhttp.open("GET", "controller/usercp_save.php?e=" + $('input#email').val() + '&a=' + $('input#alias').val() + '&f=' + $('input#phone').val() + '&p=' + $('input#pwd').val(), true);
+    xmlhttp.open("GET", "controller/usercp_save.php?e=" + $('input#email').val() + '&a=' + $('input#alias').val() + '&f=' + $('input#phone').val() + '&o=' + $('input#oldpwd').val() + '&p=' + $('input#pwd').val(), true);
     xmlhttp.send();
 }

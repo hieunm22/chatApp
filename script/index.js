@@ -22,7 +22,7 @@ function logout() {
 }
 
 function searchList() {
-	var text = $('.searchtb').val();
+	var text = $('#searchtb').val();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
 			// console.log(this.responseText);
@@ -30,7 +30,7 @@ function searchList() {
             resizeWindow();
         }
     };
-    xmlhttp.open("GET", "controller/index_search.php?t=" + $('#searchtb').val(), true);
+    xmlhttp.open("GET", "controller/index_search.php?t=" + text, true);
     xmlhttp.send();
 }
 

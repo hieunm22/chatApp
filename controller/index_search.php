@@ -4,10 +4,10 @@
 
     $t = $_REQUEST['t'];
     $t = str_replace("'","\\'",$t);
-    $pattern = '%'.$t.'%';
+    // $pattern = '%'.$t.'%';
     $id = $_SESSION['user']['id'];
 
-    $sql = "call searchUsers(".$id.")";
+    $sql = "call searchUsers(".$id.", '".$t."')";
 	$query = mysqli_query($con, $sql);
 	$rowcount = mysqli_num_rows($query);
     if ($rowcount==0) {

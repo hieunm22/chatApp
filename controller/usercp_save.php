@@ -2,6 +2,16 @@
     include('../default.php');
     session_start();
     $id = $_SESSION["user"]["id"];
+    $old = $_REQUEST['o'];
+    $old = str_replace("'","\\'",$old);
+
+    $sql = "select * from `users` where `id`=".$id." and `password`='".md5($old)."'";
+	$query = mysqli_query($con, $sql);
+	$rowcount = mysqli_num_rows($query);
+    if ($rowcount==0) {
+		echo '0';
+		return;		
+	}
     $ali = $_REQUEST['a'];
     $ali = str_replace("'","\\'",$ali);
     $eml = $_REQUEST['e'];

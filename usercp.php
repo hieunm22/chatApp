@@ -9,7 +9,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<script type="text/javascript" src="script/jquery-1.12.4.min.js"></script>
 		<script type="text/javascript" src="script/login.js"></script>
-		<!--script type="text/javascript" src="script/index.js"></script-->
+		<script type="text/javascript" src="script/index.js"></script>
 	</head>
 	<body>
         <?php
@@ -28,10 +28,10 @@
         ?>
         <script type="text/javascript">
 			$(document).ready(function(){
-				$('input.register').on('click', function(e) {
+				$('input#register').on('click', function(e) {
 					save();
 				});
-				$('input.cancel').on('click', function(e) {
+				$('input#cancel').on('click', function(e) {
 					window.location.href='index.php';
 				});
 			});
@@ -57,8 +57,8 @@
 			<div class="register-info login-message"></div>
 			<div class="register-info">
 				<center>
-					<input type="button" name="register" class="register" value="Lưu" />
-					<input type="button" name="cancel" class="cancel" value="Huỷ" />
+					<input type="button" name="register" id="register" value="Lưu" />
+					<input type="button" name="cancel" id="cancel" value="Huỷ" />
 				</center>
 			</div>
 		</div>
