@@ -17,9 +17,7 @@
 			session_start();
             if (!isset($_SESSION["user"])) {
 				include('include/non_authorize.php');
-                echo '
-	</body>
-</html>';
+				include('include/close_tag.php');
                 return;
             }
             $user = $_SESSION["user"];
@@ -28,7 +26,7 @@
         ?>
         <script type="text/javascript">
 			$(document).ready(function(){
-				$('input#register').on('click', function(e) {
+				$('input#save').on('click', function(e) {
 					save();
 				});
 				$('input#cancel').on('click', function(e) {
@@ -57,7 +55,7 @@
 			<div class="register-info login-message"></div>
 			<div class="register-info">
 				<center>
-					<input type="button" name="register" id="register" value="Lưu" />
+					<input type="button" name="register" id="save" value="Lưu" />
 					<input type="button" name="cancel" id="cancel" value="Huỷ" />
 				</center>
 			</div>

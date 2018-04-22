@@ -20,6 +20,9 @@
 						flogin();
 					}
 				});
+				$('input.login').on('click', function(e) {
+					flogin();
+				});
 				$('input#searchtb').on('keyup', function(e) {
 					if (e.keyCode == 13) {
 						searchList();
@@ -34,9 +37,7 @@
 					}
 				});
 				$('input#sendmessage').on('click', function(e) {
-					if (e.keyCode == 13) {
-						sendMessage($('#chatmessage').val());
-					}
+					sendMessage($('#chatmessage').val());
 				});
 			});
 		</script>
