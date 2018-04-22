@@ -339,6 +339,12 @@ ALTER TABLE `conversion`
   ADD CONSTRAINT `conversion_ibfk_1` FOREIGN KEY (`sender_id`) REFERENCES `users` (`id`);
 
 --
+-- Constraints for table `conversion`
+--
+ALTER TABLE `conversion`
+  ADD CONSTRAINT `conversion_ibfk_2` FOREIGN KEY (`conversion_id`) REFERENCES `conversions_list` (`id`);
+
+--
 -- Constraints for table `conversions_list`
 --
 ALTER TABLE `conversions_list`
