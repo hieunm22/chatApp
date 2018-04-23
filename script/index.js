@@ -16,7 +16,7 @@ function searchList() {
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
 			// console.log(this.responseText);
-			$('div#search-list').html(this.responseText);
+			$('div#search-content').html(this.responseText);
             resizeWindow();
         }
     };
@@ -27,10 +27,10 @@ function searchList() {
 function resizeWindow() {
     var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-    $('div#search-list').css('height', (h - 150) + 'px');
+    $('div#search-list').css('height', (h - 120) + 'px');
     $('div#chatmain').css('width', (w - 360) + 'px');
-    $('div#chatmain').css('height', (h - 150) + 'px');
-    $('div#messagePanel').css('height', (h - 240) + 'px');
+    $('div#chatmain').css('height', (h - 120) + 'px');
+    $('div#messagePanel').css('height', (h - 210) + 'px');
     $('#chatmessage').css('width', (w - 510) + 'px');
 }
 

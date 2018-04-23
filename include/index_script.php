@@ -8,7 +8,6 @@
                         echo ($_SESSION['user'] === null ? $_SESSION['user']['alias'] : $_SESSION['user']['name']);
                     }
                 ?>';
-                resizeWindow();
                 searchList();
 				if (usrname !== '') {
 					$('title').text('Home');

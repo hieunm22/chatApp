@@ -72,7 +72,7 @@ div#info {
 	border-radius: 15px;
 }
 .search-result {
-    width: 180px;
+    width: 200px;
 }
 .search-chat {
     width: 50px;
@@ -82,31 +82,36 @@ div#info {
 	padding-top: 15px;
     padding-left: 150px;
 }
-#searchtb {
-	width: 80%;
-    margin-left: 30px;
-}
-#searchbt {
-    margin-left: 20px;
-}
 #search-list {
     border: 1px solid #b7b3b3;
     border-radius: 10px;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
 	width: 300px;
 	height: 100%;
     display: inline-block;
 	margin-top: 25px;
 }
-#search-list ul li {
-
+#searchtb {
+    width: 90%;
+    margin: 10px;
 }
 #chatmain {
-    position:relative;
+    position:absolute;
     border: 1px solid #b7b3b3;
     border-radius: 10px;
     display: inline-block;
 	margin-top: 25px;
+	margin-left: 15px;
+}
+#messagePanel {
+    border: 1px solid #b7b3b3;
+    overflow-y: scroll;
+    width: 95%;
+    height: 82%;
+    position: relative;
+	top: 15px;
+	left: 25px;
+    padding-top: 15px;
 }
 #chatmessage {
     position: absolute;
@@ -117,16 +122,6 @@ div#info {
     position: absolute;
 	bottom: 15px;
 	right: 25px;
-}
-#messagePanel {
-    border: 1px solid #b7b3b3;
-    overflow-y: scroll;
-    width: 95%;
-    height: 82%;
-    position: absolute;
-	top: 15px;
-	left: 25px;
-    padding-top: 15px;
 }
 .message-row {
     border-radius: 5px;

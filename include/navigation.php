@@ -19,7 +19,8 @@
 				break;
 		}
 	}
-	echo $strNav;
+	echo $strNav."
+		<br />";
 ?>
 
 

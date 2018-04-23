@@ -26,13 +26,14 @@
 				include('include/navigation.php');
 			}
 		?>
-        
-		<div id="search">
-			<label>Tìm kiếm</label>
-			<input type="text" id="searchtb" placeholder="Tìm kiếm thành viên" autofocus="true" />
-			<input type="button" id="searchbt" value="Tìm kiếm" />
+
+
+		<div id="search-list">
+			<div id="searchbox">
+				<input type="text" id="searchtb" placeholder="Tìm kiếm thành viên" autofocus="true" />
+			</div>
+			<div id="search-content"></div>
 		</div>
-		<div id="search-list"></div>
 		<div id="chatmain">
             <div id="messagePanel"></div>
             <input type="text" id="chatmessage" placeholder="Nhập tin nhắn..." disabled />
