@@ -42,13 +42,13 @@ SELECT
     NAME,
     alias,
     TIME,
-    differ,
     CASE  
     	WHEN differ=0 THEN date_format(time, '%H:%i') 
         WHEN differ=1 THEN date_format(time, 'Hôm qua, %H:%i')
         WHEN differ < 7 and differ > 1 THEN CONCAT('Thứ ', DAYOFWEEK(time), date_format(time, ', %H:%i'))
-                ELSE time
-	END as time
+            ELSE time
+	END as time,
+    message_color
 FROM
     (
     SELECT
@@ -59,11 +59,14 @@ FROM
         c.time,
         DATEDIFF(NOW(), c.time) differ,
         u.name,
-        u.alias
+        u.alias,
+        l.message_color
     FROM
         `conversion` c,
+        `conversions_list` l,
         users u
     WHERE
+        c.conversion_id = l.id AND 
         c.sender_id = u.id AND `conversion_id` IN(
         SELECT
             id
@@ -215,7 +218,8 @@ INSERT INTO `conversion` (`id`, `conversion_id`, `message_content`, `sender_id`,
 CREATE TABLE `conversions_list` (
   `id` int(11) NOT NULL,
   `user1_id` int(11) DEFAULT NULL,
-  `user2_id` int(11) DEFAULT NULL
+  `user2_id` int(11) DEFAULT NULL,
+  `message_color` int(11) DEFAULT 34047
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --

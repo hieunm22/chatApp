@@ -160,8 +160,8 @@ div#info {
     visibility: visible;
 }
 .user1 {
-    background-color: #0084ff;
-    border: 1px solid #0084ff;
+    /* background-color: #0084ff; */
+    /* border: 1px solid #0084ff; */
     border-radius: 15px;
     color: #fff;
     float: right;
