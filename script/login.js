@@ -19,7 +19,8 @@ function flogin() {
         dataType: "json",
         success: function (result) {
             if (result == 1) {
-                location.reload();
+                window.location.href = "/chatApp";
+                // location.reload();
             }
             else {
                 $('div.login-message').text('User hoặc password không đúng');
@@ -54,7 +55,7 @@ function register() {
         if (this.readyState == 4 && this.status == 200) {
             switch (+this.responseText) {
                 case 0:
-                    window.location.href = "index.php";
+                    window.location.href = "/chatApp";
                     break;
                 case 1:
                     $('div.login-message').text('User đã tồn tại');
@@ -86,7 +87,7 @@ function save() {
 				blinkText('div.login-message');
 				return;
 			}
-            window.location.href = "index.php";
+            window.location.href = "/chatApp";
         }
     };
     xmlhttp.open("GET", "controller/usercp_save.php?e=" + $('input#email').val() + '&a=' + $('input#alias').val() + '&f=' + $('input#phone').val() + '&o=' + $('input#oldpwd').val() + '&p=' + $('input#pwd').val(), true);

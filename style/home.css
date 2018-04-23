@@ -134,14 +134,16 @@ div#info {
     /* margin-bottom: 3px; */
     margin-left: 15px;
     position: relative;
-    display: block;
+    display: inline-block;
     overflow: hidden;
     height:auto;
 
 }
 .message-content {
     max-width: 50%;
-    margin-bottom: 3px;
+    /* margin-bottom: 3px; */
+    height:auto;
+    display: inline-block;
 }
 .tooltiptext {
     visibility: hidden;
@@ -152,9 +154,9 @@ div#info {
     padding: 5px;
     /* Position the tooltip */
     z-index: 1;
-    margin: 0 15px;
+    margin: 2px 12px 0 12px
 }
-.message-row:hover .tooltiptext {
+.message-content:hover .tooltiptext {
     visibility: visible;
 }
 .user1 {
@@ -170,7 +172,13 @@ div#info {
 	border: 1px solid #f1f0f0;
     border-radius: 15px;
     float: left;
-    padding: 6px 12px;    
+    padding: 6px 12px;
+}
+.u1 {
+    float: right;
+}
+.u2 {
+    float: left;
 }
 .alias {
     font-weight: bold;

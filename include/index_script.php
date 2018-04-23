@@ -40,4 +40,8 @@
 					sendMessage($('#chatmessage').val());
 				});
 			});
+            
+            // setInterval(function() { 
+                // openChat(friend_id);
+            // }, 1000);
 		</script>

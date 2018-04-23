@@ -14,7 +14,7 @@ function blinkText(selector, sender) {
 function logout() {
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            window.location.href = "index.php";
+            window.location.href = "chatApp";
         }
     };
     xmlhttp.open("GET", "controller/index_logout.php", true);
@@ -46,21 +46,29 @@ function resizeWindow() {
 
 var friend_id = -1;
 function openChat(id) {
-    document.getElementById('chatmessage').disabled = false;
-    document.getElementById('chatmessage').focus();
-    friend_id = id;
-    var ali = $('a[id="id' + id + '"]').text();
-    $('title').text(ali);
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-			// console.log(this.responseText);
-			$('div#messagePanel').html(this.responseText);
-            var div = document.getElementById("messagePanel");
-            div.scrollTop = div.scrollHeight;
+    var chat = document.getElementById('chatmessage')
+    if (chat) {
+        chat.disabled = false;
+        chat.focus();
+        friend_id = id;
+        if (friend_id != -1) {
+            var ali = $('a[id="id' + id + '"]').text();
+            $('title').text(ali);            
         }
-    };
-    xmlhttp.open("GET", "controller/index_openchat.php?id=" + id, true);
-    xmlhttp.send();
+        else {
+            $('title').text("Home");        
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                // console.log(this.responseText);
+                $('div#messagePanel').html(this.responseText);
+                var div = document.getElementById("messagePanel");
+                if (div) div.scrollTop = div.scrollHeight;
+            }
+        };
+        xmlhttp.open("GET", "controller/index_openchat.php?id=" + id, true);
+        xmlhttp.send();
+    }
 }
 
 function sendMessage(text) {
