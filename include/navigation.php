@@ -1,8 +1,9 @@
+
 <?php
 	$strNav = '';
     $path = basename($_SERVER['SCRIPT_FILENAME']);
 	if ($path == 'index.php') {
-		$strNav = 'Trang chủ';
+		$strNav = '         Trang chủ';
 	}
 	else {
 		$strNav = '
@@ -20,3 +21,5 @@
 	}
 	echo $strNav;
 ?>
+
+

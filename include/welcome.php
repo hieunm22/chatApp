@@ -9,3 +9,15 @@
         <hr />';
 	echo $welcome;
 ?>
+
+        <script>
+            function logout() {
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        window.location.href = "/chatApp";
+                    }
+                };
+                xmlhttp.open("GET", "controller/index_logout.php", true);
+                xmlhttp.send();
+            }
+        </script>

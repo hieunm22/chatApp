@@ -26,6 +26,7 @@
 				include('include/navigation.php');
 			}
 		?>
+        
 		<div id="search">
 			<label>Tìm kiếm</label>
 			<input type="text" id="searchtb" placeholder="Tìm kiếm thành viên" autofocus="true" />
