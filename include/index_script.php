@@ -43,6 +43,9 @@
 					sendMessage($('#chatmessage').val());
 				});
 			});
-		</script>";	
+		</script>
+		";	
 	}
 ?>
+
+
