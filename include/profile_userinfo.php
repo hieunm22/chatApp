@@ -1,5 +1,5 @@
 <?php
-    include('default.php');
+    //include('default.php');
     $userid = $_GET["id"];
 
     $sql = "select * from users where `id`=".$userid;

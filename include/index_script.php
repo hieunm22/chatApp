@@ -1,17 +1,10 @@
-<script type="text/javascript">
+<?php
+	if (!isset($_SESSION['user'])) {
+		echo "
+		<script type=\"text/javascript\">
 			$(document).ready(function(){
-				var usrname = '<?php
-                    if (!isset($_SESSION['user'])) {
-                        echo '';
-                    }
-                    else {
-                        echo ($_SESSION['user'] === null ? $_SESSION['user']['alias'] : $_SESSION['user']['name']);
-                    }
-                ?>';
+				$('title').text('Home');
                 searchList();
-				if (usrname !== '') {
-					$('title').text('Home');
-				}
 				$(window).resize(resizeWindow);
 				$('input#usr, input#pwd').on('keyup', function(e) {
 					$('div.login-message').text('');
@@ -22,6 +15,17 @@
 				$('input.login').on('click', function(e) {
 					flogin();
 				});
+			});
+		</script>";
+	}
+	else {
+		$user = $_SESSION['user'] === null ? $_SESSION['user']['name'] : $_SESSION['user']['alias'];
+		echo "
+		<script type=\"text/javascript\">
+			$(document).ready(function(){
+				$('title').text('".$user."');
+                searchList();
+				$(window).resize(resizeWindow);
 				$('input#searchtb').on('keyup', function(e) {
 					if (e.keyCode == 13) {
 						searchList();
@@ -39,8 +43,6 @@
 					sendMessage($('#chatmessage').val());
 				});
 			});
-            
-            // setInterval(function() { 
-                // openChat(friend_id);
-            // }, 1000);
-		</script>
+		</script>";	
+	}
+?>
