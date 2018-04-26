@@ -2,14 +2,12 @@ var xmlhttp = new XMLHttpRequest();
 function flogin() {
     if ($('input#usr').val() == '') {
         document.getElementById("usr").focus();
-        $('div.login-message').text('Chưa nhập tên người dùng');
-        blinkText('div.login-message', document.getElementsByClassName("login"));
+        blinkText('div.login-message', 'Chưa nhập tên người dùng', document.getElementsByClassName("login"));
         return;
     }
     if ($('input#pwd').val() == '') {
         document.getElementById("pwd").focus();
-        $('div.login-message').text('Chưa nhập mật khẩu');
-        blinkText('div.login-message');
+        blinkText('div.login-message', 'Chưa nhập mật khẩu');
         return;
     }
 }
@@ -17,19 +15,16 @@ function flogin() {
 function register() {
     if ($('input#usr').val() == '') {
         document.getElementById("usr").focus();
-        $('div.login-message').text('Chưa nhập tên người dùng');
-        blinkText('div.login-message');
+        blinkText('div.login-message', 'Chưa nhập tên người dùng');
         return;
     }
     if ($('input#pwd').val() == '') {
         document.getElementById("pwd").focus();
-        $('div.login-message').text('Chưa nhập mật khẩu');
-        blinkText('div.login-message');
+        blinkText('div.login-message', 'Chưa nhập mật khẩu');
         return;
     }
     if ($('input#pwd').val() != $('input#pwd2').val()) {
-        $('div.login-message').text('Xác nhận mật khẩu không đúng');
-        blinkText('div.login-message');
+        blinkText('div.login-message', 'Xác nhận mật khẩu không đúng');
         return;
     }
     xmlhttp.onreadystatechange = function() {
@@ -39,14 +34,12 @@ function register() {
                     window.location.href = "/chatApp";
                     break;
                 case 1:
-                    $('div.login-message').text('User đã tồn tại');
-                    blinkText('div.login-message');
+                    blinkText('div.login-message', 'User đã tồn tại');
 					$('input#usr')[0].style.boxShadow='0 0 5px red';
 					$('input#usr')[0].focus();
                     break;
                 case 2:
-                    $('div.login-message').text('Email đã được dùng để đăng ký');
-                    blinkText('div.login-message');
+                    blinkText('div.login-message', 'Email đã được dùng để đăng ký');
                     break;
             }
         }
@@ -57,15 +50,13 @@ function register() {
 
 function save() {
     if ($('input#pwd').val() != $('input#pwd2').val()) {
-        $('div.login-message').text('Xác nhận mật khẩu không đúng');
-        blinkText('div.login-message');
+        blinkText('div.login-message', 'Xác nhận mật khẩu không đúng');
         return;
     }    
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
 			if (this.responseText==='0') {
-				$('div.login-message').text('Mật khẩu cũ không đúng');
-				blinkText('div.login-message');
+				blinkText('div.login-message', 'Mật khẩu cũ không đúng');
 				return;
 			}
             window.location.href = "/chatApp";

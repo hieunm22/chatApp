@@ -1,7 +1,8 @@
-function blinkText(selector, sender) {
+function blinkText(selector, txt, sender) {
     if (typeof sender != 'undefined') {
         document.getElementsByClassName("login").disabled = true;
     }
+    $(selector).text(txt);
     $(selector).addClass('ios-shake-incorrect-passcode');
     setTimeout(function () {
         $(selector).removeClass("ios-shake-incorrect-passcode");
@@ -61,9 +62,9 @@ function openChat(id) {
     }
 }
 
-function sendMessage(text) {
+function sendMessage(txt) {
     $('#chatmessage').val('');
-	if (text.trim() == '') return;
+	if (txt.trim() == '') return;
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
 			// console.log(this.responseText);
@@ -71,11 +72,11 @@ function sendMessage(text) {
             // scroll to end
             var div = document.getElementById("messagePanel");
             div.scrollTop = div.scrollHeight;
-            // send xong update lại user list
+            // send xong update l?i user list
             searchList();
         }
     };
-    xmlhttp.open("GET", "controller/index_sendmessage.php?m=" + text.trim().replace('\n', '<br />') + "&f=" + friend_id, true);
+    xmlhttp.open("GET", "controller/index_sendmessage.php?m=" + txt.trim().replace('\n', '<br />') + "&f=" + friend_id, true);
     xmlhttp.send();
 }
 
