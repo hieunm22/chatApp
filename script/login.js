@@ -12,25 +12,6 @@ function flogin() {
         blinkText('div.login-message');
         return;
     }
-    $.ajax({
-        url: "controller/index_login.php",
-        data: { u: $('input#usr').val(), p: $('input#pwd').val() },
-        type: "post",
-        dataType: "json",
-        success: function (result) {
-            if (result == 1) {
-                window.location.href = "/chatApp";
-                // location.reload();
-            }
-            else {
-                $('div.login-message').text('User hoặc password không đúng');
-				blinkText('div.login-message');
-            }
-        },
-        error: function (data) {
-            console.log('error');
-        },
-    });
 }
 
 function register() {

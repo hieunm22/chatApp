@@ -4,16 +4,9 @@
 		<script type=\"text/javascript\">
 			$(document).ready(function(){
 				$('title').text('Home');
-                searchList();
 				$(window).resize(resizeWindow);
 				$('input#usr, input#pwd').on('keyup', function(e) {
 					$('div.login-message').text('');
-					if (e.keyCode == 13) {
-						flogin();
-					}
-				});
-				$('input.login').on('click', function(e) {
-					flogin();
 				});
 			});
 		</script>";
