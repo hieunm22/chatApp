@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 26, 2018 at 11:43 AM
+-- Generation Time: Apr 26, 2018 at 11:54 AM
 -- Server version: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -57,7 +57,7 @@ FROM
         m.message_content,
         m.sender_id,
         m.time,
-        DATEDIFF(NOW(), c.time) differ,
+        DATEDIFF(NOW(), m.time) differ,
         u.name,
         u.alias,
         c.message_color
@@ -71,12 +71,12 @@ FROM
         SELECT
             id
         FROM
-            `conversions_list`
+            `conversion`
         WHERE
             (`user1_id` = user_id AND `user2_id` = friend_id) OR(`user1_id` = friend_id AND `user2_id` = user_id)
     )
 ORDER BY
-    c.time) AS CONV$$
+    m.time) AS CONV$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertMessage` (IN `user_id` INT(11), IN `message` VARCHAR(20000) CHARSET utf8, IN `friendid` INT(11))  NO SQL
 INSERT INTO `message`(`conversion_id`, `message_content`, `sender_id`, `time`) 
