@@ -31,9 +31,7 @@
                     include('include/index_chatform.php');
                 }
                 else {
-                    include('include/index_loginform.php');
-                    // include('include/close_tag.php');
-                    echo '<script type="text/javascript" id="tmp">(function errMsg() { $("div.login-message").text("Username hoặc password không đúng"); blinkText("div.login-message"); $("script#tmp").remove(); })();</script>';
+                    include('include/index_loginform_error.php');
                 }
             }
             else {
