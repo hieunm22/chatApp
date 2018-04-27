@@ -34,7 +34,9 @@
             if ($profile == null) {
                 echo '<div class="required"><strong>User không tồn tại.</strong></div>';
             }
-            include('include/profile_userinfo.php');
+            else {
+                include('include/profile_userinfo.php');
+            }
         ?>
 	</body>
 </html>

@@ -4,6 +4,7 @@
     $user_id = $_SESSION['user']['id'];
     $friend_id = $_REQUEST['f'];
     $message = $_REQUEST['m'];
+    echo $message;
     $message = str_replace("'","\\'",$message);
     // kiểm tra cuộc hội thoại đã có trong database chưa, chưa thì insert
     // $sql = "call createConversion(".$user_id.", ".$friend_id.")";	// stored procedure chạy không đúng

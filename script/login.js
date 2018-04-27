@@ -52,7 +52,7 @@ function save() {
     if ($('input#pwd').val() != $('input#pwd2').val()) {
         blinkText('div.login-message', 'Xác nhận mật khẩu không đúng');
         return;
-    }    
+    }
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
 			if (this.responseText==='0') {
