@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 26, 2018 at 11:54 AM
+-- Generation Time: Apr 27, 2018 at 09:27 AM
 -- Server version: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -45,8 +45,9 @@ SELECT
     CASE  
     	WHEN differ=0 THEN date_format(time, '%H:%i') 
         WHEN differ=1 THEN date_format(time, 'Hôm qua, %H:%i')
-        WHEN differ < 7 and differ > 1 THEN CONCAT('Thứ ', DAYOFWEEK(time), date_format(time, ', %H:%i'))
-                ELSE time
+        WHEN differ < 7 and differ > 1 THEN date_format(time, '%W %H:%i')
+        WHEN yeardiff = 0 THEN date_format(time, '%d %M %H:%i')
+        ELSE date_format(time, '%d %M %Y %H:%i')
 	END as time,
     message_color
 FROM
@@ -58,6 +59,7 @@ FROM
         m.sender_id,
         m.time,
         DATEDIFF(NOW(), m.time) differ,
+        YEAR(time) - YEAR(now()) as yeardiff,
         u.name,
         u.alias,
         c.message_color
@@ -253,7 +255,10 @@ INSERT INTO `message` (`id`, `conversion_id`, `message_content`, `sender_id`, `t
 (96, 25, '?????', 1, '2018-04-23 09:17:58'),
 (97, 25, 'me may`', 1, '2018-04-23 10:57:05'),
 (98, 25, 'xin chuyen vien chua', 1, '2018-04-23 10:57:13'),
-(99, 25, 've nha roi`', 2, '2018-04-26 09:56:17');
+(99, 25, 've nha roi`', 2, '2018-04-26 09:56:17'),
+(100, 38, 'e moi duoc ky hop dong moi roi`', 11, '2018-04-27 11:12:45'),
+(111, 25, 'Dịch vụ nạp tiền trực tiếp & mua mã thẻ Viettel hiện đang tạm gián đoạn do bảo trì hệ thống. Xin lỗi quý khách vì sự bất tiện này! Thuy Hoa Pham', 1, '2018-04-27 14:02:34'),
+(112, 25, '???', 1, '2018-04-27 14:04:36');
 
 -- --------------------------------------------------------
 
@@ -285,7 +290,7 @@ INSERT INTO `users` (`id`, `name`, `password`, `email`, `alias`, `phone`, `statu
 (8, 'thanhpt.0102', 'c4ca4238a0b923820dcc509a6f75849b', 'thanhpt@tecapro.com.vn', 'Phạm Trung Thành', '01639579813', 1),
 (9, 'phan.son.31', 'c4ca4238a0b923820dcc509a6f75849b', NULL, 'Phan Son', '0983916346', 1),
 (10, 'johnvunam', 'c4ca4238a0b923820dcc509a6f75849b', 'namvd@onenet.vn', 'John Vu Nam', '01662355402', 1),
-(11, 'hoang.huong.7503314', 'c4ca4238a0b923820dcc509a6f75849b', 'huonght4@fsoft.com.vn', 'Hoang Huong', NULL, 1),
+(11, 'hoang.huong.7503314', 'c4ca4238a0b923820dcc509a6f75849b', 'huonght4@fsoft.com.vn', 'Hoàng Hương', '', 1),
 (12, 'tientrungbk', 'c4ca4238a0b923820dcc509a6f75849b', NULL, 'Trung Nguyen Tien', '0984833201', 1),
 (13, 'kuonglv', 'c4ca4238a0b923820dcc509a6f75849b', 'cuonglv8@fpt.com.vn', 'Le Bao Nam', '0942066299', 1),
 (17, 'tovan.ba', 'c4ca4238a0b923820dcc509a6f75849b', NULL, 'To Van Ba', '0966669333', 1),
@@ -338,7 +343,7 @@ ALTER TABLE `conversion`
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
 --
 -- AUTO_INCREMENT for table `users`
 --
