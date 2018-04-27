@@ -76,7 +76,9 @@ function sendMessage(txt) {
             searchList();
         }
     };
-    xmlhttp.open("GET", "controller/index_sendmessage.php?m=" + txt.trim().replace('\n', '<br />') + "&f=" + friend_id, true);
+    xmlhttp.open("GET", "controller/index_sendmessage.php?m=" 
+        + txt.trim().replace('\n', '<br />').replace('&', '%26') 
+        + "&f=" + friend_id, true);
     xmlhttp.send();
 }
 
