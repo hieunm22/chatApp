@@ -43,7 +43,7 @@ function openChat(id) {
         chat.focus();
         friend_id = id;
         if (friend_id != -1) {
-            var ali = $('a[id="id' + id + '"]').text();
+            var ali = $('div[id="user' + id + '"]').text();
             $('title').text(ali);            
         }
         else {

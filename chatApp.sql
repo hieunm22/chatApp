@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 27, 2018 at 09:27 AM
--- Server version: 10.1.22-MariaDB
--- PHP Version: 7.1.4
+-- Generation Time: Apr 29, 2018 at 10:47 PM
+-- Server version: 10.1.31-MariaDB
+-- PHP Version: 7.2.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -91,36 +91,37 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `searchUsers` (IN `uid` INT(11), IN 
 SELECT * FROM 
 (
     SELECT
-        `user1_id` + `user2_id` - uid AS user_id,
-    	u.`name`,
-    	u.`phone`,
-    	u.`email`,
-        u.`alias`
+        c.user1_id+c.user2_id - uid as id,
+    	m.sender_id,
+        u.`name`,
+        u.`email`,
+        u.`alias`,
+        m.message_content
     FROM
-        `message` m,
-        `conversion` c,
-        `users` u
-    WHERE
-        m.`conversion_id` = c.`id`
-        AND u.id = `user1_id` + `user2_id` - uid
-        AND (c.`user1_id` = uid OR c.`user2_id` = uid)
-        AND (
-            u.`name` like concat('%',txt,'%')
-            or u.`alias` like concat('%',txt,'%')
-            or u.`email` like concat('%',txt,'%')
-            or u.`phone`=txt
-        )
-    GROUP BY user_id
-    ORDER BY MAX(m.`time`) DESC
+        (
+        SELECT
+            conversion_id,
+			sender_id,
+            MAX(id) AS id
+        FROM message
+        GROUP BY conversion_id
+        ORDER BY TIME DESC
+    ) AS tmp
+    LEFT JOIN conversion c ON c.id = tmp.conversion_id
+    LEFT JOIN message m ON tmp.id = m.id
+	LEFT JOIN users u ON u.id = c.user1_id+c.user2_id - uid
+    WHERE c.user1_id = uid OR c.user2_id = uid
+    ORDER BY m.time DESC
 ) as t1
 UNION
 (
 select
     u.`id`,
+    null,
     u.`name`,
-    u.`phone`,
     u.`email`,
-    u.`alias`
+    u.`alias`,
+    '' as `message_content`
 from users u
 where u.`id` not in (
     SELECT
@@ -256,9 +257,7 @@ INSERT INTO `message` (`id`, `conversion_id`, `message_content`, `sender_id`, `t
 (97, 25, 'me may`', 1, '2018-04-23 10:57:05'),
 (98, 25, 'xin chuyen vien chua', 1, '2018-04-23 10:57:13'),
 (99, 25, 've nha roi`', 2, '2018-04-26 09:56:17'),
-(100, 38, 'e moi duoc ky hop dong moi roi`', 11, '2018-04-27 11:12:45'),
-(111, 25, 'Dịch vụ nạp tiền trực tiếp & mua mã thẻ Viettel hiện đang tạm gián đoạn do bảo trì hệ thống. Xin lỗi quý khách vì sự bất tiện này! Thuy Hoa Pham', 1, '2018-04-27 14:02:34'),
-(112, 25, '???', 1, '2018-04-27 14:04:36');
+(100, 25, 'okkkkkkkkkk', 1, '2018-04-26 21:36:13');
 
 -- --------------------------------------------------------
 
@@ -290,7 +289,7 @@ INSERT INTO `users` (`id`, `name`, `password`, `email`, `alias`, `phone`, `statu
 (8, 'thanhpt.0102', 'c4ca4238a0b923820dcc509a6f75849b', 'thanhpt@tecapro.com.vn', 'Phạm Trung Thành', '01639579813', 1),
 (9, 'phan.son.31', 'c4ca4238a0b923820dcc509a6f75849b', NULL, 'Phan Son', '0983916346', 1),
 (10, 'johnvunam', 'c4ca4238a0b923820dcc509a6f75849b', 'namvd@onenet.vn', 'John Vu Nam', '01662355402', 1),
-(11, 'hoang.huong.7503314', 'c4ca4238a0b923820dcc509a6f75849b', 'huonght4@fsoft.com.vn', 'Hoàng Hương', '', 1),
+(11, 'hoang.huong.7503314', 'c4ca4238a0b923820dcc509a6f75849b', 'huonght4@fsoft.com.vn', 'Hoang Huong', NULL, 1),
 (12, 'tientrungbk', 'c4ca4238a0b923820dcc509a6f75849b', NULL, 'Trung Nguyen Tien', '0984833201', 1),
 (13, 'kuonglv', 'c4ca4238a0b923820dcc509a6f75849b', 'cuonglv8@fpt.com.vn', 'Le Bao Nam', '0942066299', 1),
 (17, 'tovan.ba', 'c4ca4238a0b923820dcc509a6f75849b', NULL, 'To Van Ba', '0966669333', 1),
@@ -339,16 +338,19 @@ ALTER TABLE `users`
 --
 ALTER TABLE `conversion`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+
 --
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+
 --
 -- Constraints for dumped tables
 --

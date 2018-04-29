@@ -35,6 +35,10 @@
 				$('input#sendmessage').on('click', function(e) {
 					sendMessage($('#chatmessage').val());
 				});
+				$('div#search-content').delegate('div.lbl.search-result', 'click', function() {
+					var id = this.querySelector('div').id.substr(4);
+					openChat(+id);
+				});
 			});
 		</script>
 		";	
