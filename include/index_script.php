@@ -36,6 +36,8 @@
 					sendMessage($('#chatmessage').val());
 				});
 				$('div#search-content').delegate('div.lbl.search-result', 'click', function() {
+					$('div.lbl.search-result').removeClass('active-msg');
+					this.classList.add('active-msg');
 					var id = this.querySelector('div').id.substr(4);
 					openChat(+id);
 				});

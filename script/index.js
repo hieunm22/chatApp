@@ -17,7 +17,13 @@ function searchList() {
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
 			// console.log(this.responseText);
+			// hiển thị kết quả tìm kiếm
 			$('div#search-content').html(this.responseText);
+			// nếu đã chọn 1 conversion thì vẫn focus conversion đó
+			if (friend_id != -1) {
+				$('div.lbl.search-result').removeClass('active-msg');
+				$('div#user' + friend_id).parent('div.lbl.search-result').addClass('active-msg');
+			}
             resizeWindow();
         }
     };
@@ -43,11 +49,11 @@ function openChat(id) {
         chat.focus();
         friend_id = id;
         if (friend_id != -1) {
-            var ali = $('div[id="user' + id + '"]').text();
-            $('title').text(ali);            
+            var ali = $('div[id="user' + id + '"] span.chatname').text();
+            $('title').text(ali);
         }
         else {
-            $('title').text("Home");        
+            $('title').text("Home");
         }
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
@@ -72,12 +78,12 @@ function sendMessage(txt) {
             // scroll to end
             var div = document.getElementById("messagePanel");
             div.scrollTop = div.scrollHeight;
-            // send xong update l?i user list
+            // send xong update lai user list
             searchList();
         }
     };
-    xmlhttp.open("GET", "controller/index_sendmessage.php?m=" 
-        + txt.trim().replace('\n', '<br />').replace('&', '%26') 
+    xmlhttp.open("GET", "controller/index_sendmessage.php?m="
+        + txt.trim().replace('\n', '<br />').replace('&', '%26')
         + "&f=" + friend_id, true);
     xmlhttp.send();
 }

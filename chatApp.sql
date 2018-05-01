@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 29, 2018 at 10:47 PM
+-- Generation Time: May 01, 2018 at 06:31 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -87,22 +87,62 @@ INSERT INTO `message`(`conversion_id`, `message_content`, `sender_id`, `time`)
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertUser` (IN `usr` VARCHAR(255) CHARSET utf8, IN `pwd` VARCHAR(50), IN `eml` VARCHAR(255) CHARSET utf8, IN `ali` VARCHAR(255) CHARSET utf8, IN `pho` VARCHAR(15))  NO SQL
 INSERT INTO `users`(`name`, `password`, `email`, `alias`, `phone`) VALUES (usr, pwd, eml, ali, pho)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `searchUsers` (IN `uid` INT(11), IN `txt` TEXT)  NO SQL
-SELECT * FROM 
-(
-    SELECT
-        c.user1_id+c.user2_id - uid as id,
-    	m.sender_id,
+CREATE DEFINER=`root`@`localhost` PROCEDURE `searchUsers` (IN `uid` INT(11))  NO SQL
+SELECT
+        c.user1_id+c.user2_id - uid as id, # receiver_id
+    	m.sender_id as last_sender_id,
         u.`name`,
         u.`email`,
         u.`alias`,
-        m.message_content
+        u.`phone`,
+        m.message_content,
+    	case 
+    	when diff = 0 THEN date_format(tmp.time, '%H:%i')
+    	when diff < 7 THEN date_format(tmp.time, '%W')
+    	else date_format(tmp.time, '%d %M')
+    	END as time, 
+    	tmp.time as realtime
+    FROM
+        (
+            SELECT
+            conversion_id,
+            sender_id,
+            MAX(id) AS id, 
+            max(time) as time, 
+            DATEDIFF(now(), max(time)) as diff
+            FROM message
+            GROUP BY conversion_id
+        ) AS tmp
+    INNER JOIN conversion c ON c.id = tmp.conversion_id
+    INNER JOIN message m ON tmp.id = m.id and tmp.time=m.time
+	INNER JOIN users u ON u.id = c.user1_id+c.user2_id - uid    
+    WHERE (c.user1_id = uid OR c.user2_id = uid)
+    ORDER BY tmp.time DESC$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `searchUsers_bak` (IN `uid` INT(11), IN `txt` TEXT)  NO SQL
+SELECT * FROM 
+(
+    SELECT
+        c.user1_id+c.user2_id - uid as id, # receiver_id
+    	m.sender_id, # last_sender_id,
+        u.`name`,
+    	u.`email`,
+        u.`alias`,
+    	u.`phone`,
+        m.message_content,
+    	case 
+    	when diff = 0 THEN date_format(tmp.time, '%H:%i')
+    	when diff < 7 THEN date_format(tmp.time, '%W')
+    	else date_format(tmp.time, '%d %M')
+    	END as time
     FROM
         (
         SELECT
             conversion_id,
 			sender_id,
-            MAX(id) AS id
+            MAX(id) AS id, 
+            max(time) as time, 
+        	DATEDIFF(now(), max(time)) as diff
         FROM message
         GROUP BY conversion_id
         ORDER BY TIME DESC
@@ -111,6 +151,12 @@ SELECT * FROM
     LEFT JOIN message m ON tmp.id = m.id
 	LEFT JOIN users u ON u.id = c.user1_id+c.user2_id - uid
     WHERE c.user1_id = uid OR c.user2_id = uid
+    AND (
+        u.`name` like concat('%',txt,'%')
+        or u.`alias` like concat('%',txt,'%')
+        or u.`email` like concat('%',txt,'%')
+        or u.`phone`=txt
+    )
     ORDER BY m.time DESC
 ) as t1
 UNION
@@ -121,7 +167,9 @@ select
     u.`name`,
     u.`email`,
     u.`alias`,
-    '' as `message_content`
+    u.`phone`,
+    '' as `message_content`,
+    '' as time
 from users u
 where u.`id` not in (
     SELECT
@@ -175,7 +223,8 @@ INSERT INTO `conversion` (`id`, `user1_id`, `user2_id`, `message_color`) VALUES
 (39, 1, 10, 34047),
 (40, 1, 29, 34047),
 (41, 1, 12, 34047),
-(42, 6, 2, 34047);
+(42, 6, 2, 34047),
+(43, 1, 34, 34047);
 
 -- --------------------------------------------------------
 
@@ -257,7 +306,7 @@ INSERT INTO `message` (`id`, `conversion_id`, `message_content`, `sender_id`, `t
 (97, 25, 'me may`', 1, '2018-04-23 10:57:05'),
 (98, 25, 'xin chuyen vien chua', 1, '2018-04-23 10:57:13'),
 (99, 25, 've nha roi`', 2, '2018-04-26 09:56:17'),
-(100, 25, 'okkkkkkkkkk', 1, '2018-04-26 21:36:13');
+(110, 25, 'okkkkk', 1, '2018-04-30 22:57:34');
 
 -- --------------------------------------------------------
 
@@ -298,7 +347,7 @@ INSERT INTO `users` (`id`, `name`, `password`, `email`, `alias`, `phone`, `statu
 (30, 'ngocminh.hoang.397', 'c4ca4238a0b923820dcc509a6f75849b', NULL, 'Hoàng Ngọc Minh', '01239310618', 1),
 (31, 'QVu.Trieu', 'c4ca4238a0b923820dcc509a6f75849b', 'vutq5@fpt.com.vn', 'Triệu Quang Vũ', '0989932398', 1),
 (32, 'namcvi', 'c4ca4238a0b923820dcc509a6f75849b', NULL, 'Nam Cung', '0934435050', 1),
-(34, 'sutet1992', 'c4ca4238a0b923820dcc509a6f75849b', NULL, 'Kim Anh Bé', NULL, 1),
+(34, 'sutet1992', 'c4ca4238a0b923820dcc509a6f75849b', 'anhpk@tecapro.com.vn', 'Kim Anh Bé', '', 1),
 (42, 'minhtuyen.ngo.96', 'c4ca4238a0b923820dcc509a6f75849b', NULL, 'Tuyen Ngo', NULL, 1),
 (43, 'hanh.su.9212', 'c4ca4238a0b923820dcc509a6f75849b', NULL, 'Hanh su', '0902557728', 1),
 (44, 'hakhaccuong', 'c4ca4238a0b923820dcc509a6f75849b', NULL, 'Cường Khắc Hà', '0985090099', 1);
@@ -337,13 +386,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `conversion`
 --
 ALTER TABLE `conversion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
 
 --
 -- AUTO_INCREMENT for table `users`
