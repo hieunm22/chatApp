@@ -95,7 +95,7 @@ div#info {
 }
 #search-content {
     overflow-y: scroll;
-    height: 93%;
+    height: 91%;
 }
 #searchtb {
     width: 90%;
@@ -153,7 +153,7 @@ div.lbl.search-result:active {
     margin-left: 15px;
     position: relative;
     display: inline-block;
-    overflow: hidden;
+    /* overflow: hidden; */
     height: auto;
 }
 .message-content {
@@ -197,7 +197,7 @@ div.lbl.search-result:active {
 	padding-top: 5px;
 }
 .u1 {
-    float: right;	
+    float: right;
 }
 .u2 {
     float: left;

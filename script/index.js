@@ -19,6 +19,9 @@ function searchList() {
 			// console.log(this.responseText);
 			// hiển thị kết quả tìm kiếm
 			$('div#search-content').html(this.responseText);
+            // var sl = $('div#search-list').height();
+            // var sb = $('div#searchbox').height();
+			// $('div#search-content').css('height', sl - sb);
 			// nếu đã chọn 1 conversion thì vẫn focus conversion đó
 			if (friend_id != -1) {
 				$('div.lbl.search-result').removeClass('active-msg');
@@ -42,6 +45,7 @@ function resizeWindow() {
 }
 
 var friend_id = -1;
+var conversion_color = "#0084ff";
 function openChat(id) {
     var chat = document.getElementById('chatmessage')
     if (chat) {
@@ -49,14 +53,15 @@ function openChat(id) {
         chat.focus();
         friend_id = id;
         if (friend_id != -1) {
-            var ali = $('div[id="user' + id + '"] span.chatname').text();
-            $('title').text(ali);
+            var alias = $('div[id="user' + id + '"] span.chatname').text();
+            $('title').text(alias);
         }
         else {
             $('title').text("Home");
         }
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
+                conversion_color = getCookie('conversion_color');
                 // console.log(this.responseText);
                 $('div#messagePanel').html(this.responseText);
                 var div = document.getElementById("messagePanel");
@@ -68,13 +73,37 @@ function openChat(id) {
     }
 }
 
+function getHexColor(number){
+    return "#"+((number)>>>0).toString(16).padStart(6, "0");
+}
+
+function checkTime(i) {
+    return i < 10 ? "0" + i : i;
+}
+
+function getCookie_temp(name) {
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + name + "=");
+    if (parts.length == 2) return parts.pop().split(";").shift();
+}
+
+function getCookie(name) {
+    var parts = document.cookie.split("; ");
+    var filter = parts.filter(function(v) { return v.startsWith("conversion_color="); });
+    return filter[filter.length - 1].substr(17);
+}
+
 function sendMessage(txt) {
+    var d = new Date();
+    var h = checkTime(d.getHours());
+    var m = checkTime(d.getMinutes());
+
+    $('div#messagePanel').append('<div class="message-row"><div class="message-content u1"><span class="user1" style="background-color: #' + conversion_color + '; border-color: #' + conversion_color + '">' + txt + '</span> <span class="tooltiptext u1">' + (h + ":" + m) + '</span></div></div>');
     $('#chatmessage').val('');
 	if (txt.trim() == '') return;
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-			// console.log(this.responseText);
-			$('div#messagePanel').html(this.responseText);
+			// $('div#messagePanel').html(this.responseText);
             // scroll to end
             var div = document.getElementById("messagePanel");
             div.scrollTop = div.scrollHeight;

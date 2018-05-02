@@ -1,5 +1,5 @@
 <?php
-	$welcome = '<div id="welcome">Welcome to chat App, <strong><a href="profile.php?id='.$_SESSION["user"]["id"].'">'.$_SESSION['user']["alias"].'</a></strong>';
+	$welcome = sprintf('<div id="welcome">Welcome to chat App, <strong><a href="profile.php?id=%s">%s</a></strong>', $_SESSION["user"]["id"], $_SESSION['user']["alias"]);
 	if (basename($_SERVER['SCRIPT_FILENAME']) != 'usercp.php') {
 		$welcome .= ' | <a href="usercp.php">Cài đặt</a>';
 	}

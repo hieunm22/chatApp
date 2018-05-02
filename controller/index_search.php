@@ -7,7 +7,7 @@
     // $pattern = '%'.$t.'%';
     $id = $_SESSION['user']['id'];
 
-    $sql = "call searchUsers(".$id.")";
+    $sql = sprintf("call searchUsers(%u)", $id);
 	$query = mysqli_query($con, $sql);
 	$rowcount = mysqli_num_rows($query);
     if ($rowcount==0) {
@@ -17,9 +17,9 @@
 	while ($row = mysqli_fetch_array($query)) {
 		$msg = $row['message_content'];
 		if (strlen($msg) > 45) $msg = substr($msg, 0, 45).'...';
-		echo '<div class="lbl search-result" draggable="true">
-	<div id="user'.$row["id"].'" class="username-search"><span class="chatname">'.$row["alias"].'</span> <span class="u1" style="color: #00000066;">'.$row['time'].'</span></div>
-	<div>'.($id == $row["last_sender_id"] ? 'You: ' : '').$msg.'</div>
-		</div>';	
+		echo sprintf('<div class="lbl search-result" draggable="true">
+	<div id="user%u" class="username-search"><span class="chatname">%s</span> <span class="u1" style="color: #0006;" title="%s">%s</span></div>
+	<div>%s%s</div>
+		</div>', $row["id"], $row["alias"], $row['date'], $row['time'], ($id == $row["last_sender_id"] ? 'You: ' : ''), $msg);
 	}
 ?>

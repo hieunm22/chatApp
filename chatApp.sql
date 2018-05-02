@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 01, 2018 at 06:31 PM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.3
+-- Generation Time: May 02, 2018 at 11:12 AM
+-- Server version: 10.1.22-MariaDB
+-- PHP Version: 7.1.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -81,16 +81,16 @@ ORDER BY
     m.time) AS CONV$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertMessage` (IN `user_id` INT(11), IN `message` VARCHAR(20000) CHARSET utf8, IN `friendid` INT(11))  NO SQL
-INSERT INTO `message`(`conversion_id`, `message_content`, `sender_id`, `time`) 
-    SELECT `id`, message, user_id, now() FROM `conversion` WHERE (`user1_id`=user_id AND `user2_id`=friendid) or (`user1_id`=friendid AND `user2_id`=user_id)$$
+INSERT INTO `message`(`conversion_id`, `message_content`, `sender_id`, `time`, `status`) 
+    SELECT `id`, message, user_id, now(), 1 FROM `conversion` WHERE (`user1_id`=user_id AND `user2_id`=friendid) or (`user1_id`=friendid AND `user2_id`=user_id)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertUser` (IN `usr` VARCHAR(255) CHARSET utf8, IN `pwd` VARCHAR(50), IN `eml` VARCHAR(255) CHARSET utf8, IN `ali` VARCHAR(255) CHARSET utf8, IN `pho` VARCHAR(15))  NO SQL
 INSERT INTO `users`(`name`, `password`, `email`, `alias`, `phone`) VALUES (usr, pwd, eml, ali, pho)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `searchUsers` (IN `uid` INT(11))  NO SQL
 SELECT
-        c.user1_id+c.user2_id - uid as id, # receiver_id
-    	m.sender_id as last_sender_id,
+        c.user1_id+c.user2_id - uid as id,
+        m.sender_id as last_sender_id,
         u.`name`,
         u.`email`,
         u.`alias`,
@@ -101,6 +101,11 @@ SELECT
     	when diff < 7 THEN date_format(tmp.time, '%W')
     	else date_format(tmp.time, '%d %M')
     	END as time, 
+    	case 
+    	when diff = 0 THEN 'Today'
+    	when diff < 7 THEN date_format(tmp.time, '%W')
+    	else date_format(tmp.time, '%d %M')
+    	END as date, 
     	tmp.time as realtime
     FROM
         (
@@ -123,9 +128,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `searchUsers_bak` (IN `uid` INT(11),
 SELECT * FROM 
 (
     SELECT
-        c.user1_id+c.user2_id - uid as id, # receiver_id
-    	m.sender_id, # last_sender_id,
-        u.`name`,
+        c.user1_id+c.user2_id - uid as id,     	m.sender_id,         u.`name`,
     	u.`email`,
         u.`alias`,
     	u.`phone`,
@@ -192,6 +195,17 @@ where u.`id` not in (
     )
 )$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `setMessageStatusOnLogin` (IN `uid` INT(11))  NO SQL
+UPDATE `message`
+SET `status` = 2
+WHERE 
+    `status` < 2 
+    AND conversion_id IN (
+        SELECT id
+        FROM conversion
+        WHERE user1_id = uid OR user2_id = uid
+	)$$
+
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -237,76 +251,78 @@ CREATE TABLE `message` (
   `conversion_id` int(11) DEFAULT NULL,
   `message_content` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
   `sender_id` int(11) DEFAULT NULL,
-  `time` datetime DEFAULT NULL
+  `time` datetime DEFAULT NULL,
+  `status` int(11) DEFAULT '0' COMMENT '0: sending, 1: sent, 2: received, 3: seen'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `message`
 --
 
-INSERT INTO `message` (`id`, `conversion_id`, `message_content`, `sender_id`, `time`) VALUES
-(15, 25, 'toi a ve muon', 1, '2018-04-16 16:43:13'),
-(16, 25, 'danh aoe', 1, '2018-04-17 16:43:15'),
-(17, 25, 'okkkkkkkkk', 2, '2018-04-17 16:43:29'),
-(20, 25, 'nho ve som', 2, '2018-04-17 16:47:18'),
-(23, 25, 'okkkkk', 1, '2018-04-17 16:48:10'),
-(27, 25, 'cho lac di vien chua', 1, '2018-04-18 08:59:52'),
-(28, 31, 'chu tach cmnr =))', 1, '2018-04-18 09:00:31'),
-(29, 32, 'toi co ve lo duc khong', 1, '2018-04-18 09:00:40'),
-(32, 34, 'luon khonggggggggggg', 1, '2018-04-18 09:00:57'),
-(33, 25, 'dang o vien roi nhe', 2, '2018-04-18 09:48:51'),
-(34, 25, 'vua khi dung xong', 2, '2018-04-18 09:48:56'),
-(35, 25, 'khí dung', 2, '2018-04-18 09:49:04'),
-(37, 33, 'fifaaaaaaaaaaa', 1, '2018-04-18 10:30:40'),
-(38, 25, 'ba ve chua', 1, '2018-04-18 11:20:28'),
-(39, 25, 'alo', 1, '2018-04-18 11:22:05'),
-(40, 33, 'dang o sg', 3, '2018-04-18 11:22:51'),
-(41, 35, 'fifa de', 9, '2018-04-18 11:26:32'),
-(42, 35, 'goi deo co song deo goi duoc', 9, '2018-04-18 11:26:40'),
-(43, 25, 'bo no an com chua', 1, '2018-04-18 12:29:07'),
-(44, 25, 'roi` nhe', 2, '2018-04-18 12:29:38'),
-(45, 25, 'vua xong', 2, '2018-04-18 12:29:40'),
-(57, 25, 'đang thi bánh trôi nước', 1, '2018-04-18 15:57:57'),
-(58, 25, 'Theo quy định của hợp đồng, Bảo hiểm đồng ý thanh toán những chi phí khám và thuốc hợp lý, cần thiết về mặt y tế, theo chỉ định của bác sĩ điều trị, phát sinh khi người được bảo hiểm phải điều trị bệnh mà việc điều trị được bảo hiểm, không thanh toán chi phí mua mỹ phẩm, thực phẩm chức năng, vật tư y tế. Do đó rất tiếc bảo hiểm từ chối thanh toán các chi phí sau vì không thuộc phạm vi bảo hiểm: - Gạc phãu thuật bằng 7.800 vnd - Mỹ phẩm \'\' Avene - Ciacalfate \'\' bằng 409.882 vnd đồng thời sản phẩm được kê trên phiếu tư vấn, không phải đơn thuốc.', 1, '2018-04-18 16:53:56'),
-(59, 25, '-          Chính sách trẻ em tại khách sạn: Miễn phí cho 2 trẻ em dưới 12 tuổi ngủ chung phòng.  Ăn sáng phụ thu theo chiều cao. Dưới 1m miễn phí. Từ 1m đến 1.2m tính 60k. Từ 1.3m trở lên tính 120k  -          Extra bed: 300k/giường.  -          Công ty chỉ tài trợ chi phí Gala Dinner cho các FISer và người thân là Vợ/chồng và con. Trong TH là CB đưa bố mẹ, anh chị em đi nghỉ mát cùng, vui lòng confirm lại giúp em về số lượng tham gia. BTC sẽ tính phí tương đương 500k/người.', 1, '2018-04-18 17:02:40'),
-(60, 25, 'abc', 1, '2018-04-19 08:34:45'),
-(61, 25, '???', 2, '2018-04-19 08:35:33'),
-(62, 25, ':3', 1, '2018-04-19 08:35:53'),
-(64, 37, 'uong nuoc de', 1, '2018-04-19 09:13:04'),
-(65, 38, 'dao nay lam an the nao roi', 1, '2018-04-19 10:17:06'),
-(67, 31, 'chan vai dai', 1, '2018-04-19 10:55:33'),
-(68, 32, 'a', 1, '2018-04-19 10:56:41'),
-(70, 34, 'lam an the nao roi', 1, '2018-04-19 11:08:52'),
-(71, 37, 'toi di duoc khong', 1, '2018-04-19 11:12:11'),
-(72, 33, 'lanh qua\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'', 1, '2018-04-19 11:36:17'),
-(73, 39, 'alo', 1, '2018-04-19 11:43:46'),
-(74, 39, 'co tien chua', 1, '2018-04-19 11:43:48'),
-(75, 40, 'dao nay lam an the nao roi`', 1, '2018-04-19 11:44:00'),
-(76, 41, 'trung bua', 1, '2018-04-19 11:45:32'),
-(77, 25, 'mẹ mày', 1, '2018-04-19 15:01:42'),
-(78, 31, 'vang e cung du doan tu truoc roi`', 8, '2018-04-20 09:08:28'),
-(79, 31, '=))', 8, '2018-04-20 09:09:41'),
-(80, 25, 'lac tiem chua', 1, '2018-04-20 09:24:39'),
-(81, 25, 'tiem roi', 2, '2018-04-20 09:24:54'),
-(82, 25, 'dang ngu nhe', 2, '2018-04-20 09:24:56'),
-(83, 25, 'okkkkkkkkkkkkkkkk', 1, '2018-04-20 09:31:40'),
-(84, 25, 'mẹ mày mang ipad vào viện à', 1, '2018-04-20 14:02:30'),
-(85, 25, 'lac dang kham them o phong kham ngoai nhe', 2, '2018-04-20 16:51:02'),
-(86, 25, 'okkkkkkkkkkk', 2, '2018-04-20 16:57:19'),
-(87, 25, 'ke cai me', 1, '2018-04-20 16:58:09'),
-(88, 32, 'co\'', 6, '2018-04-20 17:08:46'),
-(89, 42, 'lac hom nay di tiem co khoc khong', 6, '2018-04-20 17:09:53'),
-(90, 42, 'khong', 2, '2018-04-20 17:10:08'),
-(91, 42, 'hom nay chi cho no di kham ngoai`', 2, '2018-04-20 17:10:13'),
-(92, 25, 'xin chuyen vien chua', 1, '2018-04-23 09:06:18'),
-(93, 25, 'đang bảo nó rồi', 2, '2018-04-23 09:14:04'),
-(94, 25, 'okkkkkkkkkkkkkkkkkkkkkk', 1, '2018-04-23 09:14:20'),
-(95, 25, 'lllllll', 2, '2018-04-23 09:14:27'),
-(96, 25, '?????', 1, '2018-04-23 09:17:58'),
-(97, 25, 'me may`', 1, '2018-04-23 10:57:05'),
-(98, 25, 'xin chuyen vien chua', 1, '2018-04-23 10:57:13'),
-(99, 25, 've nha roi`', 2, '2018-04-26 09:56:17'),
-(110, 25, 'okkkkk', 1, '2018-04-30 22:57:34');
+INSERT INTO `message` (`id`, `conversion_id`, `message_content`, `sender_id`, `time`, `status`) VALUES
+(15, 25, 'toi a ve muon', 1, '2018-04-16 16:43:13', 3),
+(16, 25, 'danh aoe', 1, '2018-04-17 16:43:15', 3),
+(17, 25, 'okkkkkkkkk', 2, '2018-04-17 16:43:29', 3),
+(20, 25, 'nho ve som', 2, '2018-04-17 16:47:18', 3),
+(23, 25, 'okkkkk', 1, '2018-04-17 16:48:10', 3),
+(27, 25, 'cho lac di vien chua', 1, '2018-04-18 08:59:52', 3),
+(28, 31, 'chu tach cmnr =))', 1, '2018-04-18 09:00:31', 3),
+(29, 32, 'toi co ve lo duc khong', 1, '2018-04-18 09:00:40', 3),
+(32, 34, 'luon khonggggggggggg', 1, '2018-04-18 09:00:57', 3),
+(33, 25, 'dang o vien roi nhe', 2, '2018-04-18 09:48:51', 3),
+(34, 25, 'vua khi dung xong', 2, '2018-04-18 09:48:56', 3),
+(35, 25, 'khí dung', 2, '2018-04-18 09:49:04', 3),
+(37, 33, 'fifaaaaaaaaaaa', 1, '2018-04-18 10:30:40', 3),
+(38, 25, 'ba ve chua', 1, '2018-04-18 11:20:28', 3),
+(39, 25, 'alo', 1, '2018-04-18 11:22:05', 3),
+(40, 33, 'dang o sg', 3, '2018-04-18 11:22:51', 3),
+(41, 35, 'fifa de', 9, '2018-04-18 11:26:32', 3),
+(42, 35, 'goi deo co song deo goi duoc', 9, '2018-04-18 11:26:40', 3),
+(43, 25, 'bo no an com chua', 1, '2018-04-18 12:29:07', 3),
+(44, 25, 'roi` nhe', 2, '2018-04-18 12:29:38', 3),
+(45, 25, 'vua xong', 2, '2018-04-18 12:29:40', 3),
+(57, 25, 'đang thi bánh trôi nước', 1, '2018-04-18 15:57:57', 3),
+(58, 25, 'Theo quy định của hợp đồng, Bảo hiểm đồng ý thanh toán những chi phí khám và thuốc hợp lý, cần thiết về mặt y tế, theo chỉ định của bác sĩ điều trị, phát sinh khi người được bảo hiểm phải điều trị bệnh mà việc điều trị được bảo hiểm, không thanh toán chi phí mua mỹ phẩm, thực phẩm chức năng, vật tư y tế. Do đó rất tiếc bảo hiểm từ chối thanh toán các chi phí sau vì không thuộc phạm vi bảo hiểm: - Gạc phãu thuật bằng 7.800 vnd - Mỹ phẩm \'\' Avene - Ciacalfate \'\' bằng 409.882 vnd đồng thời sản phẩm được kê trên phiếu tư vấn, không phải đơn thuốc.', 1, '2018-04-18 16:53:56', 3),
+(59, 25, '-          Chính sách trẻ em tại khách sạn: Miễn phí cho 2 trẻ em dưới 12 tuổi ngủ chung phòng.  Ăn sáng phụ thu theo chiều cao. Dưới 1m miễn phí. Từ 1m đến 1.2m tính 60k. Từ 1.3m trở lên tính 120k  -          Extra bed: 300k/giường.  -          Công ty chỉ tài trợ chi phí Gala Dinner cho các FISer và người thân là Vợ/chồng và con. Trong TH là CB đưa bố mẹ, anh chị em đi nghỉ mát cùng, vui lòng confirm lại giúp em về số lượng tham gia. BTC sẽ tính phí tương đương 500k/người.', 1, '2018-04-18 17:02:40', 3),
+(60, 25, 'abc', 1, '2018-04-19 08:34:45', 3),
+(61, 25, '???', 2, '2018-04-19 08:35:33', 3),
+(62, 25, ':3', 1, '2018-04-19 08:35:53', 3),
+(64, 37, 'uong nuoc de', 1, '2018-04-19 09:13:04', 3),
+(65, 38, 'dao nay lam an the nao roi', 1, '2018-04-19 10:17:06', 3),
+(67, 31, 'chan vai dai', 1, '2018-04-19 10:55:33', 3),
+(68, 32, 'a', 1, '2018-04-19 10:56:41', 3),
+(70, 34, 'lam an the nao roi', 1, '2018-04-19 11:08:52', 3),
+(71, 37, 'toi di duoc khong', 1, '2018-04-19 11:12:11', 3),
+(72, 33, 'lanh qua\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'', 1, '2018-04-19 11:36:17', 3),
+(73, 39, 'alo', 1, '2018-04-19 11:43:46', 3),
+(74, 39, 'co tien chua', 1, '2018-04-19 11:43:48', 3),
+(75, 40, 'dao nay lam an the nao roi`', 1, '2018-04-19 11:44:00', 3),
+(76, 41, 'trung bua', 1, '2018-04-19 11:45:32', 3),
+(77, 25, 'mẹ mày', 1, '2018-04-19 15:01:42', 3),
+(78, 31, 'vang e cung du doan tu truoc roi`', 8, '2018-04-20 09:08:28', 3),
+(79, 31, '=))', 8, '2018-04-20 09:09:41', 3),
+(80, 25, 'lac tiem chua', 1, '2018-04-20 09:24:39', 3),
+(81, 25, 'tiem roi', 2, '2018-04-20 09:24:54', 3),
+(82, 25, 'dang ngu nhe', 2, '2018-04-20 09:24:56', 3),
+(83, 25, 'okkkkkkkkkkkkkkkk', 1, '2018-04-20 09:31:40', 3),
+(84, 25, 'mẹ mày mang ipad vào viện à', 1, '2018-04-20 14:02:30', 3),
+(85, 25, 'lac dang kham them o phong kham ngoai nhe', 2, '2018-04-20 16:51:02', 3),
+(86, 25, 'okkkkkkkkkkk', 2, '2018-04-20 16:57:19', 3),
+(87, 25, 'ke cai me', 1, '2018-04-20 16:58:09', 3),
+(88, 32, 'co\'', 6, '2018-04-20 17:08:46', 3),
+(89, 42, 'lac hom nay di tiem co khoc khong', 6, '2018-04-20 17:09:53', 3),
+(90, 42, 'khong', 2, '2018-04-20 17:10:08', 3),
+(91, 42, 'hom nay chi cho no di kham ngoai`', 2, '2018-04-20 17:10:13', 3),
+(92, 25, 'xin chuyen vien chua', 1, '2018-04-23 09:06:18', 3),
+(93, 25, 'đang bảo nó rồi', 2, '2018-04-23 09:14:04', 3),
+(94, 25, 'okkkkkkkkkkkkkkkkkkkkkk', 1, '2018-04-23 09:14:20', 3),
+(95, 25, 'lllllll', 2, '2018-04-23 09:14:27', 3),
+(96, 25, '?????', 1, '2018-04-23 09:17:58', 3),
+(97, 25, 'me may`', 1, '2018-04-23 10:57:05', 3),
+(98, 25, 'xin chuyen vien chua', 1, '2018-04-23 10:57:13', 3),
+(99, 25, 've nha roi`', 2, '2018-04-26 09:56:17', 3),
+(110, 25, 'okkkkk', 1, '2018-04-30 22:57:34', 3),
+(169, 25, 'a nho bao ba dung cho no tam', 2, '2018-05-02 16:08:24', 2);
 
 -- --------------------------------------------------------
 
@@ -387,19 +403,16 @@ ALTER TABLE `users`
 --
 ALTER TABLE `conversion`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
-
 --
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
-
 --
 -- Constraints for dumped tables
 --

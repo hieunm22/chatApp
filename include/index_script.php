@@ -16,9 +16,10 @@
 		echo "
 		<script type=\"text/javascript\">
 			$(document).ready(function(){
+                // document.cookie = 'conversion_color=#0084ff';
 				$('title').text('".$user."');
-                searchList();
 				$(window).resize(resizeWindow);
+                searchList();
 				$('input#searchtb').on('keyup', function(e) {
 					if (e.keyCode == 13) {
 						searchList();
@@ -41,6 +42,11 @@
 					var id = this.querySelector('div').id.substr(4);
 					openChat(+id);
 				});
+                $('div#search-content').scroll(function() {
+                    if (this.scrollTop == this.scrollHeight - this.clientHeight) {
+                        console.log(123);
+                    }
+                });
 			});
 		</script>
 		";	
