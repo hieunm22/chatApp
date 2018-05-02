@@ -4,7 +4,10 @@ function searchList(loaded) {
         if (this.readyState == 4 && this.status == 200) {
 			// console.log(this.responseText);
 			// hiển thị kết quả tìm kiếm
-			$('div#search-content').append(this.responseText);
+			if (loaded) 
+				$('div#search-content').append(this.responseText);
+			else
+				$('div#search-content').html(this.responseText);
             // var sl = $('div#search-list').height();
             // var sb = $('div#searchbox').height();
 			// $('div#search-content').css('height', sl - sb);
@@ -16,7 +19,7 @@ function searchList(loaded) {
             resizeWindow();
         }
     };
-    xmlhttp.open("GET", "controller/index_search.php?t=" + text + '&l=' + loaded, true);
+    xmlhttp.open("GET", "controller/index_search.php?t=" + text + '&l=' + (loaded | 0), true);
     xmlhttp.send();
 }
 
@@ -28,6 +31,11 @@ function openChat(id) {
         chat.disabled = false;
         chat.focus();
         friend_id = id;
+		// mark as read message
+		$('div.lbl.search-result > div#user' + id + ' > span.chatname').removeClass('unread-txt');
+		$('div.lbl.search-result > div#user' + id + ' > span.u1').css('color', '#0006');
+		$('div#user' + id).parent().children('div.last-message.unread-txt').removeClass('unread-txt');
+		
         if (friend_id != -1) {
             var alias = $('div[id="user' + id + '"] span.chatname').text();
             $('title').text(alias);
@@ -63,7 +71,7 @@ function sendMessage(txt) {
             var div = document.getElementById("messagePanel");
             div.scrollTop = div.scrollHeight;
             // send xong update lai user list
-            searchList(0);
+            searchList();
         }
     };
     xmlhttp.open("GET", "controller/index_sendmessage.php?m="

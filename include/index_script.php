@@ -20,14 +20,14 @@
                 // document.cookie = 'conversion_color=#0084ff';
 				$('title').text('".$user."');
 				$(window).resize(resizeWindow);
-                searchList(currentLoaded);
+                searchList();
 				$('input#searchtb').on('keyup', function(e) {
 					if (e.keyCode == 13) {
-						searchList(0);
+						searchList();
 					}
 				});
 				$('input#searchbt').on('click', function(e) {
-					searchList(0);
+					searchList();
 				});
 				$('input#chatmessage').on('keyup', function(e) {
 					if (e.keyCode == 13) {

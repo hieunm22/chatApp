@@ -107,7 +107,8 @@ SELECT
         u.`email`,
         u.`alias`,
         u.`phone`,
-        m.message_content,
+        m.`message_content`,
+        m.`status`,
     	case 
     	when diff = 0 THEN date_format(tmp.time, '%H:%i')
     	when diff < 7 THEN date_format(tmp.time, '%W')

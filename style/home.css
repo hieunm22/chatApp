@@ -205,4 +205,9 @@ div.lbl.search-result:active {
 .alias {
     font-weight: bold;
 }
-
+.unread-txt {
+    font-weight: bold;
+}
+.unread-time {
+    color: #0084ff;
+}
