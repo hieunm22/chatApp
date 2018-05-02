@@ -1,24 +1,10 @@
-function blinkText(selector, txt, sender) {
-    if (typeof sender != 'undefined') {
-        document.getElementsByClassName("login").disabled = true;
-    }
-    $(selector).text(txt);
-    $(selector).addClass('ios-shake-incorrect-passcode');
-    setTimeout(function () {
-        $(selector).removeClass("ios-shake-incorrect-passcode");
-        if (typeof sender != 'undefined') {
-            document.getElementsByClassName("login").disabled = false;
-        }
-    }, 450);
-}
-
-function searchList() {
+function searchList(loaded) {
 	var text = $('#searchtb').val();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
 			// console.log(this.responseText);
 			// hiển thị kết quả tìm kiếm
-			$('div#search-content').html(this.responseText);
+			$('div#search-content').append(this.responseText);
             // var sl = $('div#search-list').height();
             // var sb = $('div#searchbox').height();
 			// $('div#search-content').css('height', sl - sb);
@@ -30,18 +16,8 @@ function searchList() {
             resizeWindow();
         }
     };
-    xmlhttp.open("GET", "controller/index_search.php?t=" + text, true);
+    xmlhttp.open("GET", "controller/index_search.php?t=" + text + '&l=' + loaded, true);
     xmlhttp.send();
-}
-
-function resizeWindow() {
-    var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-    var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-    $('div#search-list').css('height', (h - 120) + 'px');
-    $('div#chatmain').css('width', (w - 360) + 'px');
-    $('div#chatmain').css('height', (h - 120) + 'px');
-    $('div#messagePanel').css('height', (h - 210) + 'px');
-    $('#chatmessage').css('width', (w - 510) + 'px');
 }
 
 var friend_id = -1;
@@ -73,26 +49,6 @@ function openChat(id) {
     }
 }
 
-function getHexColor(number){
-    return "#"+((number)>>>0).toString(16).padStart(6, "0");
-}
-
-function checkTime(i) {
-    return i < 10 ? "0" + i : i;
-}
-
-function getCookie_temp(name) {
-    var value = "; " + document.cookie;
-    var parts = value.split("; " + name + "=");
-    if (parts.length == 2) return parts.pop().split(";").shift();
-}
-
-function getCookie(name) {
-    var parts = document.cookie.split("; ");
-    var filter = parts.filter(function(v) { return v.startsWith("conversion_color="); });
-    return filter[filter.length - 1].substr(17);
-}
-
 function sendMessage(txt) {
     var d = new Date();
     var h = checkTime(d.getHours());
@@ -103,12 +59,11 @@ function sendMessage(txt) {
 	if (txt.trim() == '') return;
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-			// $('div#messagePanel').html(this.responseText);
             // scroll to end
             var div = document.getElementById("messagePanel");
             div.scrollTop = div.scrollHeight;
             // send xong update lai user list
-            searchList();
+            searchList(0);
         }
     };
     xmlhttp.open("GET", "controller/index_sendmessage.php?m="
@@ -117,3 +72,8 @@ function sendMessage(txt) {
     xmlhttp.send();
 }
 
+function loadMoreMsg() {
+    var count = $('div.lbl.search-result').length;
+    if (count < 15) return;
+    searchList(count);
+}

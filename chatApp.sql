@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2018 at 11:12 AM
+-- Generation Time: May 02, 2018 at 12:35 PM
 -- Server version: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -87,7 +87,19 @@ INSERT INTO `message`(`conversion_id`, `message_content`, `sender_id`, `time`, `
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertUser` (IN `usr` VARCHAR(255) CHARSET utf8, IN `pwd` VARCHAR(50), IN `eml` VARCHAR(255) CHARSET utf8, IN `ali` VARCHAR(255) CHARSET utf8, IN `pho` VARCHAR(15))  NO SQL
 INSERT INTO `users`(`name`, `password`, `email`, `alias`, `phone`) VALUES (usr, pwd, eml, ali, pho)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `searchUsers` (IN `uid` INT(11))  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `markAsRead` (IN `uid` INT(11), IN `friend_id` INT(11))  NO SQL
+UPDATE `message`
+SET `status` = 3
+WHERE 
+    `status` = 2
+    AND conversion_id IN (
+        SELECT id
+        FROM conversion
+        WHERE (user1_id = uid AND user2_id = friend_id)
+        OR (user1_id = friend_id AND user2_id = uid)
+	)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `searchUsers` (IN `uid` INT(11), IN `skip_index` INT(11))  NO SQL
 SELECT
         c.user1_id+c.user2_id - uid as id,
         m.sender_id as last_sender_id,
@@ -122,7 +134,8 @@ SELECT
     INNER JOIN message m ON tmp.id = m.id and tmp.time=m.time
 	INNER JOIN users u ON u.id = c.user1_id+c.user2_id - uid    
     WHERE (c.user1_id = uid OR c.user2_id = uid)
-    ORDER BY tmp.time DESC$$
+    ORDER BY tmp.time DESC
+    limit skip_index, 15$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `searchUsers_bak` (IN `uid` INT(11), IN `txt` TEXT)  NO SQL
 SELECT * FROM 
@@ -316,13 +329,12 @@ INSERT INTO `message` (`id`, `conversion_id`, `message_content`, `sender_id`, `t
 (92, 25, 'xin chuyen vien chua', 1, '2018-04-23 09:06:18', 3),
 (93, 25, 'đang bảo nó rồi', 2, '2018-04-23 09:14:04', 3),
 (94, 25, 'okkkkkkkkkkkkkkkkkkkkkk', 1, '2018-04-23 09:14:20', 3),
-(95, 25, 'lllllll', 2, '2018-04-23 09:14:27', 3),
 (96, 25, '?????', 1, '2018-04-23 09:17:58', 3),
 (97, 25, 'me may`', 1, '2018-04-23 10:57:05', 3),
 (98, 25, 'xin chuyen vien chua', 1, '2018-04-23 10:57:13', 3),
 (99, 25, 've nha roi`', 2, '2018-04-26 09:56:17', 3),
 (110, 25, 'okkkkk', 1, '2018-04-30 22:57:34', 3),
-(169, 25, 'a nho bao ba dung cho no tam', 2, '2018-05-02 16:08:24', 2);
+(111, 32, 'abc', 1, '2018-05-02 17:06:21', 3);
 
 -- --------------------------------------------------------
 

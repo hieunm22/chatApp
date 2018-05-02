@@ -6,12 +6,17 @@
     $t = str_replace("'","\\'",$t);
     // $pattern = '%'.$t.'%';
     $id = $_SESSION['user']['id'];
+    
+    $l = $_REQUEST['l'];
 
-    $sql = sprintf("call searchUsers(%u)", $id);
+    $sql = sprintf("call searchUsers(%u, %u)", $id, $l);
 	$query = mysqli_query($con, $sql);
 	$rowcount = mysqli_num_rows($query);
     if ($rowcount==0) {
-        echo '<span style="color:#4ebf82;margin-left:10px;">Không tìm thấy kết quả</span>';
+        if ($l == 0) 
+            echo '<span style="color:#4ebf82;margin-left:10px;">Không tìm thấy kết quả</span>';
+        else
+            echo '';
         return;
     }
 	while ($row = mysqli_fetch_array($query)) {

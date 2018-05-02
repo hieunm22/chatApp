@@ -15,18 +15,19 @@
 		$user = $_SESSION['user'] === null ? $_SESSION['user']['name'] : $_SESSION['user']['alias'];
 		echo "
 		<script type=\"text/javascript\">
+            var currentLoaded = 0;
 			$(document).ready(function(){
                 // document.cookie = 'conversion_color=#0084ff';
 				$('title').text('".$user."');
 				$(window).resize(resizeWindow);
-                searchList();
+                searchList(currentLoaded);
 				$('input#searchtb').on('keyup', function(e) {
 					if (e.keyCode == 13) {
-						searchList();
+						searchList(0);
 					}
 				});
 				$('input#searchbt').on('click', function(e) {
-					searchList();
+					searchList(0);
 				});
 				$('input#chatmessage').on('keyup', function(e) {
 					if (e.keyCode == 13) {
@@ -44,7 +45,7 @@
 				});
                 $('div#search-content').scroll(function() {
                     if (this.scrollTop == this.scrollHeight - this.clientHeight) {
-                        console.log(123);
+                        loadMoreMsg();
                     }
                 });
 			});
