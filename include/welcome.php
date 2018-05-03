@@ -11,12 +11,17 @@
 
         <script>
             function logout() {
-                xmlhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
+                $.ajax({
+                    url: 'controller/index_logout.php',
+                    data: {  },
+                    // dataType: 'json',
+                    type: 'GET',
+                    success: function (response) {
                         window.location.href = "/chatApp";
+                    },
+                    error: function(data) {
+                        console.log('error');
                     }
-                };
-                xmlhttp.open("GET", "controller/index_logout.php", true);
-                xmlhttp.send();
+                });
             }
         </script>

@@ -1,13 +1,17 @@
 function searchList(loaded) {
 	var text = $('#searchtb').val();
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
+    $.ajax({
+        url: "controller/index_search.php",
+        data: { t: text, l: (loaded | 0) },
+        dataType: 'html',
+        type: 'GET',
+        success: function (response) {
 			// console.log(this.responseText);
 			// hiển thị kết quả tìm kiếm
-			if (loaded) 
-				$('div#search-content').append(this.responseText);
+			if (loaded)
+				$('div#search-content').append(response);
 			else
-				$('div#search-content').html(this.responseText);
+				$('div#search-content').html(response);
             // var sl = $('div#search-list').height();
             // var sb = $('div#searchbox').height();
 			// $('div#search-content').css('height', sl - sb);
@@ -17,14 +21,15 @@ function searchList(loaded) {
 				$('div#user' + friend_id).parent('div.lbl.search-result').addClass('active-msg');
 			}
             resizeWindow();
+        },
+        error: function(data) {
+            console.log('error');
         }
-    };
-    xmlhttp.open("GET", "controller/index_search.php?t=" + text + '&l=' + (loaded | 0), true);
-    xmlhttp.send();
+    });
 }
 
 var friend_id = -1;
-var conversion_color = "#0084ff";
+var conversion_color = "0084ff";
 function openChat(id) {
     var chat = document.getElementById('chatmessage')
     if (chat) {
@@ -35,7 +40,7 @@ function openChat(id) {
 		$('div.lbl.search-result > div#user' + id + ' > span.chatname').removeClass('unread-txt');
 		$('div.lbl.search-result > div#user' + id + ' > span.u1').css('color', '#0006');
 		$('div#user' + id).parent().children('div.last-message.unread-txt').removeClass('unread-txt');
-		
+
         if (friend_id != -1) {
             var alias = $('div[id="user' + id + '"] span.chatname').text();
             $('title').text(alias);
@@ -43,17 +48,22 @@ function openChat(id) {
         else {
             $('title').text("Home");
         }
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
+        $.ajax({
+            url: "controller/index_openchat.php",
+            data: { id: id },
+            dataType: 'html',
+            type: 'GET',
+            success: function (response) {
                 conversion_color = getCookie('conversion_color');
-                // console.log(this.responseText);
-                $('div#messagePanel').html(this.responseText);
+                // console.log(response);
+                $('div#messagePanel').html(response);
                 var div = document.getElementById("messagePanel");
                 if (div) div.scrollTop = div.scrollHeight;
+            },
+            error: function(data) {
+                console.log('error');
             }
-        };
-        xmlhttp.open("GET", "controller/index_openchat.php?id=" + id, true);
-        xmlhttp.send();
+        });
     }
 }
 
@@ -61,23 +71,31 @@ function sendMessage(txt) {
     var d = new Date();
     var h = checkTime(d.getHours());
     var m = checkTime(d.getMinutes());
-
-    $('div#messagePanel').append('<div class="message-row"><div class="message-content u1"><span class="user1" style="background-color: #' + conversion_color + '; border-color: #' + conversion_color + '">' + txt + '</span> <span class="tooltiptext u1">' + (h + ":" + m) + '</span></div></div>');
+    
+    if (txt.trim().length > 0) 
+        $('div#messagePanel').append('<div class="message-row"><div class="message-content u1"><span class="user1" style="background-color: #' + conversion_color + '; border-color: #' + conversion_color + '">' + txt + '</span> <span class="tooltiptext u1">' + (h + ":" + m) + '</span></div></div>');
     $('#chatmessage').val('');
 	if (txt.trim() == '') return;
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
+    
+    $.ajax({
+        url: "controller/index_sendmessage.php",
+        data: { 
+            m: txt.trim().replace('\n', '<br />').replace('&', '%26'),
+            f: friend_id,
+        },
+        dataType: 'html',
+        type: 'GET',
+        success: function (response) {
             // scroll to end
             var div = document.getElementById("messagePanel");
             div.scrollTop = div.scrollHeight;
             // send xong update lai user list
             searchList();
+        },
+        error: function(data) {
+            console.log('error');
         }
-    };
-    xmlhttp.open("GET", "controller/index_sendmessage.php?m="
-        + txt.trim().replace('\n', '<br />').replace('&', '%26')
-        + "&f=" + friend_id, true);
-    xmlhttp.send();
+    });
 }
 
 function loadMoreMsg() {

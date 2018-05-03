@@ -1,4 +1,3 @@
-var xmlhttp = new XMLHttpRequest();
 function flogin() {
     if ($('input#usr').val() == '') {
         document.getElementById("usr").focus();
@@ -27,9 +26,19 @@ function register() {
         blinkText('div.login-message', 'Xác nhận mật khẩu không đúng');
         return;
     }
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            switch (+this.responseText) {
+    $.ajax({
+        url: "controller/register_register.php",
+        data: { 
+            u: $('input#usr').val(),
+            p: $('input#pwd').val(),
+            a: $('input#alias').val(),
+            e: $('input#email').val(),
+            f: $('input#phone').val()
+        },
+        dataType: 'html',
+        type: 'GET',
+        success: function (response) {
+            switch (+response) {
                 case 0:
                     window.location.href = "/chatApp";
                     break;
@@ -42,10 +51,11 @@ function register() {
                     blinkText('div.login-message', 'Email đã được dùng để đăng ký');
                     break;
             }
+        },
+        error: function(data) {
+            console.log('error');
         }
-    };
-    xmlhttp.open("GET", "controller/register_register.php?u=" + $('input#usr').val() + '&p=' + $('input#pwd').val() + '&a=' + $('input#alias').val() + '&e=' + $('input#email').val() + '&f=' + $('input#phone').val(), true);
-    xmlhttp.send();
+    });
 }
 
 function save() {
@@ -53,15 +63,26 @@ function save() {
         blinkText('div.login-message', 'Xác nhận mật khẩu không đúng');
         return;
     }
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-			if (this.responseText==='0') {
+    $.ajax({
+        url: "controller/usercp_save.php",
+        data: { 
+            e: $('input#email').val(),
+            a: $('input#alias').val(),
+            f: $('input#phone').val(),
+            o: $('input#oldpwd').val(),
+            p: $('input#pwd').val()
+        },
+        dataType: 'html',
+        type: 'GET',
+        success: function (response) {
+			if (response==='0') {
 				blinkText('div.login-message', 'Mật khẩu cũ không đúng');
 				return;
 			}
             window.location.href = "/chatApp";
+        },
+        error: function(data) {
+            console.log('error');
         }
-    };
-    xmlhttp.open("GET", "controller/usercp_save.php?e=" + $('input#email').val() + '&a=' + $('input#alias').val() + '&f=' + $('input#phone').val() + '&o=' + $('input#oldpwd').val() + '&p=' + $('input#pwd').val(), true);
-    xmlhttp.send();
+    });
 }
