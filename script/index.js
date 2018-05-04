@@ -22,9 +22,7 @@ function searchList(loaded) {
 			}
             resizeWindow();
         },
-        error: function(data) {
-            console.log('error');
-        }
+        error: showError
     });
 }
 
@@ -60,9 +58,7 @@ function openChat(id) {
                 var div = document.getElementById("messagePanel");
                 if (div) div.scrollTop = div.scrollHeight;
             },
-            error: function(data) {
-                console.log('error');
-            }
+            error: showError
         });
     }
 }
@@ -80,7 +76,7 @@ function sendMessage(txt) {
     $.ajax({
         url: "controller/index_sendmessage.php",
         data: { 
-            m: txt.trim().replace('\n', '<br />').replace('&', '%26'),
+            m: decodeURIComponent(txt.trim().replace('\n', '<br />')),
             f: friend_id,
         },
         dataType: 'html',
@@ -92,14 +88,13 @@ function sendMessage(txt) {
             // send xong update lai user list
             searchList();
         },
-        error: function(data) {
-            console.log('error');
-        }
+        error: showError
     });
 }
 
 function loadMoreMsg() {
-    var count = $('div.lbl.search-result').length;
+    var count = $('div#search-content').children().length;
+    // var count = $('div.lbl.search-result').length;
     if (count < 15) return;
-    searchList(count);
+    console.log('loadMoreMsg');  //searchList(count);
 }

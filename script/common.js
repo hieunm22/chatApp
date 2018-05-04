@@ -36,3 +36,6 @@ function resizeWindow() {
     $('#chatmessage').css('width', (w - 510) + 'px');
 }
 
+function showError(data) {
+    console.log('error');
+}
