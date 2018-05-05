@@ -10,7 +10,7 @@
     $sql = "INSERT INTO `conversion`(`user1_id`, `user2_id`) 
 SELECT * FROM (SELECT ".$user_id.", ".$friend_id.") AS tmp
 WHERE NOT EXISTS (
-    SELECT * FROM conversion WHERE (user1_id=".$user_id." AND user2_id=".$friend_id.") or (user1_id=".$friend_id." AND user2_id=".$user_id.")
+    SELECT * FROM conversion WHERE list_users = concat(".$user_id.",',',".$friend_id.") or list_users = concat(".$friend_id.",',',".$user_id.")
 ) LIMIT 1";
     $query = mysqli_query($con, $sql);
     // insert message

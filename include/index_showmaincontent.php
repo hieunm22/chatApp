@@ -10,7 +10,7 @@
                 if ($rowcount==1) {
                     $_SESSION['user'] = mysqli_fetch_array($query);
                     // update trang thai toan bo cac message trong cac conversion cua minh thanh 2
-                    $s = sprintf("CALL setMessageStatusOnLogin(%u)", $_SESSION['user']['id']);
+                    $s = sprintf("CALL markAsReceived(%u)", $_SESSION['user']['id']);
                     $q = mysqli_query($con, $s);
                     include('include/welcome.php');
                     include('include/navigation.php');
