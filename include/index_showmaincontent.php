@@ -4,7 +4,7 @@
                 $usr = str_replace("'","\\'",$usr);
                 $pwd = $_POST['password'];
                 $pwd = str_replace("'","\\'",$pwd);
-                $sql = "SELECT * FROM users where (`name` like '%".$usr."%' or `email` like '%".$usr."%' or `phone`='".$usr."') and `password`='".md5($pwd)."'";
+                $sql = "call loginVertification('".$usr."', '".$pwd."')";
                 $query = mysqli_query($con, $sql);
                 $rowcount = mysqli_num_rows($query);
                 if ($rowcount==1) {
