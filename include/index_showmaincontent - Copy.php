@@ -4,7 +4,7 @@
                 $usr = str_replace("'","\\'",$usr);
                 $pwd = $_POST['password'];
                 $pwd = str_replace("'","\\'",$pwd);
-                $sql = "call loginVertification('".$usr."', '".$pwd."')";
+                $sql = "SELECT * FROM users where (`id`='".$usr."' or `name` = '".$usr."' or `email` = '".$usr."' or `phone`='".$usr."') and `password`='".md5($pwd)."'";
                 $query = mysqli_query($con, $sql);
                 $rowcount = mysqli_num_rows($query);
                 if ($rowcount==1) {
@@ -26,8 +26,8 @@
                     include('include/navigation.php');
                     include('include/index_chatform.php');
                 }
-				else {
-					include('include/index_loginform.php');
-				}
+                else {
+                    include('include/index_loginform.php');
+                }
             }
 ?>

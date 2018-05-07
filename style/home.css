@@ -126,14 +126,23 @@ div.lbl.search-result:active {
 .active-msg {
 	background-color: #f2f2f2;
 }
+#conversionName {
+    /* border: 1px solid #b7b3b3; */
+    width: 95%;
+    height: 25px;
+    position: relative;
+    top: 15px;
+    left: 25px;
+    padding-top: 5px;
+}
 #messagePanel {
     border: 1px solid #b7b3b3;
     overflow-y: scroll;
     width: 95%;
     height: 82%;
     position: relative;
-	top: 15px;
-	left: 25px;
+    top: 20px;
+    left: 25px;
     padding-top: 15px;
 }
 #chatmessage {

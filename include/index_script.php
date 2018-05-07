@@ -3,7 +3,6 @@
 		echo "
 		<script type=\"text/javascript\">
 			$(document).ready(function(){
-				$('title').text('Home');
 				$(window).resize(resizeWindow);
 				$('input#usr, input#pwd').on('keyup', function(e) {
 					$('div.login-message').text('');
@@ -18,7 +17,7 @@
             var currentLoaded = 0;
 			$(document).ready(function(){
                 // document.cookie = 'conversion_color=#0084ff';
-				$('title').text('".$user."');
+				$('title').text('Home');
 				$(window).resize(resizeWindow);
                 searchList();
 				$('input#searchtb').on('keyup', function(e) {

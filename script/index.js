@@ -35,16 +35,16 @@ function openChat(id) {
         chat.focus();
         friend_id = id;
 		// mark as read message
-		$('div.lbl.search-result > div#user' + id + ' > span.chatname').removeClass('unread-txt');
-		$('div.lbl.search-result > div#user' + id + ' > span.u1').css('color', '#0006');
+		$('div#user' + id + ' > span.chatname').removeClass('unread-txt');
+		$('div#user' + id + ' > span.u1').css('color', '#0006');
 		$('div#user' + id).parent().children('div.last-message.unread-txt').removeClass('unread-txt');
 
         if (friend_id != -1) {
             var alias = $('div[id="user' + id + '"] span.chatname').text();
-            $('title').text(alias);
+            $('center').text(alias);
         }
         else {
-            $('title').text("Home");
+            $('center').text('');
         }
         $.ajax({
             url: "controller/index_openchat.php",
@@ -53,7 +53,6 @@ function openChat(id) {
             type: 'GET',
             success: function (response) {
                 conversion_color = getCookie('conversion_color');
-                // console.log(response);
                 $('div#messagePanel').html(response);
                 var div = document.getElementById("messagePanel");
                 if (div) div.scrollTop = div.scrollHeight;
