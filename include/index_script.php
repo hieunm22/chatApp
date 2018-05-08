@@ -36,8 +36,9 @@
 				$('input#sendmessage').on('click', function(e) {
 					sendMessage($('#chatmessage').val());
 				});
-				$('div#search-content').delegate('div.lbl.search-result', 'click', function() {
+				$('div#search-content').delegate('div.lbl.search-result, div.lbl.search-result-text', 'click', function() {
 					$('div.lbl.search-result').removeClass('active-msg');
+					$('div.lbl.search-result-text').removeClass('active-msg');
 					this.classList.add('active-msg');
 					var id = this.querySelector('div').id.substr(4);
 					openChat(+id);
