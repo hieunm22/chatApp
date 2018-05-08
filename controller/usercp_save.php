@@ -10,10 +10,10 @@
         $rowcount = mysqli_num_rows($query);
         if ($rowcount==0) {
             echo '0';
-            return;		
-        }        
+            return;
+        }
     }
-    
+
     $ali = $_REQUEST['a'];
     $ali = str_replace("'","\\'",$ali);
     $eml = $_REQUEST['e'];
