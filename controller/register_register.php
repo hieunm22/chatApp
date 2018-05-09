@@ -20,8 +20,7 @@
         $pho = str_replace("'","\\'",$pho);
         $pwd = $_REQUEST['p'];
         $pwd = str_replace("'","\\'",$pwd);
-
-        // $sql = "Call insertUser('".$usr."', '".md5($pwd)."', '".$eml."', '".$ali."', '".$pho."')";
+        
         $sql = "Call insertUser('".$usr."', '".md5($pwd)."'";
         if (!isset($eml) || trim($eml)==='') {
             $sql .= ", null";

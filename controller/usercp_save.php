@@ -22,12 +22,27 @@
     $pho = str_replace("'","\\'",$pho);
     $pwd = $_REQUEST['p'];
     $pwd = str_replace("'","\\'",$pwd);
-
-    $sql = "update `users` set `alias`='".$ali."', `email`='".$eml."', `phone`='".$pho."'";
-	if (strlen($old) > 0 && strlen($pwd) > 0) {
-		$sql .= ", `password`='".md5($pwd)."'";
-	}
-    $sql .= " where `id`='".$id."'";
+    
+    $sql = "Call updateUser('".$usr."', '".md5($pwd)."'";
+    if (!isset($eml) || trim($eml)==='') {
+        $sql .= ", null";
+    }
+    else {
+        $sql .= ", '".$eml."'";
+    }
+    if (!isset($ali) || trim($ali)==='') {
+        $sql .= ", null";
+    }
+    else {
+        $sql .= ", '".$ali."'";
+    }
+    if (!isset($pho) || trim($pho)==='') {
+        $sql .= ", null";
+    }
+    else {
+        $sql .= ", '".$pho."'";
+    }
+    $sql .= ", ".$id.")";
 	$query = mysqli_query($con, $sql);
     $sql = "SELECT * FROM users where `id`='".$id."'";
 	$query = mysqli_query($con, $sql);
