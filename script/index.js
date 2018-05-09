@@ -94,6 +94,6 @@ function sendMessage(txt) {
 function loadMoreMsg() {
     var count = $('div#search-content').children().length;
     // var count = $('div.lbl.search-result').length;
-    if (count < 15) return;
-    console.log('loadMoreMsg');  //searchList(count);
+    if (count < 10) return;
+    searchList(count);
 }
