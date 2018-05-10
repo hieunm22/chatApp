@@ -13,7 +13,7 @@
                     $s = sprintf("CALL markAsReceived(%u)", $_SESSION['user']['id']);
                     $q = mysqli_query($con, $s);
                     include('include/welcome.php');
-                    include('include/navigation.php');
+                    // include('include/navigation.php');
                     include('include/index_chatform.php');
                 }
                 else {
@@ -25,7 +25,7 @@
                     $s = sprintf("CALL markAsReceived(%u)", $_SESSION['user']['id']);
                     $q = mysqli_query($con, $s);
                     include('include/welcome.php');
-                    include('include/navigation.php');
+                    // include('include/navigation.php');
                     include('include/index_chatform.php');
                 }
 				else {

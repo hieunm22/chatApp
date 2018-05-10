@@ -95,7 +95,7 @@ div#info {
 }
 #search-content {
     overflow-y: scroll;
-    height: 93%;
+    height: 95%;
 }
 #searchtb {
     width: 98%;
@@ -216,10 +216,10 @@ div.lbl.search-result:active {
 .username-search {
 	padding-top: 5px;
 }
-.u1 {
+.me {
     float: right;
 }
-.u2 {
+.friend {
     float: left;
 }
 .alias {

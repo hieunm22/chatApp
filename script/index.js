@@ -36,7 +36,7 @@ function openChat(id) {
         friend_id = id;
 		// mark as read message
 		$('div#user' + id + ' > span.chatname').removeClass('unread-txt');
-		$('div#user' + id + ' > span.u1').css('color', '#0006');
+		$('div#user' + id + ' > span.me').css('color', '#0006');
 		$('div#user' + id).parent().children('div.last-message.unread-txt').removeClass('unread-txt');
 
         if (friend_id != -1) {
@@ -68,7 +68,7 @@ function sendMessage(txt) {
     var m = checkTime(d.getMinutes());
     
     if (txt.trim().length > 0) 
-        $('div#messagePanel').append('<div class="message-row"><div class="message-content u1"><span class="user1" style="background-color: #' + conversion_color + '; border-color: #' + conversion_color + '">' + txt + '</span> <span class="tooltiptext u1">' + (h + ":" + m) + '</span></div></div>');
+        $('div#messagePanel').append('<div class="message-row"><div class="message-content me"><span class="user1" style="background-color: #' + conversion_color + '; border-color: #' + conversion_color + '">' + txt + '</span> <span class="tooltiptext me">' + (h + ":" + m) + '</span></div></div>');
     $('#chatmessage').val('');
 	if (txt.trim() == '') return;
     

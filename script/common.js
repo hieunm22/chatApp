@@ -29,10 +29,10 @@ function getCookie(name) {
 function resizeWindow() {
     var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-    $('div#search-list').css('height', (h - 120) + 'px');
+    $('div#search-list').css('height', (h - 100) + 'px');
     $('div#chatmain').css('width', (w - 360) + 'px');
-    $('div#chatmain').css('height', (h - 120) + 'px');
-    $('div#messagePanel').css('height', (h - 240) + 'px');
+    $('div#chatmain').css('height', (h - 100) + 'px');
+    $('div#messagePanel').css('height', (h - 220) + 'px');
     $('#chatmessage').css('width', (w - 510) + 'px');
 }
 
