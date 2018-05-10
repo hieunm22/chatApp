@@ -142,7 +142,7 @@ div.lbl.search-result:active {
     width: 95%;
     height: 25px;
     position: relative;
-    top: 15px;
+    top: 3px;
     left: 25px;
     padding-top: 5px;
 }
@@ -152,7 +152,7 @@ div.lbl.search-result:active {
     width: 95%;
     height: 82%;
     position: relative;
-    top: 20px;
+    top: 2px;
     left: 25px;
     padding-top: 15px;
 }

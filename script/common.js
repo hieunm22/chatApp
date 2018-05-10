@@ -32,7 +32,7 @@ function resizeWindow() {
     $('div#search-list').css('height', (h - 100) + 'px');
     $('div#chatmain').css('width', (w - 360) + 'px');
     $('div#chatmain').css('height', (h - 100) + 'px');
-    $('div#messagePanel').css('height', (h - 220) + 'px');
+    $('div#messagePanel').css('height', (h - 200) + 'px');
     $('#chatmessage').css('width', (w - 510) + 'px');
 }
 

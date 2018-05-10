@@ -1,6 +1,7 @@
 <?php
     $sql = "call markAsRead(".$uid." , ".$fid.")";
-	$query = mysqli_query($con, $sql);
+    $con->query($sql);
+	// $query = mysqli_query($con, $sql);
     $sql = "call displayMessage(".$uid." , ".$fid.")";
 	$query = mysqli_query($con, $sql);
     $output = '';
