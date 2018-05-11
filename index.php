@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<title>Login</title>
+        <script src="script/jscolor.js"></script>
         <?php include('include/header.php');?>
 	</head>
 	<body>

@@ -146,6 +146,9 @@ div.lbl.search-result:active {
     left: 25px;
     padding-top: 5px;
 }
+#colorpicker {
+    /* float: right;  */
+}
 #messagePanel {
     border: 1px solid #b7b3b3;
     overflow-y: scroll;

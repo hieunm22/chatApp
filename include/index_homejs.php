@@ -1,7 +1,7 @@
 		<script type="text/javascript">
             var currentLoaded = 0;
 			$(document).ready(function(){
-                // document.cookie = 'conversion_color=#0084ff';
+                document.cookie = 'conversion_color=0084ff';
 				$('title').text('Home');
 				$(window).resize(resizeWindow);
                 searchList();

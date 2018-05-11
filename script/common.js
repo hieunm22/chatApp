@@ -16,6 +16,22 @@ function getHexColor(number){
     return "#"+((number)>>>0).toString(16).padStart(6, "0");
 }
 
+function HEXToVBColor(rrggbb) {
+    var bbggrr = rrggbb.substr(4, 2) + rrggbb.substr(2, 2) + rrggbb.substr(0, 2);
+    return parseInt(bbggrr, 16);
+}
+
+
+function convertColor(color){
+    var cl = color.substring(4, color.indexOf(')') - 1);
+    var rgb = cl.split(', ');
+    var ret = '';
+    rgb.forEach(function(item) {
+        ret += (+item).toString(16);
+    });
+    return HEXToVBColor(ret);
+}
+
 function checkTime(i) {
     return i < 10 ? "0" + i : i;
 }
