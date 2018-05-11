@@ -113,13 +113,14 @@ function loadMoreMsg() {
 
 function changeConversionColor() {
     var cl = $('button.jscolor').css('background-color');
-    cl = convertColor(cl);
+    var cl_int = convertColor(cl);
     $.ajax({
         url: "controller/index_changecolor.php",
         data: { id: friend_id, c: cl },
         dataType: 'html',
         type: 'GET',
         success: function (response) {
+            $('span.user' + response).attr('style', 'background-color: ' + cl + '; border-color: ' + cl);
             // console.log(response);
         },
         error: showError

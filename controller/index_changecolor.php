@@ -5,5 +5,5 @@
     $c = $_REQUEST['c'];    // color
     $sql = 'call setConversionColor('.$_SESSION['user']['id'].', '.$_REQUEST['id'].', '.$c.')';
     $con->query($sql);
-    echo $sql;
+    echo $_SESSION['user']['id'];
 ?>
