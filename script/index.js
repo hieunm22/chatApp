@@ -58,6 +58,7 @@ function openChat(id) {
         else {
             $('#chatname').text('');
         }
+		$('button.jscolor').attr('disabled', friend_id == -1);
         $.ajax({
             url: "controller/index_openchat.php",
             data: { id: id },
@@ -116,7 +117,7 @@ function changeConversionColor() {
     var cl_int = convertColor(cl);
     $.ajax({
         url: "controller/index_changecolor.php",
-        data: { id: friend_id, c: cl },
+        data: { id: friend_id, c: cl_int },
         dataType: 'html',
         type: 'GET',
         success: function (response) {

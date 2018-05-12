@@ -16,20 +16,16 @@ function getHexColor(number){
     return "#"+((number)>>>0).toString(16).padStart(6, "0");
 }
 
-function HEXToVBColor(rrggbb) {
-    var bbggrr = rrggbb.substr(4, 2) + rrggbb.substr(2, 2) + rrggbb.substr(0, 2);
-    return parseInt(bbggrr, 16);
-}
-
-
 function convertColor(color){
-    var cl = color.substring(4, color.indexOf(')') - 1);
+    var cl = color.substring(4, color.indexOf(')'));
     var rgb = cl.split(', ');
-    var ret = '';
+    var ret = 0;
+	var mul = 65536;
     rgb.forEach(function(item) {
-        ret += (+item).toString(16);
+        ret += (+item) * mul;
+		mul /= 256;
     });
-    return HEXToVBColor(ret);
+    return ret;
 }
 
 function checkTime(i) {
@@ -37,7 +33,7 @@ function checkTime(i) {
 }
 
 function getCookie(name) {
-    var parts = document.cookie.split("; ");
+    var parts = decodeURIComponent(document.cookie).split("; ");
     var filter = parts.filter(function(v) { return v.startsWith("conversion_color="); });
     return filter[filter.length - 1].substr(17);
 }
