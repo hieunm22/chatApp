@@ -1,8 +1,8 @@
 <?php
-    $sql = "call markAsRead(".$uid." , ".$fid.")";
-    $con->query($sql);
+    // $sql = "call markAsRead(".$uid." , ".$fid.")";
+    // $con->query($sql);
 	// $query = mysqli_query($con, $sql);
-    $sql = "call displayMessage(".$uid." , ".$fid.")";
+    $sql = "call displayMessage(".$uid." , ".$fid.", ".$stt.")";
 	$query = mysqli_query($con, $sql);
     $output = '';
     while ($row = mysqli_fetch_array($query)) {

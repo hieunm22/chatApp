@@ -12,7 +12,7 @@
                         <td id="none" width="33%"></td>
                         <td id="chatname" width="33%" align="center"></td>
                         <td id="colorpicker" width="33%" align="right">
-                            <button class="jscolor { valueElement:null}" style="width:50px; height:20px;" disabled></button>
+                            <button class="jscolor { valueElement:null }" style="width:50px; height:20px;" disabled />
                         </td>
                     </tr>
                 </table>

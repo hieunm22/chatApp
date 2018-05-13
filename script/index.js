@@ -61,7 +61,7 @@ function openChat(id) {
 		$('button.jscolor').attr('disabled', friend_id == -1);
         $.ajax({
             url: "controller/index_openchat.php",
-            data: { id: id },
+            data: { id: id, stt: 3 },
             dataType: 'html',
             type: 'GET',
             success: function (response) {
@@ -70,10 +70,26 @@ function openChat(id) {
                 $('div#messagePanel').html(response);
                 var div = document.getElementById("messagePanel");
                 if (div) div.scrollTop = div.scrollHeight;
+				loadUnreadMessage(id);
             },
             error: showError
         });
     }
+}
+
+function loadUnreadMessage(id) {
+	$.ajax({
+		url: "controller/index_openchat.php",
+		data: { id: id, stt: 2 },
+		dataType: 'html',
+		type: 'GET',
+		success: function (response) {
+			conversion_color = getCookie('conversion_color');
+			$('button.jscolor').css('background-color', '#' + conversion_color);
+			$('div#messagePanel').append(response);
+		},
+		error: showError
+	});
 }
 
 function sendMessage(txt) {
