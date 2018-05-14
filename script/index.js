@@ -6,12 +6,20 @@ function searchList(loaded) {
         dataType: 'html',
         type: 'GET',
         success: function (response) {
+            while (response.indexOf('\r') > 0) response=response.replace('\r','');
+            while (response.indexOf('\n') > 0) response=response.replace('\n','');
 			// console.log(this.responseText);
 			// hiển thị kết quả tìm kiếm
+            var json = $.parseJSON(response);
 			if (loaded)
-				$('div#search-content').append(response);
+				$('div#search-content').append(json.html);
 			else
-				$('div#search-content').html(response);
+				$('div#search-content').html(json.html);
+			if (json.unread)
+				$('title').text('(' + json.unread + ') Home');
+			else
+				$('title').text('Home');
+            
             // var sl = $('div#search-list').height();
             // var sb = $('div#searchbox').height();
 			// $('div#search-content').css('height', sl - sb);
