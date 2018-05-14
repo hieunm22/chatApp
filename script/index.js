@@ -1,3 +1,4 @@
+var unreadCount = 0;
 function searchList(loaded) {
 	var text = $('#searchtb').val();
     $.ajax({
@@ -6,8 +7,8 @@ function searchList(loaded) {
         dataType: 'html',
         type: 'GET',
         success: function (response) {
-            while (response.indexOf('\r') > 0) response=response.replace('\r','');
-            while (response.indexOf('\n') > 0) response=response.replace('\n','');
+            // while (response.indexOf('\r') > 0) response=response.replace('\r','');
+            // while (response.indexOf('\n') > 0) response=response.replace('\n','');
 			// console.log(this.responseText);
 			// hiển thị kết quả tìm kiếm
             var json = $.parseJSON(response);
@@ -15,8 +16,9 @@ function searchList(loaded) {
 				$('div#search-content').append(json.html);
 			else
 				$('div#search-content').html(json.html);
-			if (json.unread)
-				$('title').text('(' + json.unread + ') Home');
+			unreadCount = json.unread;
+			if (unreadCount)
+				$('title').text('(' + unreadCount + ') Home');
 			else
 				$('title').text('Home');
             
@@ -69,35 +71,20 @@ function openChat(id) {
 		$('button.jscolor').attr('disabled', friend_id == -1);
         $.ajax({
             url: "controller/index_openchat.php",
-            data: { id: id, stt: 3 },
-            dataType: 'html',
+            data: { id: id },
+            dataType: 'json',
             type: 'GET',
             success: function (response) {
                 conversion_color = getCookie('conversion_color');
                 $('button.jscolor').css('background-color', '#' + conversion_color);
-                $('div#messagePanel').html(response);
+                $('div#messagePanel').html(response.readMsg);
                 var div = document.getElementById("messagePanel");
                 if (div) div.scrollTop = div.scrollHeight;
-				loadUnreadMessage(id);
+                $('div#messagePanel').append(response.unreadMsg);
             },
             error: showError
         });
     }
-}
-
-function loadUnreadMessage(id) {
-	$.ajax({
-		url: "controller/index_openchat.php",
-		data: { id: id, stt: 2 },
-		dataType: 'html',
-		type: 'GET',
-		success: function (response) {
-			conversion_color = getCookie('conversion_color');
-			$('button.jscolor').css('background-color', '#' + conversion_color);
-			$('div#messagePanel').append(response);
-		},
-		error: showError
-	});
 }
 
 function sendMessage(txt) {
@@ -123,7 +110,7 @@ function sendMessage(txt) {
             var div = document.getElementById("messagePanel");
             div.scrollTop = div.scrollHeight;
             // send xong update lai user list
-            searchList();
+            // searchList();
         },
         error: showError
     });

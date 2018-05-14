@@ -1,23 +1,10 @@
 <?php
-	include('../default.php');
-	session_start();
-
-    $t = $_REQUEST['t'];
-    $t = str_replace("'","\\'",$t);
-    // $pattern = '%'.$t.'%';
-    $id = $_SESSION['user']['id'];
-
-    $l = $_REQUEST['l'];    // limit
-    $unreadCount = 0;
-    $html = '';
-    
-    if (trim($t)==='') {
         $sql = sprintf("call searchUsers(%u, %u)", $id, $l);
         $query = mysqli_query($con, $sql);
         $rowcount = mysqli_num_rows($query);
         if ($rowcount==0) {
             if ($l == 0)
-                $html =  '<span style="color:#4ebf82;margin-left:10px;">Không tìm thấy kết quả</span>';
+                $html =  '<span style="color:#4ebf82;margin-left:10px;">Kh�ng t�m th?y k?t qu?</span>';
             else
                 $html = '';
             return;
@@ -34,23 +21,4 @@
         <div class="last-message'.$txt_unread.'">'.($id == $row["last_sender_id"] ? 'You: ' : '').$msg.'</div>
             </div>';
         }
-    }
-    else {
-        $sql = sprintf("call searchUsersText('%s')", $t);
-        $query = mysqli_query($con, $sql);
-        while ($row = mysqli_fetch_array($query)) {
-            $html .= '<div class="lbl search-result-text" draggable="true">
-        <div id="user'.$row["id"].'" class="username-search"><span class="chatname">'.$row["alias"].'</span></div>
-            </div>';
-        }
-    }
-	$obj = new stdClass();
-	$html = str_replace("\"", "\\\"", $html);
-	$html = str_replace("\r", "", $html);
-	$html = str_replace("\n", "", $html);
-	$html = str_replace("\t", "", $html);
-	$obj->html = $html;
-	$obj->unread = $unreadCount;
-	// echo json_encode($obj);
-    echo '{ "html": "'.$html.'", "unread": '.$unreadCount.' }';
 ?>

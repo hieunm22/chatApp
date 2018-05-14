@@ -49,5 +49,5 @@ function resizeWindow() {
 }
 
 function showError(data) {
-    console.log('error');
+    console.log(data.responseText);
 }
