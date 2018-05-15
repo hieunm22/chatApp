@@ -94,8 +94,11 @@ div#info {
 #searchbox {
 }
 #search-content {
-    overflow-y: scroll;
+    overflow: hidden;
     height: 95%;
+}
+#search-content:hover {
+    overflow: auto;
 }
 #searchtb {
     width: 98%;

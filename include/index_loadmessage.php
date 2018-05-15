@@ -1,4 +1,5 @@
 <?php
+    $con->query("call markAsRead(".$uid.", ".$fid.")");
     $sql = "call displayMessage(".$uid." , ".$fid.")";
 	$query = $con->query($sql);
     $msgrow = '';
@@ -20,11 +21,8 @@
 				$unreadMsg .= $msgrow;
 		}
     }
-    $sql = "call markAsRead(".$uid.", ".$fid.")";
-    $con->query($sql);
 	$obj = new stdClass();
 	$obj->readMsg = $readMsg;
 	$obj->unreadMsg = $unreadMsg;
-	// $obj->sql = $sql;
     echo json_encode($obj);
 ?>

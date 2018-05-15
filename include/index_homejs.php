@@ -4,7 +4,7 @@
                 // document.cookie = 'conversion_color=0084ff';
 				$('title').text('Home');
 				$(window).resize(resizeWindow);
-                searchList();
+                searchList(0);
 				$('input#searchtb').on('keyup', function(e) {
 					if (e.keyCode == 13) {
 						searchList();

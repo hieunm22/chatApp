@@ -11,12 +11,15 @@ function searchList(loaded) {
             // while (response.indexOf('\n') > 0) response=response.replace('\n','');
 			// console.log(this.responseText);
 			// hiển thị kết quả tìm kiếm
+            if (response == '') 
+                return;
             var json = $.parseJSON(response);
-			if (loaded)
+			if (loaded != undefined) {
 				$('div#search-content').append(json.html);
+                unreadCount += json.unread;
+            }
 			else
 				$('div#search-content').html(json.html);
-			unreadCount = json.unread;
 			if (unreadCount)
 				$('title').text('(' + unreadCount + ') Home');
 			else
@@ -72,15 +75,16 @@ function openChat(id) {
         $.ajax({
             url: "controller/index_openchat.php",
             data: { id: id },
-            dataType: 'json',
+            dataType: 'html',
             type: 'GET',
             success: function (response) {
                 conversion_color = getCookie('conversion_color');
                 $('button.jscolor').css('background-color', '#' + conversion_color);
-                $('div#messagePanel').html(response.readMsg);
+                var json = $.parseJSON(response);
+                $('div#messagePanel').html(json.readMsg);
                 var div = document.getElementById("messagePanel");
                 if (div) div.scrollTop = div.scrollHeight;
-                $('div#messagePanel').append(response.unreadMsg);
+                $('div#messagePanel').append(json.unreadMsg);
             },
             error: showError
         });
