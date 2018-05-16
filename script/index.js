@@ -20,7 +20,7 @@ function searchList(loaded) {
             }
 			else
 				$('div#search-content').html(json.html);
-			if (unreadCount)
+			if (unreadCount > 0)
 				$('title').text('(' + unreadCount + ') Home');
 			else
 				$('title').text('Home');
@@ -85,6 +85,10 @@ function openChat(id) {
                 var div = document.getElementById("messagePanel");
                 if (div) div.scrollTop = div.scrollHeight;
                 $('div#messagePanel').append(json.unreadMsg);
+                if (unreadCount > 1)
+                    $('title').text('(' + --unreadCount + ') Home');
+                else
+                    $('title').text('Home');
             },
             error: showError
         });
@@ -114,7 +118,7 @@ function sendMessage(txt) {
             var div = document.getElementById("messagePanel");
             div.scrollTop = div.scrollHeight;
             // send xong update lai user list
-            // searchList();
+            $('div#search-content').html(response);
         },
         error: showError
     });

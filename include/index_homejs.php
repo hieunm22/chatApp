@@ -33,5 +33,11 @@
                         loadMoreMsg();
                     }
                 });
+                $('div#search-content').on('mouseover', function(e) { 
+                    $('span.me').css('margin-right', '1px');
+                });
+                $('div#search-content').on('mouseleave', function(e) { 
+                    $('span.me').css('margin-right', '17px');
+                });
 			});
 		</script>

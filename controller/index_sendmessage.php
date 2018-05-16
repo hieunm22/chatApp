@@ -13,6 +13,6 @@
     // insert message
 	$con->query("call insertMessage(".$uid.", '".$message."', ".$fid.")");
 
-    include('../include/index_loadmessage.php');
-    // include('../include/index_searchall.php');
+    // include('../include/index_loadmessage.php');
+    include('../include/index_searchall.php');
 ?>

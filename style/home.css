@@ -224,6 +224,7 @@ div.lbl.search-result:active {
 }
 .me {
     float: right;
+    margin-right: 17px;
 }
 .friend {
     float: left;
