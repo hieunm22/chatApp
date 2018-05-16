@@ -16,10 +16,12 @@ function searchList(loaded) {
             var json = $.parseJSON(response);
 			if (loaded != undefined) {
 				$('div#search-content').append(json.html);
-                unreadCount += json.unread;
             }
-			else
+			else {
 				$('div#search-content').html(json.html);
+				unreadCount = 0;
+			}
+			unreadCount += json.unread;
 			if (unreadCount > 0)
 				$('title').text('(' + unreadCount + ') Home');
 			else
@@ -47,10 +49,17 @@ function openChat(id) {
         chat.disabled = false;
         chat.focus();
         friend_id = id;
+		
+		if ($('div#user' + id + ' > span.chatname').hasClass('unread-txt')) unreadCount--;
+		if (unreadCount > 0)
+			$('title').text('(' + unreadCount + ') Home');
+		else
+			$('title').text('Home');
 		// mark as read message
 		$('div#user' + id + ' > span.chatname').removeClass('unread-txt');
 		$('div#user' + id + ' > span.me').css('color', '#0006');
 		$('div#user' + id).parent().children('div.last-message.unread-txt').removeClass('unread-txt');
+		
 		var status = $('div#user' + id).attr('status');
         var tb = $('input#chatmessage');
         if (status == '0') {
@@ -85,10 +94,6 @@ function openChat(id) {
                 var div = document.getElementById("messagePanel");
                 if (div) div.scrollTop = div.scrollHeight;
                 $('div#messagePanel').append(json.unreadMsg);
-                if (unreadCount > 1)
-                    $('title').text('(' + --unreadCount + ') Home');
-                else
-                    $('title').text('Home');
             },
             error: showError
         });
