@@ -106,7 +106,7 @@ function sendMessage(txt) {
     var m = checkTime(d.getMinutes());
     
     if (txt.trim().length > 0) 
-        $('div#messagePanel').append('<div class="message-row"><div class="message-content me"><span class="user1" style="background-color: #' + conversion_color + '; border-color: #' + conversion_color + '">' + txt + '</span> <span class="tooltiptext me">' + (h + ":" + m) + '</span></div></div>');
+        $('div#messagePanel').append('<div class="message-row"><div class="message-content me"><span class="msg-status">' + 0 + '</span><span class="user1" style="background-color: #' + conversion_color + '; border-color: #' + conversion_color + '">' + txt + '</span> <span class="tooltiptext me">' + (h + ":" + m) + '</span></div></div>');
     $('#chatmessage').val('');
 	if (txt.trim() == '') return;
     
@@ -122,6 +122,8 @@ function sendMessage(txt) {
             // scroll to end
             var div = document.getElementById("messagePanel");
             div.scrollTop = div.scrollHeight;
+            // sending -> sent
+            $('span.msg-status:last').text(1);
             // send xong update lai user list
             $('div#search-content').html(response);
         },

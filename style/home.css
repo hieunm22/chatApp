@@ -224,7 +224,11 @@ div.lbl.search-result:active {
 }
 .me {
     float: right;
-    margin-right: 17px;
+}
+.msg-status {
+    float:right;
+    margin-left: 5px;
+    padding-top: 12px;
 }
 .friend {
     float: left;
