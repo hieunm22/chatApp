@@ -29,5 +29,4 @@
         <div class="last-message'.$txt_unread.'">'.($uid == $row["last_sender_id"] ? 'You: ' : '').$msg.'</div>
             </div>';
         }
-        echo $html_search;
 ?>

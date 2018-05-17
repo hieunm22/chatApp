@@ -2,26 +2,10 @@
 /* <span class="_2her _3zzf" title="Sent"><i aria-label="Sent" aria-roledescription="Status icon" class="_57e_" role="img"></i></span> */
 /* <span class="_2her _9ah" title="Delivered"><i aria-label="Delivered" aria-roledescription="Status icon" class="_57e_" role="img"></i></span> */
 /* <span class="_2her _9ah" title="Seen"></span> */
-/* ._9ah */._57e_ { 
-    color: #fff;
-}
-._2her ._57e_ {
-    border: 1px solid #0084ff;
-    border-width: 0 0 1px 1px;
-    display: block;
-    height: 1px;
-    margin-left: 3px;
-    margin-top: 4px;
-    transform: rotate(-45deg);
-    transform-origin: 0% 100%;
-    width: 4px;
-}
-/* ._9ah { */
-    /* background-color: #0084ff; */
-/* } */
+
 ._2her {
     background: none;
-    border: 1px solid #0084ff;
+    border: 1px solid currentColor;
     border-radius: 50%;
     bottom: 1px;
     box-sizing: border-box;
@@ -32,5 +16,21 @@
     right: -15px;
     vertical-align: middle;
     width: 10px;
-    margin-right: 5px;
+}
+._2her ._57e_ {
+    border: 1px solid currentColor;
+    border-width: 0 0 1px 1px;
+    display: block;
+    height: 1px;
+    margin-left: 3px;
+    margin-top: 4px;
+    transform: rotate(-45deg);
+    transform-origin: 0% 100%;
+    width: 4px;
+}
+._9ah {
+    background-color: currentColor;
+}
+._9ah ._57e_ {
+    color: #fff;
 }
