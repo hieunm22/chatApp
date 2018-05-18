@@ -11,7 +11,7 @@ function searchList(loaded) {
             // while (response.indexOf('\n') > 0) response=response.replace('\n','');
 			// console.log(this.responseText);
 			// hiển thị kết quả tìm kiếm
-            if (response == '') 
+            if (response == '')
                 return;
             var json = $.parseJSON(response);
 			if (loaded != undefined) {
@@ -26,7 +26,7 @@ function searchList(loaded) {
 				$('title').text('(' + unreadCount + ') Home');
 			else
 				$('title').text('Home');
-            
+
             // var sl = $('div#search-list').height();
             // var sb = $('div#searchbox').height();
 			// $('div#search-content').css('height', sl - sb);
@@ -49,7 +49,7 @@ function openChat(id) {
         chat.disabled = false;
         chat.focus();
         friend_id = id;
-		
+
 		if ($('div#user' + id + ' > span.chatname').hasClass('unread-txt')) unreadCount--;
 		if (unreadCount > 0)
 			$('title').text('(' + unreadCount + ') Home');
@@ -59,7 +59,7 @@ function openChat(id) {
 		$('div#user' + id + ' > span.chatname').removeClass('unread-txt');
 		$('div#user' + id + ' > span.me').css('color', '#0006');
 		$('div#user' + id).parent().children('div.last-message.unread-txt').removeClass('unread-txt');
-		
+
 		var status = $('div#user' + id).attr('status');
         var tb = $('input#chatmessage');
         if (status == '0') {
@@ -70,7 +70,7 @@ function openChat(id) {
         else {
             tb.attr('disabled', false);
             tb.val('');
-            tb.attr('style', 'display: inherit');            
+            tb.attr('style', 'display: inherit');
         }
         $('#chatmessage').css('width', (Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 510) + 'px');
         if (friend_id != -1) {
@@ -104,16 +104,15 @@ function sendMessage(txt) {
     var d = new Date();
     var h = checkTime(d.getHours());
     var m = checkTime(d.getMinutes());
-    
-    if (txt.trim().length > 0) 
-        // $('div#messagePanel').append('<div class="message-row"><div class="message-content me"><span class="msg-status"><span class="_2her _3zzf" style="color:#' + conversion_color + '" title="Sending"></span></span><span class="user1" style="background-color: #' + conversion_color + '; border-color: #' + conversion_color + '">' + txt + '</span> <span class="tooltiptext me">' + (h + ":" + m) + '</span></div></div>');
+
+    if (txt.trim().length > 0)
         $('div#messagePanel').append('<div class="message-row"><div class="message-content me"><span class="msg-status"><span class="_2her" style="color:#' + conversion_color + '" title="Sending"></span></span> <span class="user1" style="background-color: #' + conversion_color + '; border-color: #' + conversion_color + '">' + txt + '</span> <span class="tooltiptext me">' + (h + ":" + m) + '</span></div></div>');
     $('#chatmessage').val('');
 	if (txt.trim() == '') return;
-    
+
     $.ajax({
         url: "controller/index_sendmessage.php",
-        data: { 
+        data: {
             m: decodeURIComponent(txt.trim().replace('\n', '<br />')),
             f: friend_id,
         },

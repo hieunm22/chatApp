@@ -184,7 +184,7 @@ div.lbl.search-result:active {
 }
 .message-content {
     max-width: 65%;
-    /* margin-bottom: 3px; */
+    margin-right: 2px;
     height:auto;
     display: inline-block;
 }
@@ -203,8 +203,6 @@ div.lbl.search-result:active {
     visibility: visible;
 }
 .user1 {
-    /* background-color: #0084ff; */
-    /* border: 1px solid #0084ff; */
     border-radius: 15px;
     color: #fff;
     float: right;
@@ -228,7 +226,7 @@ div.lbl.search-result:active {
 }
 .msg-status {
     float:right;
-    margin-left: 5px;
+    margin-left: 3px;
     padding-top: 12px;
 }
 .friend {
