@@ -108,6 +108,9 @@ function sendMessage(txt) {
     if (txt.trim().length > 0)
         $('div#messagePanel').append('<div class="message-row"><div class="message-content me"><span class="msg-status"><span class="_2her" style="color:#' + conversion_color + '" title="Sending"></span></span> <span class="user1" style="background-color: #' + conversion_color + '; border-color: #' + conversion_color + '">' + txt + '</span> <span class="tooltiptext me">' + (h + ":" + m) + '</span></div></div>');
     $('#chatmessage').val('');
+    // scroll to end
+    var div = document.getElementById("messagePanel");
+    div.scrollTop = div.scrollHeight;
 	if (txt.trim() == '') return;
 
     $.ajax({
@@ -119,9 +122,6 @@ function sendMessage(txt) {
         dataType: 'html',
         type: 'GET',
         success: function (response) {
-            // scroll to end
-            var div = document.getElementById("messagePanel");
-            div.scrollTop = div.scrollHeight;
             // sending -> sent
             $('span.msg-status:last').html('<span class="_2her _3zzf" style="color:#' + conversion_color + '" title="Sent"><i aria-label="Sent" aria-roledescription="Status icon" class="_57e_" role="img"></i></span>');
             // send xong update lai user list

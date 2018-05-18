@@ -147,7 +147,7 @@ div.lbl.search-result:active {
     position: relative;
     top: 3px;
     left: 25px;
-    padding-top: 5px;
+    /* padding-top: 5px; */
 }
 #colorpicker {
     /* float: right;  */
@@ -240,4 +240,19 @@ div.lbl.search-result:active {
 }
 .unread-time {
     color: #0084ff;
+}
+td.block {
+    width: 75px;
+    height: 75px;
+}
+.dot {
+    width: 75px;
+    height: 75px;
+    /* background-color: #bbb; */
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 5px 5px 0;
+}
+a[role="button"] {
+    cursor: pointer;
 }

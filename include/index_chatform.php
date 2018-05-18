@@ -12,7 +12,8 @@
                         <td id="none" width="33%"></td>
                         <td id="chatname" width="33%" align="center"></td>
                         <td id="colorpicker" width="33%" align="right">
-                            <button class="jscolor { valueElement:null }" style="width:50px; height:20px;" disabled />
+                            <button type="button" data-toggle="modal" data-target="#myModal" style="width: 72px;height: 20px;"></button>
+                            <?php include('include/index_modalbox.php'); ?>
                         </td>
                     </tr>
                 </table>
