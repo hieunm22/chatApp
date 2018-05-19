@@ -89,6 +89,8 @@ function openChat(id) {
             success: function (response) {
                 conversion_color = getCookie('conversion_color');
                 $('button.jscolor').css('background-color', '#' + conversion_color);
+				$('input[data-target="#myModal"]').removeAttr('disabled');
+				$('input[data-target="#myModal"]').css('background-color', '#' + conversion_color);
                 var json = $.parseJSON(response);
                 $('div#messagePanel').html(json.readMsg);
                 var div = document.getElementById("messagePanel");
@@ -138,17 +140,21 @@ function loadMoreMsg() {
     searchList(count);
 }
 
-function changeConversionColor() {
-    var cl = $('button.jscolor').css('background-color');
-    var cl_int = convertColor(cl);
+function changeConversionColor(e) {
+	var _colorIndex = e.target.id.substr(5) - 1;
+	var _intValue = convertColor(e.target.style.backgroundColor);
+	var _hexValue = getHexColor(_intValue);
+	$('span.user1').attr('style', 'background-color: ' + _hexValue + '; border-color: ' + _hexValue);
+	$('input[data-target="#myModal"]').css('background-color', _hexValue);
+	$('span._2her').css('color', _hexValue);
     $.ajax({
         url: "controller/index_changecolor.php",
-        data: { id: friend_id, c: cl_int },
+        data: { id: friend_id, c: _intValue },
         dataType: 'html',
         type: 'GET',
         success: function (response) {
-            $('span.user' + response).attr('style', 'background-color: ' + cl + '; border-color: ' + cl);
-            // console.log(response);
+			// close modal dialog
+			$('#myModal').modal('toggle');
         },
         error: showError
     });

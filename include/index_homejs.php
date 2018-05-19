@@ -33,11 +33,15 @@
                         loadMoreMsg();
                     }
                 });
-                $('div#search-content').on('mouseover', function(e) { 
+                $('div#search-content').on('mouseover', function(e) {
                     $('span.me').css('margin-right', '1px');
                 });
-                $('div#search-content').on('mouseleave', function(e) { 
+                $('div#search-content').on('mouseleave', function(e) {
                     $('span.me').css('margin-right', '17px');
                 });
+                $('td#colorpicker > input[type="button"]').on('click', function(e) {
+                    // console.log(e.target);
+                });
+                $('td.dot').on('click', changeConversionColor);
 			});
 		</script>
