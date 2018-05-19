@@ -20,7 +20,7 @@
 				</table>
 			</div>
 			<div class="modal-footer">
-				<center class="unread-time"><a role="button" data-dismiss="modal">Cancel</a></center>
+				<center class="unread-time"><a class="wide-link" role="button" data-dismiss="modal">Cancel</a></center>
 			</div>
 		</div>
 	</div>

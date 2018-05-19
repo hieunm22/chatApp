@@ -143,7 +143,7 @@ div.lbl.search-result:active {
 #conversionName {
     /* border: 1px solid #b7b3b3; */
     width: 95%;
-    height: 25px;
+    height: 38px;
     position: relative;
     top: 3px;
     left: 25px;
@@ -270,9 +270,10 @@ td.block {
 	font-size: 14px;
     line-height: 18px;
 }
-.dot:hover {
+.dot:hover, a[role="button"] {
     cursor: pointer;
 }
-a[role="button"] {
-    cursor: pointer;
+.wide-link {
+	padding: 10px 180px;
 }
+

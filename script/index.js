@@ -88,9 +88,8 @@ function openChat(id) {
             type: 'GET',
             success: function (response) {
                 conversion_color = getCookie('conversion_color');
-                $('button.jscolor').css('background-color', '#' + conversion_color);
-				$('input[data-target="#myModal"]').removeAttr('disabled');
-				$('input[data-target="#myModal"]').css('background-color', '#' + conversion_color);
+				$('a._30yy').css('display', 'inline');
+				changeConversionObjectsColor();
                 var json = $.parseJSON(response);
                 $('div#messagePanel').html(json.readMsg);
                 var div = document.getElementById("messagePanel");
@@ -143,10 +142,10 @@ function loadMoreMsg() {
 function changeConversionColor(e) {
 	var _colorIndex = e.target.id.substr(5) - 1;
 	var _intValue = convertColor(e.target.style.backgroundColor);
-	var _hexValue = getHexColor(_intValue);
-	$('span.user1').attr('style', 'background-color: ' + _hexValue + '; border-color: ' + _hexValue);
-	$('input[data-target="#myModal"]').css('background-color', _hexValue);
-	$('span._2her').css('color', _hexValue);
+	conversion_color = getHexColor(_intValue);
+	$('span.user1').attr('style', 'background-color: #' + conversion_color + '; border-color: #' + conversion_color);
+	$('span._2her').css('color', '#' + conversion_color);
+	changeConversionObjectsColor();
     $.ajax({
         url: "controller/index_changecolor.php",
         data: { id: friend_id, c: _intValue },

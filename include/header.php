@@ -1,4 +1,4 @@
-		<link rel="stylesheet" type="text/css" href="style/animate.css" />
+<link rel="stylesheet" type="text/css" href="style/animate.css" />
 		<link rel="stylesheet" type="text/css" href="style/home.css" />
 		<link rel="stylesheet" type="text/css" href="style/iconstyle.css" />
 		<link rel="Shortcut Icon" href="images/O6n_HQxozp9.ico" type="image/x-icon" />

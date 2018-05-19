@@ -13,7 +13,7 @@ function blinkText(selector, txt, sender) {
 }
 
 function getHexColor(number){
-    return "#"+((number)>>>0).toString(16).padStart(6, "0");
+    return ((number)>>>0).toString(16).padStart(6, "0");
 }
 
 function convertColor(color){
@@ -44,10 +44,17 @@ function resizeWindow() {
     $('div#search-list').css('height', (h - 100) + 'px');
     $('div#chatmain').css('width', (w - 360) + 'px');
     $('div#chatmain').css('height', (h - 100) + 'px');
-    $('div#messagePanel').css('height', (h - 200) + 'px');
+    $('div#messagePanel').css('height', (h - 210) + 'px');
     $('#chatmessage').css('width', (w - 510) + 'px');
 }
 
 function showError(data) {
     console.log(data.responseText);
+}
+
+function changeConversionObjectsColor() {
+	$('svg').css('stroke', '#' + conversion_color);
+	$('polygon').css('fill', '#' + conversion_color);
+	$('circle').css('fill', '#' + conversion_color);
+	$('path').css('stroke', '#' + conversion_color);
 }
