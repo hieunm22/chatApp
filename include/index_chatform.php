@@ -11,7 +11,8 @@
                     <tr>
                         <td id="none" width="33%"></td>
                         <td id="chatname" width="33%" align="center"></td>
-                        <td id="colorpicker" width="33%" align="right">
+                        <td id="empty" width="30%" align="center"></td>
+                        <td id="colorpicker" width="32px" align="right">
 							<a aria-label="Conversation color" class="_30yy" role="button" title="Conversation color" aria-expanded="false" data-testid="info_panel_button" data-toggle="modal" data-target="#myModal" style="display:none">
 								<div style="height: 32px; width: 32px;">
 									<svg viewBox="0 0 64 64" style="stroke: #0084ff;">
