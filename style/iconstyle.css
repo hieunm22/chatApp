@@ -1,8 +1,3 @@
-/* <span class="_2her _3zzf" title="Sending"></span> */
-/* <span class="_2her _3zzf" title="Sent"><i aria-label="Sent" aria-roledescription="Status icon" class="_57e_" role="img"></i></span> */
-/* <span class="_2her _9ah" title="Delivered"><i aria-label="Delivered" aria-roledescription="Status icon" class="_57e_" role="img"></i></span> */
-/* <span class="_2her _9ah" title="Seen"></span> */
-
 ._2her {
     background: none;
     border: 1px solid currentColor;
@@ -38,4 +33,25 @@
 ._30yy {
     cursor: pointer;
     transition: opacity .2s;
+}
+._gs2 {
+    margin-left: 15px;
+    margin-top: 16px;
+    position: absolute;
+}
+.sp_tRueZ17UPsM.sx_4affb5 {
+    width: 30px;
+    height: 30px;
+    background-position: 0 -242px;
+}
+i.img {
+    -ms-high-contrast-adjust: none;
+}
+.sp_tRueZ17UPsM {
+    /* background-image: url(/rsrc.php/v3/yu/r/pIIGjbERR7h.png); */
+    background-size: auto;
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 16px;
+    width: 16px;
 }

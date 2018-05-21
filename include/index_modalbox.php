@@ -2,7 +2,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-body">
-				<h2 class="pickColorLB alias">Pick a color for this conversation</h2>
+				<h2 class="pickColorLB popup-title">Pick a color for this conversation</h2>
 				<div class="visibilityLB">Everyone in this conversation will see this.</div>
 <table width="100%">
 				<?php
@@ -12,7 +12,7 @@
 					for ($r = 0; $r < 3; $r++) {
 						echo '<tr>';
 						for ($c = 0; $c < 5; $c++) {
-							echo '<td class="dot" id="color'.(5 * $r + $c + 1).'" style="background-color: '.$arr_color[5 * $r + $c].'"></td>';
+							echo '<td class="dot" id="color'.substr("0".(5 * $r + $c + 1),-2).'" style="background-color: '.$arr_color[5 * $r + $c].'"><i class="_gs2 img sp_tRueZ17UPsM sx_4affb5" alt=""></i></td>';
 						}
 						echo '</tr>';
 					}
@@ -20,7 +20,7 @@
 				</table>
 			</div>
 			<div class="modal-footer">
-				<center class="unread-time"><a class="wide-link" role="button" data-dismiss="modal">Cancel</a></center>
+				<center class="unread-time"><a class="wide-link" role="button" data-dismiss="modal">Huỷ</a></center>
 			</div>
 		</div>
 	</div>

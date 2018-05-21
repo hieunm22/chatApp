@@ -7,9 +7,6 @@ function searchList(loaded) {
         dataType: 'html',
         type: 'GET',
         success: function (response) {
-            // while (response.indexOf('\r') > 0) response=response.replace('\r','');
-            // while (response.indexOf('\n') > 0) response=response.replace('\n','');
-			// console.log(this.responseText);
 			// hiển thị kết quả tìm kiếm
             if (response == '')
                 return;
@@ -124,7 +121,7 @@ function sendMessage(txt) {
         type: 'GET',
         success: function (response) {
             // sending -> sent
-            $('span.msg-status:last').html('<span class="_2her _3zzf" style="color:#' + conversion_color + '" title="Sent"><i aria-label="Sent" aria-roledescription="Status icon" class="_57e_" role="img"></i></span>');
+            $('span.msg-status:last').html('<span class="_2her" style="color:#' + conversion_color + '" title="Sent"><i aria-label="Sent" aria-roledescription="Status icon" class="_57e_" role="img"></i></span>');
             // send xong update lai user list
             $('div#search-content').html(response);
         },
@@ -135,12 +132,12 @@ function sendMessage(txt) {
 function loadMoreMsg() {
     var count = $('div#search-content').children().length;
     // var count = $('div.lbl.search-result').length;
-    if (count < 10) return;
+    if (count < 15 || $('input#searchtb').val() != '') return;
     searchList(count);
 }
 
 function changeConversionColor(e) {
-	var _colorIndex = e.target.id.substr(5) - 1;
+	// var _colorIndex = e.target.id.substr(5) - 1;
 	var _intValue = convertColor(e.target.style.backgroundColor);
 	conversion_color = getHexColor(_intValue);
 	$('span.user1').attr('style', 'background-color: #' + conversion_color + '; border-color: #' + conversion_color);

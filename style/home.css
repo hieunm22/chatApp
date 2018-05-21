@@ -232,7 +232,7 @@ div.lbl.search-result:active {
 .friend {
     float: left;
 }
-.alias {
+.alias, .popup-title{
     font-weight: bold;
 }
 .unread-txt {
@@ -246,8 +246,8 @@ td.block {
     height: 75px;
 }
 .dot {
-    width: 75px;
-    height: 75px;
+    width: 72px;
+    height: 72px;
     /* background-color: #bbb; */
     border-radius: 50%;
     display: inline-block;
@@ -276,4 +276,3 @@ td.block {
 .wide-link {
 	padding: 10px 180px;
 }
-
