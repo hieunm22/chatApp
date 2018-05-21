@@ -27,12 +27,12 @@
 		}
 		else {
 			$msgrow = sprintf('<div class="message-row"><div class="message-content friend"><span class="user2">%s</span> <span class="tooltiptext friend">%s</span></div></div>', $row["message_content"], $row['time']);
-			$readMsg .= $msgrow;
+			// $readMsg .= $msgrow;
 			// tạm thời bỏ
-			// if ($row['status'] == 3)
-				// $readMsg .= $msgrow;
-			// else
-				// $unreadMsg .= $msgrow;
+			if ($row['status'] == 3)
+				$readMsg .= $msgrow;
+			else
+				$unreadMsg .= $msgrow;
 		}
     }
 	$obj = new stdClass();

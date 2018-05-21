@@ -39,9 +39,9 @@
                 $('div#search-content').on('mouseleave', function(e) {
                     $('span.me').css('margin-right', '17px');
                 });
-                $('td#colorpicker > input[type="button"]').on('click', function(e) {
-                    // console.log(e.target);
-                });
                 $('td.dot').on('click', changeConversionColor);
+				$('#myModal').on('show.bs.modal', function () {
+					checkConversionColor();
+				});
 			});
 		</script>
