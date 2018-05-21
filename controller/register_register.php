@@ -47,9 +47,9 @@
         $query = mysqli_query($con, $sql);
 		$row = mysqli_fetch_array($query);
         $_SESSION['user'] = $row;
-        if (!file_exists('../users/'.$row["name"])) {
-            mkdir('../users/'.$row["name"], 0777, true);
-            $myfile = fopen("../users/".$row['name'].'/index.php', "w") or die("Unable to open file!");
+        if (!file_exists('../users/'.$row["id"])) {
+            mkdir('../users/'.$row["id"], 0777, true);
+            $myfile = fopen("../users/".$row['id'].'/index.php', "w") or die("Unable to open file!");
             $txt = "<html>
     <head>
         <title>".$row['alias']."</title>

@@ -2,8 +2,10 @@
     $sql = "select * from `users`";
     $query = mysqli_query($con, $sql);
     while ($row = mysqli_fetch_array($query)) {
-        $myfile = fopen("users/".$row['name'].'/index.php', "w") or die("Unable to open file!");
-        $txt = "
+        if (!file_exists('users/'.$row["id"])) {
+            mkdir('users/'.$row["id"], 0777, true);
+            $myfile = fopen("users/".$row['id'].'/index.php', "w") or die("Unable to open file!");
+            $txt = "
 <html>
     <head>
         <title>".$row['alias']."</title>
@@ -11,7 +13,8 @@
     <body>
     </body>
 </html>";
-        fwrite($myfile, $txt);
-        fclose($myfile);
+            fwrite($myfile, $txt);
+            fclose($myfile);
+        }
     }
 ?>
