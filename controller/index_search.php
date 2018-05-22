@@ -30,7 +30,7 @@
             if ($isunread) $unreadCount++;
             $txt_unread = $isunread ? ' unread-txt' : '';
             $html .= '<div class="lbl search-result" draggable="true">
-        <div id="user'.$row["id"].'" class="username-search" status="'.$row["usrstatus"].'"><span class="chatname'.$txt_unread.'">'.$row["alias"].'</span> <span class="me" style="color: '.($isunread ? '#0084ff' : '#0006').'; margin-right: 17px;" title="'.$row['date'].'">'.$row['time'].'</span></div>
+        <div id="user'.$row["id"].'" class="username-search" status="'.$row["usrstatus"].'"><span class="chatname'.$txt_unread.'">'.$row["display_name"].'</span> <span class="me" style="color: '.($isunread ? '#0084ff' : '#0006').'; margin-right: 17px;" title="'.$row['date'].'">'.$row['time'].'</span></div>
         <div class="last-message'.$txt_unread.'">'.($id == $row["last_sender_id"] ? 'You: ' : '').$msg.'</div>
             </div>';
         }
@@ -40,7 +40,7 @@
         $query = mysqli_query($con, $sql);
         while ($row = mysqli_fetch_array($query)) {
             $html .= '<div class="lbl search-result-text" draggable="true">
-        <div id="user'.$row["id"].'" class="username-search"><span class="chatname">'.$row["alias"].'</span></div>
+        <div id="user'.$row["id"].'" class="username-search"><span class="chatname">'.$row["display_name"].'</span></div>
             </div>';
         }
     }

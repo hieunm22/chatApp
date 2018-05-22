@@ -1,7 +1,6 @@
 <?php
     $con->query("call markAsRead(".$uid.", ".$fid.")");
-    $sql = "call displayMessage(".$uid." , ".$fid.")";
-	$query = $con->query($sql);
+	$query = $con->query("call displayMessage(".$uid." , ".$fid.")");
     $msgrow = '';
     $readMsg = '';
     $unreadMsg = '';

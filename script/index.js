@@ -138,7 +138,7 @@ function loadMoreMsg() {
 
 function changeConversionColor(e) {
 	// var _colorIndex = e.target.id.substr(5) - 1;
-	var _intValue = convertColor(!e.target.style.backgroundColor ? e.target.parentElement.style.backgroundColor : e.target.style.backgroundColor);
+	var _intValue = convertColor(e.target.style.backgroundColor || e.target.parentElement.style.backgroundColor);
 	conversion_color = getHexColor(_intValue);
 	$('span.user1').attr('style', 'background-color: #' + conversion_color + '; border-color: #' + conversion_color);
 	$('span._2her').css('color', '#' + conversion_color);
