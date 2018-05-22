@@ -9,8 +9,8 @@
 			include('default.php');
 			session_start();
             if (!isset($_SESSION["user"])) {
-				include('include/non_authorize.php');
-				include('include/close_tag.php');
+				include('include/non_authorize.html');
+				include('include/close_tag.html');
                 return;
             }
             $user = $_SESSION["user"];

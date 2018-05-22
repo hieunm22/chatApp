@@ -29,7 +29,8 @@
                     include('include/index_chatform.php');
                 }
 				else {
-					include('include/index_loginform.php');
+					include('include/index_loginform.html');
+                    include('include/index_script.php');
 				}
             }
 ?>
