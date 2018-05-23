@@ -10,7 +10,6 @@
 			session_start();
             if (!isset($_SESSION["user"])) {
 				include('include/non_authorize.html');
-				include('include/close_tag.html');
                 return;
             }
             $user = $_SESSION["user"];
