@@ -253,7 +253,7 @@ td.dot {
     display: inline-block;
     margin: 0 5px 5px 0;
 }
-#myModal1, #myModal2 {
+#myModal, #myModal2 {
 	text-align: left;
 }
 .modal-row1 {

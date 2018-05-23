@@ -27,7 +27,7 @@
 							<?php include('include/index_modalbox.php'); ?>
 							<?php include('include/index_editnickname.php'); ?>
 							<div id="myDropdown" class="dropdown-content">
-								<a class="dropdown-row" aria-label="Conversation color" role="button" title="Conversation color" aria-expanded="false" data-testid="info_panel_button1" data-toggle="modal" data-target="#myModal1">Đổi màu cuộc hội thoại</a>
+								<a class="dropdown-row" aria-label="Conversation color" role="button" title="Conversation color" aria-expanded="false" data-testid="info_panel_button1" data-toggle="modal" data-target="#myModal">Đổi màu cuộc hội thoại</a>
 								<a class="dropdown-row" aria-label="Edit nick names" role="button" title="Edit nick names" aria-expanded="false" data-testid="info_panel_button2" data-toggle="modal" data-target="#myModal2">Đổi nick name</a>
 							</div>
                         </td>
