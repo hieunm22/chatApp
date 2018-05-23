@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>chatApp</title>
-		<?php include('include/header.php');?>
+		<?php include('include/header.html');?>
 	</head>
 	<body>
 		<?php

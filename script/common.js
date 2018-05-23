@@ -58,3 +58,24 @@ function changeConversionObjectsColor() {
 	$('circle').css('fill', '#' + conversion_color);
 	$('path').css('stroke', '#' + conversion_color);
 }
+
+function showDropDown() {
+    document.getElementById("myDropdown").classList.toggle("show");
+	// $('.dropdown-row:hover').attr('style', 'background-color: #' + conversion_color);
+}
+
+window.onclick = function(e) {
+	if ($(e.target).parents('._30yy').length == 0) {
+		var dropdowns = document.getElementsByClassName("dropdown-content");
+		var i;
+		for (i = 0; i < dropdowns.length; i++) {
+			var openDropdown = dropdowns[i];
+			if (openDropdown.classList.contains('show')) {
+				openDropdown.classList.remove('show');
+			}
+		}
+	}
+}
+
+
+

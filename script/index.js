@@ -156,6 +156,10 @@ function changeConversionColor(e) {
     });
 }
 
+function editnickname(e) {
+	// $('#myModal2').modal('toggle');
+}
+
 function checkConversionColor() {
 	$('td.dot').html('');
 	$('td.dot[style="background-color: #' + conversion_color + '"]').html('<i class="_gs2 img sp_tRueZ17UPsM sx_4affb5" alt=""></i>');

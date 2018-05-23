@@ -13,7 +13,7 @@
                         <td id="chatname" width="33%" align="center"></td>
                         <td id="empty" width="30%" align="center"></td>
                         <td id="colorpicker" width="32px" align="right">
-							<a aria-label="Conversation color" class="_30yy" role="button" title="Conversation color" aria-expanded="false" data-testid="info_panel_button" data-toggle="modal" data-target="#myModal" style="display:none">
+							<a class="_30yy" style="display:none">
 								<div style="height: 32px; width: 32px;">
 									<svg viewBox="0 0 64 64" style="stroke: #0084ff;">
 										<g>
@@ -24,7 +24,12 @@
 									</svg>
 								</div>
 							</a>
-                            <?php include('include/index_modalbox.php'); ?>
+							<?php include('include/index_modalbox.php'); ?>
+							<?php include('include/index_editnickname.php'); ?>
+							<div id="myDropdown" class="dropdown-content">
+								<a class="dropdown-row" aria-label="Conversation color" role="button" title="Conversation color" aria-expanded="false" data-testid="info_panel_button1" data-toggle="modal" data-target="#myModal1">Đổi màu cuộc hội thoại</a>
+								<a class="dropdown-row" aria-label="Edit nick names" role="button" title="Edit nick names" aria-expanded="false" data-testid="info_panel_button2" data-toggle="modal" data-target="#myModal2">Đổi nick name</a>
+							</div>
                         </td>
                     </tr>
                 </table>
@@ -35,4 +40,3 @@
         </div>
 
         <?php include('include/index_script.php'); ?>
-		

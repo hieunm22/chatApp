@@ -152,6 +152,10 @@ div.lbl.search-result:active {
 #colorpicker {
     /* float: right;  */
 }
+#chatname {
+    vertical-align: top;
+    padding-top: 5px;
+}
 #messagePanel {
     border: 1px solid #b7b3b3;
     overflow-y: scroll;
@@ -249,7 +253,7 @@ td.dot {
     display: inline-block;
     margin: 0 5px 5px 0;
 }
-#myModal {
+#myModal1, #myModal2 {
 	text-align: left;
 }
 .modal-row1 {
@@ -272,3 +276,49 @@ td.dot {
 .wide-link {
 	padding: 10px 180px;
 }
+
+
+
+
+
+
+
+
+
+
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+display: none;
+    position: fixed;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 60px;
+}
+
+/* Links inside the dropdown */
+.dropdown-row {
+    color: black;
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+    z-index: -1;
+    text-align: left;
+	cursor: pointer;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-row:hover {
+	background-color: #ddd;
+	text-decoration: none;
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
