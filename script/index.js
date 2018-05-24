@@ -77,7 +77,8 @@ function openChat(id) {
         else {
             $('#chatname').text('');
         }
-		$('button.jscolor').attr('disabled', friend_id == -1);
+		$('a#row3').attr('href', 'profile.php?id=' + friend_id);
+		$('a#row3').attr('target', '_blank');
         $.ajax({
             url: "controller/index_openchat.php",
             data: { id: id },
