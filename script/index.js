@@ -158,7 +158,12 @@ function changeConversionColor(e) {
 }
 
 function editnickname(e) {
-	// $('#myModal2').modal('toggle');
+	if (e.currentTarget.style.cursor != "text") {
+		$('input[id^="nickname"]').attr('style', '');
+		e.currentTarget.style.cursor = "text";
+		e.currentTarget.style.border = "1px solid #f1f1f1";
+		e.currentTarget.readOnly = false;
+	}
 }
 
 function checkConversionColor() {

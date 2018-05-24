@@ -276,7 +276,21 @@ td.dot {
 .wide-link {
 	padding: 10px 180px;
 }
-
+.full-width {
+    width: 100%;
+}
+input[type="text"]#nickname1, input[type="text"]#nickname2  {
+    width: 100%;
+	border: none;
+	border-radius: 0;
+}
+input[type="text"]#nickname1:hover, input[type="text"]#nickname2:hover {
+	background-color: white;
+	cursor: pointer;
+}
+input[type="text"]#nickname1:focus, input[type="text"]#nickname2:focus {
+	background-color: white;
+}
 
 
 
