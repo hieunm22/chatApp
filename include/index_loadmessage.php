@@ -4,6 +4,7 @@
     $msgrow = '';
     $readMsg = '';
     $unreadMsg = '';
+    $friendname = '';
     while ($row = mysqli_fetch_array($query)) {
         $color = toColor($row["message_color"]);
         $stt = $row['status'];
@@ -26,6 +27,7 @@
 		}
 		else {
 			$msgrow = sprintf('<div class="message-row"><div class="message-content friend"><span class="user2">%s</span> <span class="tooltiptext friend">%s</span></div></div>', $row["message_content"], $row['time']);
+			$friendname = $row['alias'];
 			// $readMsg .= $msgrow;
 			// tạm thời bỏ
 			if ($row['status'] == 3)
@@ -37,5 +39,6 @@
 	$obj = new stdClass();
 	$obj->readMsg = $readMsg;
 	$obj->unreadMsg = $unreadMsg;
+	$obj->friendname = $friendname;
     echo json_encode($obj);
 ?>

@@ -39,6 +39,7 @@ function searchList(loaded) {
 }
 
 var friend_id = -1;
+var friendName = '';
 var conversion_color = "0084ff";
 function openChat(id) {
     var chat = document.getElementById('chatmessage')
@@ -93,6 +94,7 @@ function openChat(id) {
                 var div = document.getElementById("messagePanel");
                 if (div) div.scrollTop = div.scrollHeight;
                 $('div#messagePanel').append(json.unreadMsg);
+				friendName = json.friendname;
             },
             error: showError
         });
@@ -151,22 +153,49 @@ function changeConversionColor(e) {
         type: 'GET',
         success: function (response) {
 			// close modal dialog
-			$('#myModal').modal('toggle');
+			$('#myModal1').modal('toggle');
         },
         error: showError
     });
+}
+
+function checkConversionColor() {
+	$('td.dot').html('');
+	$('td.dot[style="background-color: #' + conversion_color + '"]').html('<i class="_gs2 img sp_tRueZ17UPsM sx_4affb5" alt=""></i>');
 }
 
 function editnickname(e) {
 	if (e.currentTarget.style.cursor != "text") {
 		$('input[id^="nickname"]').attr('style', '');
 		e.currentTarget.style.cursor = "text";
-		e.currentTarget.style.border = "1px solid #f1f1f1";
+		e.currentTarget.style.border = "1px solid #d0c9c9";
 		e.currentTarget.readOnly = false;
 	}
 }
 
-function checkConversionColor() {
-	$('td.dot').html('');
-	$('td.dot[style="background-color: #' + conversion_color + '"]').html('<i class="_gs2 img sp_tRueZ17UPsM sx_4affb5" alt=""></i>');
+function loadNickNames() {
+	var friendElem = document.getElementById('nickname2');
+	var friendname = $('.active-msg > .username-search > .chatname').text();
+	friendElem.value = friendname;
+	friendElem.placeholder = friendName;
+	$('input[id^="nickname"]').attr('style', '');
+}
+
+function changeNickNames() {
+	var me = $('input#nickname1').val() || $('input#nickname1').attr('placeholder');
+	var fr = $('input#nickname2').val() || $('input#nickname2').attr('placeholder');
+    $.ajax({
+        url: "controller/index_changenicknames.php",
+        data: { fid: friend_id, nick1: me, nick2: fr },
+        dataType: 'html',
+        type: 'GET',
+        success: function (response) {
+			// close modal dialog
+			// $('#myModal2').modal('toggle');
+			$('td#chatname').text(fr);
+			$('div#user' + friend_id + ' > span.chatname').text(fr);
+			// console.log(response);
+        },
+        error: showError
+    });
 }

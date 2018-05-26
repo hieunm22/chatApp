@@ -253,7 +253,7 @@ td.dot {
     display: inline-block;
     margin: 0 5px 5px 0;
 }
-#myModal, #myModal2 {
+#myModal1, #myModal2 {
 	text-align: left;
 }
 .modal-row1 {
@@ -275,6 +275,9 @@ td.dot {
 }
 .wide-link {
 	padding: 10px 180px;
+}
+.normal-link {
+	padding: 10px 50px;
 }
 .full-width {
     width: 100%;

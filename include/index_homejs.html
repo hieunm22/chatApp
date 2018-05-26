@@ -40,14 +40,17 @@
                     $('span.me').css('margin-right', '17px');
                 });
                 $('td.dot').on('click', changeConversionColor);
-				$('#myModal').on('show.bs.modal', function () {
+				$('#myModal1').on('show.bs.modal', function () {
 					checkConversionColor();
 				});
 				$('#myModal2').on('show.bs.modal', function () {
-					//editnickname();
+					loadNickNames();
 				});
 				$('a._30yy').on('click', function () {
 					showDropDown();
+				});
+				$('a#save-nickname').on('click', function () {
+					changeNickNames();
 				});
 				$('input[type="text"]#nickname1, input[type="text"]#nickname2').on('click', editnickname);
 			});
