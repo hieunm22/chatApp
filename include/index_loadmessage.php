@@ -1,10 +1,12 @@
 <?php
-    $con->query("call markAsRead(".$uid.", ".$fid.")");
-	$query = $con->query("call displayMessage(".$uid." , ".$fid.")");
+	$query = $con->query("call openChat(".$uid." , ".$fid.")");
     $msgrow = '';
     $readMsg = '';
     $unreadMsg = '';
     $friendname = '';
+    $mename = '';
+    $display_fr = '';
+    $display_me = '';
     while ($row = mysqli_fetch_array($query)) {
         $color = toColor($row["message_color"]);
         $stt = $row['status'];
@@ -20,6 +22,8 @@
                 // break;
         }
 		if ($uid == $row['sender_id']) {
+			$mename = $row['alias'];
+			$display_me = $row['display_name'];
 			$msgrow = sprintf('<div class="message-row"><div class="message-content me"><span class="msg-status">%s</span> <span class="user1" style="background-color: #%s; border-color: #%s">%s</span> <span class="tooltiptext me">%s</span></div></div>', $icon, $color, $color, $row["message_content"], $row['time']);
             setcookie('conversion_color', $color, time() + 86400, "/");
 			// mình đã là người gửi thì message đó phải đánh dấu là đã đọc
@@ -28,6 +32,7 @@
 		else {
 			$msgrow = sprintf('<div class="message-row"><div class="message-content friend"><span class="user2">%s</span> <span class="tooltiptext friend">%s</span></div></div>', $row["message_content"], $row['time']);
 			$friendname = $row['alias'];
+			$display_fr = $row['display_name'];
 			// $readMsg .= $msgrow;
 			// tạm thời bỏ
 			if ($row['status'] == 3)
@@ -40,5 +45,8 @@
 	$obj->readMsg = $readMsg;
 	$obj->unreadMsg = $unreadMsg;
 	$obj->friendname = $friendname;
+	$obj->mename = $mename;
+	$obj->display_me = $display_me;
+	$obj->display_fr = $display_fr;
     echo json_encode($obj);
 ?>

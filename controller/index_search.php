@@ -40,7 +40,7 @@
         $query = mysqli_query($con, $sql);
         while ($row = mysqli_fetch_array($query)) {
             $html .= '<div class="lbl search-result-text" draggable="true">
-        <div id="user'.$row["id"].'" class="username-search"><span class="chatname">'.$row["display_name"].'</span></div>
+        <div id="user'.$row["id"].'" class="username-search"><span class="chatname">'.$row["alias"].'</span></div>
             </div>';
         }
     }

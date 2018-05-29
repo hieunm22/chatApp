@@ -40,6 +40,9 @@ function searchList(loaded) {
 
 var friend_id = -1;
 var friendName = '';
+var meName = '';
+var disFr = '';
+var disMe = '';
 var conversion_color = "0084ff";
 function openChat(id) {
     var chat = document.getElementById('chatmessage')
@@ -95,6 +98,9 @@ function openChat(id) {
                 if (div) div.scrollTop = div.scrollHeight;
                 $('div#messagePanel').append(json.unreadMsg);
 				friendName = json.friendname;
+				disFr = json.display_fr;
+				meName = json.mename;
+				disMe = json.display_me;
             },
             error: showError
         });
@@ -174,9 +180,12 @@ function editnickname(e) {
 }
 
 function loadNickNames() {
+	var meElem = document.getElementById('nickname1');
+	meElem.value = disMe;
+	meElem.placeholder = meName;
 	var friendElem = document.getElementById('nickname2');
-	var friendname = $('.active-msg > .username-search > .chatname').text();
-	friendElem.value = friendname;
+	// var friendname = $('.active-msg > .username-search > .chatname').text();
+	friendElem.value = disFr;
 	friendElem.placeholder = friendName;
 	$('input[id^="nickname"]').attr('style', '');
 }

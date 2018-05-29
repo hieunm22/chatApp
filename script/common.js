@@ -35,7 +35,7 @@ function checkTime(i) {
 function getCookie(name) {
     var parts = decodeURIComponent(document.cookie).split("; ");
     var filter = parts.filter(function(v) { return v.startsWith("conversion_color="); });
-    return filter[filter.length - 1].substr(17);
+    return filter.length > 0 ? filter[filter.length - 1].substr(17) : '#0084ff';
 }
 
 function resizeWindow() {
