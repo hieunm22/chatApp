@@ -30,6 +30,7 @@
             if ($isunread) $unreadCount++;
             $txt_unread = $isunread ? ' unread-txt' : '';
             $html .= '<div class="lbl search-result" draggable="true">
+		<div class="avatar-img"><img src="images\\\\'.($row["gender"] == 1 ? '2Q==.jpg' : '9k=.jpg').'" style="width: 50px; height: 50px;"></div>
         <div id="user'.$row["id"].'" class="username-search" status="'.$row["usrstatus"].'"><span class="chatname'.$txt_unread.'">'.$row["display_name"].'</span> <span class="me" style="color: '.($isunread ? '#0084ff' : '#0006').'; margin-right: 17px;" title="'.$row['date'].'">'.$row['time'].'</span></div>
         <div class="last-message'.$txt_unread.'">'.($id == $row["last_sender_id"] ? 'You: ' : '').$msg.'</div>
             </div>';
