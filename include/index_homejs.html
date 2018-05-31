@@ -25,7 +25,7 @@
 					$('div.lbl.search-result').removeClass('active-msg');
 					$('div.lbl.search-result-text').removeClass('active-msg');
 					this.classList.add('active-msg');
-					var id = this.querySelector('div').id.substr(4);
+					var id = this.querySelector('div.username-search').id.substr(4);
 					openChat(+id);
 				});
                 $('div#search-content').scroll(function() {
