@@ -86,13 +86,13 @@ div#info {
     border: 1px solid #b7b3b3;
     /* border-radius: 10px; */
     /* overflow-y: scroll; */
-	width: 300px;
+	width: 320px;
 	height: 100%;
     display: inline-block;
 	margin-top: 25px;
 }
-#searchbox {
-}
+/*#searchbox {
+}*/
 #search-content {
     overflow: hidden;
     height: 95%;
@@ -114,8 +114,8 @@ div#info {
 }
 div.lbl.search-result-text {
 	/* border: 1px solid; */
-	width: 93%;	/* if included scroll */
-	/* width: 96%; */
+	/* width: 93%;	if included scroll */
+	width: 96%;
 	height: 30px;
 	padding: 0 5px 0 15px ;
 	cursor: pointer;
@@ -125,11 +125,12 @@ div.lbl.search-result-text:hover {
 }
 div.lbl.search-result {
 	/* border: 1px solid; */
-	width: 93%;	/* if included scroll */
-	/* width: 96%; */
+	/*width: 93%;	if included scroll */
+	width: 96%;
 	height: 50px;
-	padding: 0 5px 0 15px ;
+	padding: 0 5px 0 5px ;
 	cursor: pointer;
+	padding: 5px;
 }
 div.lbl.search-result:hover {
 	background-color: #f2f2f2;
@@ -149,12 +150,16 @@ div.lbl.search-result:active {
     left: 25px;
     /* padding-top: 5px; */
 }
-#colorpicker {
-    /* float: right;  */
-}
-#chatname {
+.chatname {
     vertical-align: top;
     padding-top: 5px;
+    padding-left: 7px;
+}
+.last-message {
+    vertical-align: bottom;
+    /* padding-top: 5px; */
+    padding-left: 7px;
+    float: left;
 }
 #messagePanel {
     border: 1px solid #b7b3b3;
@@ -295,7 +300,14 @@ input[type="text"]#nickname1:focus, input[type="text"]#nickname2:focus {
 	background-color: white;
 }
 .avatar-img {
-	display: none;
+	width: 50px;
+	height: 50px;
+	float: left;
+}
+.img-search {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
 }
 
 
