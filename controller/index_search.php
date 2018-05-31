@@ -12,6 +12,7 @@
     $html = '';
     
     if (trim($t)==='') {
+        $con->query("call markAsReceived($id)");
         $sql = sprintf("call searchUsers(%u, %u)", $id, $l);
         $query = mysqli_query($con, $sql);
         $rowcount = mysqli_num_rows($query);

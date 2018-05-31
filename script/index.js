@@ -44,7 +44,7 @@ var meName = '';
 var disFr = '';
 var disMe = '';
 var conversion_color = "0084ff";
-function openChat(id) {
+function openChat(id, interval) {
     var chat = document.getElementById('chatmessage')
     if (chat) {
         chat.disabled = false;
@@ -70,7 +70,7 @@ function openChat(id) {
         }
         else {
             tb.attr('disabled', false);
-            tb.val('');
+            if (!interval) tb.val('');
             tb.attr('style', 'display: inherit');
         }
         $('#chatmessage').css('width', (Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 510) + 'px');
