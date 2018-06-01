@@ -54,11 +54,11 @@
 				});
 				$('input[type="text"]#nickname1, input[type="text"]#nickname2').on('click', editnickname);
 			});
-            setInterval(function() {
-                searchList();
-                var currentFocus = $('.active-msg > div.username-search').attr('id').substr(4);
-                if (currentFocus == friend_id) {
-                    openChat(friend_id, true);
-                }
-            }, 1500);
+            // setInterval(function() {
+                // searchList();
+                // var currentFocus = $('.active-msg > div.username-search').attr('id');
+                // if (currentFocus && currentFocus.substr(4) == friend_id) {
+                    // openChat(friend_id, true);
+                // }
+            // }, 1500);
 		</script>

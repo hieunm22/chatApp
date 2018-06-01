@@ -20,7 +20,12 @@
                 break;
             // case 3: $icon = '<span class="_2her _9ah" style="color:#'.$color.'" title="Seen"></span>';
                 // break;
+            case 3: $icon = '<span class="_4jzq _jf5"><img class="_jf2 img" alt="Seen by '.$row['alias'].' at 17:27" src="images/'.$fid.'.jpg" title="Seen by '.$row['alias'].' at 17:27"></span>';
+                break;
         }
+		if (($stt < 3 && $uid != $row['sender_id']) || $stt == 3)
+			$icon = '<span class="_4jzq _jf5"><img class="_jf2 img" alt="Seen by '.$row['alias'].' at 17:27" src="images/'.$fid.'.jpg" title="Seen by '.$row['alias'].' at 17:27"></span>';
+			
 		if ($uid == $row['sender_id']) {
 			$mename = $row['alias'];
 			$display_me = $row['display_name'];
@@ -30,7 +35,7 @@
 			$readMsg .= $msgrow;
 		}
 		else {
-			$msgrow = sprintf('<div class="message-row"><div class="message-content friend"><span class="user2">%s</span> <span class="tooltiptext friend">%s</span></div></div>', $row["message_content"], $row['time']);
+			$msgrow = sprintf('<div class="message-row"><div class="message-content friend"><span class="msg-status">%s</span> <span class="user2">%s</span> <span class="tooltiptext friend">%s</span></div></div>', $icon, $row["message_content"], $row['time']);
 			$friendname = $row['alias'];
 			$display_fr = $row['display_name'];
 			// $readMsg .= $msgrow;

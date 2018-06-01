@@ -101,6 +101,8 @@ function openChat(id, interval) {
 				disFr = json.display_fr;
 				meName = json.mename;
 				disMe = json.display_me;
+				var msgstt = $('._4jzq._jf5:not(:last)');
+				if (msgstt.length > 0) msgstt.css('display', 'none');
             },
             error: showError
         });

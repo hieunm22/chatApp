@@ -124,13 +124,12 @@ div.lbl.search-result-text:hover {
 	background-color: #f2f2f2;
 }
 div.lbl.search-result {
-	/* border: 1px solid; */
+    /* border: 1px solid; */
 	/*width: 93%;	if included scroll */
-	width: 96%;
-	height: 50px;
-	padding: 0 5px 0 5px ;
-	cursor: pointer;
-	padding: 5px;
+    width: 96%;
+    height: 55px;
+    padding: 5px 5px 0 5px;
+    cursor: pointer;
 }
 div.lbl.search-result:hover {
 	background-color: #f2f2f2;

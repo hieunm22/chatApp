@@ -55,3 +55,31 @@
     height: 16px;
     width: 16px;
 }
+
+img.img:last {
+	display: block;
+}
+img.img:not(:last) {
+	display: none;
+}
+
+._4jzq {
+    bottom: 0;
+    margin: 0;
+    position: absolute;
+    bottom: 0;
+    clear: both;
+    float: right;
+    right: -18px;
+	margin-right: 10px;
+}
+img {
+    border: 0;
+}
+._jf2 {
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    margin-left: 3px;
+    vertical-align: middle;
+}
