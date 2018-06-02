@@ -10,6 +10,7 @@
     while ($row = mysqli_fetch_array($query)) {
         $color = toColor($row["message_color"]);
         $stt = $row['status'];
+        $rdt = $row['read_time'];
         $icon = '';
         switch ($stt) {
             case 0: $icon = '<span class="_2her" style="color:#'.$color.'" title="Sending"></span>';
@@ -20,11 +21,11 @@
                 break;
             // case 3: $icon = '<span class="_2her _9ah" style="color:#'.$color.'" title="Seen"></span>';
                 // break;
-            case 3: $icon = '<span class="_4jzq _jf5"><img class="_jf2 img" alt="Seen by '.$row['alias'].' at 17:27" src="images/'.$fid.'.jpg" title="Seen by '.$row['alias'].' at 17:27"></span>';
+            case 3: $icon = '<span class="_4jzq _jf5"><img class="_jf2 img" alt="Seen by '.$row['alias'].' at 17:27" src="images/'.$fid.'.jpg" title="Seen by '.$row['alias'].' at '.$rdt.'"></span>';
                 break;
         }
 		if (($stt < 3 && $uid != $row['sender_id']) || $stt == 3)
-			$icon = '<span class="_4jzq _jf5"><img class="_jf2 img" alt="Seen by '.$row['alias'].' at 17:27" src="images/'.$fid.'.jpg" title="Seen by '.$row['alias'].' at 17:27"></span>';
+			$icon = '<span class="_4jzq _jf5"><img class="_jf2 img" alt="Seen by '.$row['alias'].' at 17:27" src="images/'.$fid.'.jpg" title="Seen by '.$row['alias'].' at '.$rdt.'"></span>';
 			
 		if ($uid == $row['sender_id']) {
 			$mename = $row['alias'];
