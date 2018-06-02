@@ -3,17 +3,18 @@
     session_start();
     $id = $_SESSION["user"]["id"];
     $old = $_REQUEST['o'];
-    $old = str_replace("'","\\'",$old);
-    if ($old !== '') {
-        $sql = "select * from `users` where `id`=".$id." and `password`='".md5($old)."'";
-        $query = mysqli_query($con, $sql);
-        $rowcount = mysqli_num_rows($query);
-        if ($rowcount==0) {
-            echo '0';
-            return;
-        }
-    }
 
+    $old = str_replace("'","\\'",$old);
+	$sql = "select * from `users` where `id`=".$id." and `password`='".md5($old)."'";
+	$query = mysqli_query($con, $sql);
+	$rowcount = mysqli_num_rows($query);
+	if ($rowcount==0) {
+		echo 0;
+		return;
+	}
+
+    $usr = $_REQUEST['u'];
+    $usr = str_replace("'","\\'",$usr);
     $ali = $_REQUEST['a'];
     $ali = str_replace("'","\\'",$ali);
     $eml = $_REQUEST['e'];
@@ -22,7 +23,7 @@
     $pho = str_replace("'","\\'",$pho);
     $pwd = $_REQUEST['p'];
     $pwd = str_replace("'","\\'",$pwd);
-    
+
     $sql = "Call updateUser('".$usr."', '".md5($pwd)."'";
     if (!isset($eml) || trim($eml)==='') {
         $sql .= ", null";
@@ -48,5 +49,5 @@
 	$query = mysqli_query($con, $sql);
     $row = mysqli_fetch_array($query);
     $_SESSION["user"] = $row;
-    echo '1';
+	echo 1;
 ?>

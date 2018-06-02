@@ -59,6 +59,11 @@ function register() {
 }
 
 function save() {
+    if ($('input#oldpwd').val() == '') {
+        blinkText('div.login-message', 'Chưa nhập mật khẩu cũ');
+		$('input#oldpwd').focus();
+        return;
+    }
     if ($('input#pwd').val() != $('input#pwd2').val()) {
         blinkText('div.login-message', 'Xác nhận mật khẩu không đúng');
         return;
@@ -66,6 +71,7 @@ function save() {
     $.ajax({
         url: "controller/usercp_save.php",
         data: { 
+            u: $('span#usr').text(),
             e: $('input#email').val(),
             a: $('input#alias').val(),
             f: $('input#phone').val(),
@@ -75,7 +81,7 @@ function save() {
         dataType: 'html',
         type: 'GET',
         success: function (response) {
-			if (response==='0') {
+			if (response==0) {
 				blinkText('div.login-message', 'Mật khẩu cũ không đúng');
 				return;
 			}
