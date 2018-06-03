@@ -1,11 +1,14 @@
 <?php
+	$query = $con->query("select u.*, cu.display_name from users u inner join conversion_users cu on u.id=cu.user_id where u.id=".$fid);
+	$row = mysqli_fetch_array($query);
+    $friendname = $row['alias'];
+    $display_fr = $row['display_name'];
+	
 	$query = $con->query("call openChat(".$uid." , ".$fid.")");
     $msgrow = '';
     $readMsg = '';
     $unreadMsg = '';
-    $friendname = '';
     $mename = '';
-    $display_fr = '';
     $display_me = '';
     while ($row = mysqli_fetch_array($query)) {
         $color = toColor($row["message_color"]);
@@ -37,8 +40,6 @@
 		}
 		else {
 			$msgrow = sprintf('<div class="message-row"><div class="message-content friend"><span class="msg-status">%s</span> <span class="user2">%s</span> <span class="tooltiptext friend">%s</span></div></div>', $icon, $row["message_content"], $row['time']);
-			$friendname = $row['alias'];
-			$display_fr = $row['display_name'];
 			// $readMsg .= $msgrow;
 			// tạm thời bỏ
 			if ($row['status'] == 3)
