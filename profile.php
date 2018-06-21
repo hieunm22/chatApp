@@ -15,7 +15,7 @@
             include('include/welcome.php');
             if (!isset($_GET['id'])) {
                 echo '
-                <script>(function redirect() { window.location.href="users/'.$_SESSION['user']['name'].'"; })();</script>';
+                <script>(function redirect() { window.location.href="users/'.$_SESSION['user']['id'].'"; })();</script>';
             }
             $sql = "SELECT * FROM users where `id`='".$_GET['id']."' and status=1";
             $query = mysqli_query($con, $sql);
