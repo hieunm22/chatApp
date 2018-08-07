@@ -2,6 +2,26 @@
     font-family: "SF Pro Text","Myriad Set Pro",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","SF Pro Icons","Apple Legacy Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
     font-size: 13px;
 }
+
+.form-control {
+    display: block;
+    /* width: 100%; */
+    /* height: 36px; */
+    padding: 8px 12px;
+    font-size: 13px;
+    /* line-height: 1.42857143; */
+    color: #777777;
+    background-color: #ffffff;
+    background-image: none;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
 .login-info {
 	width: 400px;
 	margin: 0 auto;
@@ -55,11 +75,6 @@ input[type="text"],input[type="password"] {
 	width: 300px;
     border-radius: 4px;
 	height: 20px;
-}
-input[type="text"]:focus,input[type="password"]:focus {
-    outline:none;
-    background-color:#ffffd0;
-    /* box-shadow:0 0 5px red; */
 }
 input[type="button"] {
 	width: 80px;

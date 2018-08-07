@@ -186,8 +186,8 @@ function loadNickNames() {
 	meElem.value = disMe;
 	meElem.placeholder = meName;
 	var friendElem = document.getElementById('nickname2');
-	// var friendname = $('.active-msg > .username-search > .chatname').text();
-	friendElem.value = disFr;
+	var nameInSearch = $('.active-msg > .username-search > .chatname').text();
+	friendElem.value = nameInSearch;
 	friendElem.placeholder = friendName;
 	$('input[id^="nickname"]').attr('style', '');
 }
