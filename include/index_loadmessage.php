@@ -3,7 +3,7 @@
 	$row = mysqli_fetch_array($query);
     $friendname = $row['alias'];
     $display_fr = $row['display_name'];
-	
+
 	$query = $con->query("call openChat(".$uid." , ".$fid.")");
     $msgrow = '';
     $readMsg = '';
@@ -15,6 +15,13 @@
         $stt = $row['status'];
         $rdt = $row['read_time'];
         $icon = '';
+
+		$avatar = '';
+		if ($row['avatar_url'] == null)
+			$avatar = $row["gender"] == 1 ? 'images\\\\2Q==.jpg' : 'images\\\\9k=.jpg';
+		else
+			$avatar = 'images\\\\'.$fid.'.jpg';
+
         switch ($stt) {
             case 0: $icon = '<span class="_2her" style="color:#'.$color.'" title="Sending"></span>';
                 break;
@@ -24,12 +31,12 @@
                 break;
             // case 3: $icon = '<span class="_2her _9ah" style="color:#'.$color.'" title="Seen"></span>';
                 // break;
-            case 3: $icon = '<span class="_4jzq _jf5"><img class="_jf2 img" alt="Seen by '.$row['alias'].' at 17:27" src="images/'.$fid.'.jpg" title="Seen by '.$row['alias'].' at '.$rdt.'"></span>';
+            case 3: $icon = '<span class="_4jzq _jf5"><img class="_jf2 img" alt="Seen by '.$row['alias'].' at 17:27" src="'.$avatar.'" title="Seen by '.$row['alias'].' at '.$rdt.'"></span>';
                 break;
         }
 		if (($stt < 3 && $uid != $row['sender_id']) || $stt == 3)
-			$icon = '<span class="_4jzq _jf5"><img class="_jf2 img" alt="Seen by '.$row['alias'].' at 17:27" src="images/'.$fid.'.jpg" title="Seen by '.$row['alias'].' at '.$rdt.'"></span>';
-			
+			$icon = '<span class="_4jzq _jf5"><img class="_jf2 img" alt="Seen by '.$row['alias'].' at 17:27" src="'.$avatar.'" title="Seen by '.$row['alias'].' at '.$rdt.'"></span>';
+
 		if ($uid == $row['sender_id']) {
 			$mename = $row['alias'];
 			$display_me = $row['display_name'];

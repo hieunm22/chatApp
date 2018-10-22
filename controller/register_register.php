@@ -16,11 +16,12 @@
     if ($rowcount == 0) {
         $ali = $_REQUEST['a'];
         $ali = str_replace("'","\\'",$ali);
+        $gen = $_REQUEST['g'];
         $pho = $_REQUEST['f'];
         $pho = str_replace("'","\\'",$pho);
         $pwd = $_REQUEST['p'];
         $pwd = str_replace("'","\\'",$pwd);
-        
+
         $sql = "Call insertUser('".$usr."', '".md5($pwd)."'";
         if (!isset($eml) || trim($eml)==='') {
             $sql .= ", null";
@@ -34,6 +35,7 @@
         else {
             $sql .= ", '".$ali."'";
         }
+		$sql .= ", ".$gen;
         if (!isset($pho) || trim($pho)==='') {
             $sql .= ", null";
         }

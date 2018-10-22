@@ -12,8 +12,11 @@ function flogin() {
 }
 
 function enterPwd(_this) {
-	if (_this.innerText == "") {
+	if (_this.value == "") {
 		_this.setCustomValidity('Hãy điền mật khẩu');
+	}
+	else {
+		_this.setCustomValidity('');
 	}
 }
 
@@ -32,13 +35,18 @@ function register() {
         blinkText('div.login-message', 'Xác nhận mật khẩu không đúng');
         return;
     }
+    if ($('select#gen').val() == -1) {
+        blinkText('div.login-message', 'Chưa chọn giới tính');
+        return;
+    }
     $.ajax({
         url: "controller/register_register.php",
-        data: { 
+        data: {
             u: $('input#usr').val(),
             p: $('input#pwd').val(),
             a: $('input#alias').val(),
             e: $('input#email').val(),
+            g: $('select#gen').val(),
             f: $('input#phone').val()
         },
         dataType: 'html',
@@ -76,7 +84,7 @@ function save() {
     }
     $.ajax({
         url: "controller/usercp_save.php",
-        data: { 
+        data: {
             u: $('span#usr').text(),
             e: $('input#email').val(),
             a: $('input#alias').val(),

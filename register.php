@@ -12,7 +12,7 @@
         </script>
 	</head>
 	<body>
-		<?php 
+		<?php
 			include('include/navigation.php');
 			echo '<hr />';
 		?>
@@ -20,6 +20,14 @@
         <div class="register-info"><span class="lbl register">Password <span class="required">*</span></span></span><input type="password" name="password" id="pwd" placeholder="Mật khẩu" required /></div>
         <div class="register-info"><span class="lbl register">Confirm Password <span class="required">*</span></span></span><input type="password" name="password" id="pwd2" placeholder="Xác nhận lại mật khẩu" required /></div>
         <div class="register-info"><span class="lbl register">Họ tên </span><input type="text" name="alias" id="alias" placeholder="Tên hiển thị"/></div>
+        <div class="register-info">
+			<span class="lbl register">Giới tính </span>
+			<select id="gen">
+				<option value="-1">Chọn giới tính</option>
+				<option value="1">Nam</option>
+				<option value="0">Nữ</option>
+			</select>
+		</div>
         <div class="register-info"><span class="lbl register">Email </span><input type="text" name="email" id="email" placeholder="Email đăng ký"/></div>
         <div class="register-info"><span class="lbl register">Số điện thoại </span><input type="text" name="phone" id="phone" placeholder="Số điện thoại"/></div>
         <div class="login-info login-message"></div>
