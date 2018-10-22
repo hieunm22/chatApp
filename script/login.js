@@ -11,6 +11,12 @@ function flogin() {
     }
 }
 
+function enterPwd(_this) {
+	if (_this.innerText == "") {
+		_this.setCustomValidity('Hãy điền mật khẩu');
+	}
+}
+
 function register() {
     if ($('input#usr').val() == '') {
         document.getElementById("usr").focus();

@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>Đăng ký</title>
-		<?php include('include/header.php');?>
+		<?php include('include/header.html');?>
 		<script type="text/javascript">
             $(document).ready(function() {
                 $('input#usr').on('change', function() {

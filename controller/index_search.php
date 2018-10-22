@@ -21,6 +21,7 @@
                 $html =  '<span style="color:#4ebf82;margin-left:10px;">Không tìm thấy kết quả</span>';
             else
                 $html = '';
+			echo '{ "html": "", "unread": 0 }';
             return;
         }
         while ($row = mysqli_fetch_array($query)) {
