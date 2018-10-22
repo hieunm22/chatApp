@@ -5,7 +5,7 @@
     $old = $_REQUEST['o'];
 
     $old = str_replace("'","\\'",$old);
-	$sql = "select * from `users` where `id`=".$id." and `password`='".md5($old)."'";
+	$sql = "select * from `users` where `id`=".$id;
 	$query = mysqli_query($con, $sql);
 	$rowcount = mysqli_num_rows($query);
 	if ($rowcount==0) {

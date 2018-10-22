@@ -73,7 +73,7 @@ function register() {
 }
 
 function save() {
-    if ($('input#oldpwd').val() == '') {
+    if ($('input#oldpwd').val() == '' && ($('input#pwd').val() != '' || $('input#pwd2').val() != '')) {
         blinkText('div.login-message', 'Chưa nhập mật khẩu cũ');
 		$('input#oldpwd').focus();
         return;
