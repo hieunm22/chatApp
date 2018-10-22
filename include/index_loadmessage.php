@@ -3,6 +3,7 @@
 	$row = mysqli_fetch_array($query);
     $friendname = $row['alias'];
     $display_fr = $row['display_name'];
+    $avatar_fr = $row['avatar_url'];	// bien luu avatar cua friend
 
 	$query = $con->query("call openChat(".$uid." , ".$fid.")");
     $msgrow = '';
@@ -17,7 +18,7 @@
         $icon = '';
 
 		$avatar = '';
-		if ($row['avatar_url'] == null)
+		if ($avatar_fr == null)
 			$avatar = $row["gender"] == 1 ? 'images\\\\2Q==.jpg' : 'images\\\\9k=.jpg';
 		else
 			$avatar = 'images\\\\'.$fid.'.jpg';
