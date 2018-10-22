@@ -29,13 +29,9 @@
                 break;
             case 2: $icon = '<span class="_2her _9ah" style="color:#'.$color.'" title="Delivered"><i aria-label="Delivered" aria-roledescription="Status icon" class="_57e_" role="img"></i></span>';
                 break;
-            // case 3: $icon = '<span class="_2her _9ah" style="color:#'.$color.'" title="Seen"></span>';
-                // break;
-            case 3: $icon = '<span class="_4jzq _jf5"><img class="_jf2 img" alt="Seen by '.$row['alias'].' at 17:27" src="'.$avatar.'" title="Seen by '.$row['alias'].' at '.$rdt.'"></span>';
-                break;
         }
 		if (($stt < 3 && $uid != $row['sender_id']) || $stt == 3)
-			$icon = '<span class="_4jzq _jf5"><img class="_jf2 img" alt="Seen by '.$row['alias'].' at 17:27" src="'.$avatar.'" title="Seen by '.$row['alias'].' at '.$rdt.'"></span>';
+			$icon = '<span class="_4jzq _jf5"><img class="_jf2 img" alt="Seen by '.$friendname.' at 17:27" src="'.$avatar.'" title="Seen by '.$friendname.' at '.$rdt.'"></span>';
 
 		if ($uid == $row['sender_id']) {
 			$mename = $row['alias'];
