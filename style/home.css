@@ -157,6 +157,9 @@ div.lbl.search-result:hover {
 div.lbl.search-result:active {
 	background-color: #d9d9d9;
 }
+.last-msg-row {
+	padding-top: 5px;
+}
 .active-msg {
 	background-color: #f2f2f2;
 }

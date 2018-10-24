@@ -21,7 +21,7 @@
         <div class="register-info"><span class="lbl register">Confirm Password <span class="required">*</span></span></span><input type="password" name="password" id="pwd2" placeholder="Xác nhận lại mật khẩu" required /></div>
         <div class="register-info"><span class="lbl register">Họ tên </span><input type="text" name="alias" id="alias" placeholder="Tên hiển thị"/></div>
         <div class="register-info">
-			<span class="lbl register">Giới tính </span>
+			<span class="lbl register">Giới tính <span class="required">*</span></span>
 			<select id="gen">
 				<option value="-1">Chọn giới tính</option>
 				<option value="1">Nam</option>

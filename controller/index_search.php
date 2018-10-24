@@ -38,9 +38,16 @@
 				$avatar = $row["avatar_url"];
             $html .= '<div class="lbl search-result" draggable="true">
 		<div class="avatar-img"><img class="img-search" src="'.$avatar.'"></div>
-        <div id="user'.$row["id"].'" class="username-search" status="'.$row["usrstatus"].'"><span class="chatname'.$txt_unread.'">'.$row["display_name"].'</span> <span class="me" style="color: '.($isunread ? '#0084ff' : '#0006').'; margin-right: 17px;" title="'.$row['date'].'">'.$row['time'].'</span></div>
-        <div class="last-message'.$txt_unread.'">'.($id == $row["last_sender_id"] ? 'You: ' : '').$msg.'</div>
-            </div>';
+		<div id="user'.$row["id"].'" class="username-search" status="'.$row["usrstatus"].'">
+			<span class="chatname'.$txt_unread.'">'.$row["display_name"].'</span> <span class="me" style="color: '.($isunread ? '#0084ff' : '#0006').'; margin-right: 17px;" title="'.$row['date'].'">'.$row['time'].'</span>
+		</div>
+        <div class="last-msg-row">
+			';
+		$html .= ($id == $row["last_sender_id"]
+			? '<span class="chatname">You: '.$msg.'</span><span class="me" style="margin-right: 17px;"><img class="_jf2 img" src="'.$row["avatar_url"].'" /></span>' 
+			: '<span class="chatname">'.$msg.'</span>').'			
+		</div>
+    </div>';
         }
     }
     else {
