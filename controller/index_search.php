@@ -43,9 +43,12 @@
 		</div>
         <div class="last-msg-row">
 			';
-		$html .= ($id == $row["last_sender_id"]
-			? '<span class="chatname">You: '.$msg.'</span><span class="me" style="margin-right: 17px;"><img class="_jf2 img" src="'.$row["avatar_url"].'" /></span>' 
-			: '<span class="chatname">'.$msg.'</span>').'			
+		$html .= ($id == $row["last_sender_id"] //&& $row["msgstatus"] == 3
+			? ($row["msgstatus"] == 3 
+				? '<span class="last-message'.$txt_unread.'">You: '.$msg.'</span><span class="me" style="margin-right: 17px;"><img class="_jf2 img" src="'.$row["avatar_url"].'" /></span>'
+				: '<span class="last-message'.$txt_unread.'">You: '.$msg.'</span>'
+				)
+			: '<span class="last-message'.$txt_unread.'">'.$msg.'</span>').'			
 		</div>
     </div>';
         }

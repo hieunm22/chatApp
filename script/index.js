@@ -57,9 +57,9 @@ function openChat(id, interval) {
 		else
 			$('title').text('Home');
 		// mark as read message
-		$('div#user' + id + ' > span.chatname').removeClass('unread-txt');
 		$('div#user' + id + ' > span.me').css('color', '#0006');
-		$('div#user' + id).parent().children('div.last-message.unread-txt').removeClass('unread-txt');
+		var parent = $('div#user' + id).parent();
+		var unread = $(parent).find('.unread-txt').removeClass('unread-txt');
 
 		var status = $('div#user' + id).attr('status');
         var tb = $('input#chatmessage');
