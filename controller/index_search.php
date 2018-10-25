@@ -10,7 +10,7 @@
     $l = $_REQUEST['l'];    // limit
     $unreadCount = 0;
     $html = '';
-    
+
     if (trim($t)==='') {
         $con->query("call markAsReceived($id)");
         $sql = sprintf("call searchUsers(%u, %u)", $id, $l);
@@ -26,13 +26,13 @@
         }
         while ($row = mysqli_fetch_array($query)) {
             $msg = $row['message_content'];
-            if (strlen($msg) > 30) $msg = substr($msg, 0, 30).'...';
+            if (strlen($msg) > 25) $msg = substr($msg, 0, 25).'...';
             // chỉ bôi đậm khi message status là đã nhận và người gửi cuối không phải là mình
             $isunread = $row["msgstatus"] == 2 && $id != $row["last_sender_id"];
             if ($isunread) $unreadCount++;
             $txt_unread = $isunread ? ' unread-txt' : '';
 			$avatar = '';
-			if ($row['avatar_url'] == null) 
+			if ($row['avatar_url'] == null)
 				$avatar = $row["gender"] == 1 ? 'images\\\\2Q==.jpg' : 'images\\\\9k=.jpg';
 			else
 				$avatar = $row["avatar_url"];
@@ -43,12 +43,16 @@
 		</div>
         <div class="last-msg-row">
 			';
-		$html .= ($id == $row["last_sender_id"] //&& $row["msgstatus"] == 3
-			? ($row["msgstatus"] == 3 
-				? '<span class="last-message'.$txt_unread.'">You: '.$msg.'</span><span class="me" style="margin-right: 17px;"><img class="_jf2 img" src="'.$row["avatar_url"].'" /></span>'
-				: '<span class="last-message'.$txt_unread.'">You: '.$msg.'</span>'
-				)
-			: '<span class="last-message'.$txt_unread.'">'.$msg.'</span>').'			
+			if ($id == $row["last_sender_id"]) {
+				$html .= '<span class="last-message'.$txt_unread.'">You: '.$msg.'</span>';
+				if ($row["msgstatus"] == 3) {
+					$html .= '<span class="me" style="margin-right: 17px;"><img class="_jf2 img" src="'.$row["avatar_url"].'" /></span>';
+				}
+			}
+			else {
+				$html .= '<span class="last-message'.$txt_unread.'">'.$msg.'</span>';
+			}
+			$html .= '
 		</div>
     </div>';
         }
