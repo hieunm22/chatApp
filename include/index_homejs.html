@@ -7,11 +7,12 @@
                 searchList(0);
 				$('input#searchtb').on('keyup', function(e) {
 					if (e.keyCode == 13) {
-						searchList();
+						var count = $('div#search-content').children().length;
+						searchList(count);
 					}
 				});
 				$('input#searchbt').on('click', function(e) {
-					searchList();
+					searchList(0);
 				});
 				$('input#chatmessage').on('keyup', function(e) {
 					if (e.keyCode == 13) {
