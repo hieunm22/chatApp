@@ -7,8 +7,13 @@
                 searchList(0);
 				$('input#searchtb').on('keyup', function(e) {
 					if (e.keyCode == 13) {
-						var count = $('div#search-content').children().length;
-						searchList(count);
+						if ($('#searchtb').val() == '') {
+							var count = $('div#search-content').children().length;
+							searchList(count);
+						}
+						else {
+							searchList();							
+						}
 					}
 				});
 				$('input#searchbt').on('click', function(e) {

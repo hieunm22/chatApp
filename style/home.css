@@ -249,6 +249,11 @@ div.lbl.search-result:active {
     padding: 6px 12px;
 	margin-top: 3px;
 }
+.avatar-search-text {
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+}
 .username-search {
 	padding-top: 5px;
 }
