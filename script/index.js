@@ -204,8 +204,8 @@ function changeNickNames() {
 			// close modal dialog
 			// $('#myModal2').modal('toggle');
 			$('td#chatname').text(fr);
-			$('div#user' + friend_id + ' > span.chatname').text(fr);
-			// console.log(response);
+            $('div#user' + friend_id + ' > span.chatname').text(fr);
+            $('div#messagePanel').append('<div class="message-row message-alert">You changed the nicknames</div>');
         },
         error: showError
     });

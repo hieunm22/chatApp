@@ -206,6 +206,7 @@ div.lbl.search-result:active {
 .message-alert {
     color: #0006; 
     margin: 3px 0;
+    text-align: center;
 }
 .message-row {
     border-radius: 5px;

@@ -38,6 +38,7 @@
                     else {
                         $msg = $row['display_name'].' changed the nicknames';
                     }
+                    if (strlen($msg) > 32) $msg = substr($msg, 0, 32).'...';
                     break;
             }
             // chỉ bôi đậm khi message status là đã nhận và người gửi cuối không phải là mình

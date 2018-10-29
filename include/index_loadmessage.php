@@ -18,12 +18,6 @@
         $rdt = $row['read_time'];
         $icon = '';
 
-		$avatar = '';
-		if ($avatar_fr == null)
-			$avatar = $row["gender"] == 1 ? 'images\\\\2Q==.jpg' : 'images\\\\9k=.jpg';
-		else
-			$avatar = 'images\\\\'.$fid.'.jpg';
-
         switch ($stt) {
             case 0: $icon = '<span class="_2her" style="color:#'.$color.'" title="Sending"></span>';
                 break;
@@ -33,7 +27,7 @@
                 break;
         }
 		if (($stt < 3 && $uid != $row['sender_id']) || $stt == 3)
-			$icon = '<span class="_4jzq _jf5"><img class="_jf2 img" alt="Seen by '.$friendname.' at 17:27" src="'.$avatar.'" title="Seen by '.$friendname.' at '.$rdt.'"></span>';
+			$icon = '<span class="_4jzq _jf5"><img class="_jf2 img" alt="Seen by '.$friendname.' at 17:27" src="'.$avatar_fr.'" title="Seen by '.$friendname.' at '.$rdt.'"></span>';
 		switch ($message_type) {
 			case 0:
 				if ($uid == $row['sender_id']) {
@@ -57,20 +51,20 @@
 			case 1:
 				$sender = '';
 				if ($uid == $row['sender_id']) {
-					$readMsg .= '<div class="message-row"><center class="message-alert">You changed the nicknames</center></div>';
+					$readMsg .= '<div class="message-row message-alert">You changed the nicknames</div>';
 				}
 				else {
-					$readMsg .= '<div class="message-row"><center class="message-alert">'.$friendname.' changed the nicknames</center></div>';
+					$readMsg .= '<div class="message-row message-alert">'.$friendname.' changed the nicknames</div>';
 				}
 				$unreadMsg = '';
 				break;
 			case 2:
 				$sender = '';
 				if ($uid == $row['sender_id']) {
-					$readMsg .= '<div class="message-row"><center class="message-alert">You changed the chat colours</center></div>';
+					$readMsg .= '<div class="message-row message-alert">You changed the chat colours</div>';
 				}
 				else {
-					$readMsg .= '<div class="message-row"><center class="message-alert">'.$friendname.' changed the chat colours</center></div>';
+					$readMsg .= '<div class="message-row message-alert">'.$friendname.' changed the chat colours</div>';
 				}
 				$unreadMsg = '';
 				break;
