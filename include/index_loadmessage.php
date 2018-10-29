@@ -57,22 +57,22 @@
 			case 1:
 				$sender = '';
 				if ($uid == $row['sender_id']) {
-					$sender = 'You';
+					$readMsg .= '<div class="message-row"><center class="message-alert">You changed the nicknames</center></div>';
 				}
 				else {
-					$sender = $friendname;
+					$readMsg .= '<div class="message-row"><center class="message-alert">'.$friendname.' changed the nicknames</center></div>';
 				}
-				$readMsg .= '<div class="message-row"><center style="color: #0006">'.$sender.' changed the nicknames</center></div>';
+				$unreadMsg = '';
 				break;
 			case 2:
 				$sender = '';
 				if ($uid == $row['sender_id']) {
-					$sender = 'You';
+					$readMsg .= '<div class="message-row"><center class="message-alert">You changed the chat colours</center></div>';
 				}
 				else {
-					$sender = $friendname;
+					$readMsg .= '<div class="message-row"><center class="message-alert">'.$friendname.' changed the chat colours</center></div>';
 				}
-				$readMsg .= '<div class="message-row"><center style="color: #0006">'.$sender.' changed the chat colours</center></div>';
+				$unreadMsg = '';
 				break;
 		}
     }

@@ -203,6 +203,10 @@ div.lbl.search-result:active {
 	bottom: 15px;
 	right: 25px;
 }
+.message-alert {
+    color: #0006; 
+    margin: 3px 0;
+}
 .message-row {
     border-radius: 5px;
     width: 97%;
