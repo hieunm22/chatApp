@@ -12,6 +12,7 @@
     $mename = '';
     $display_me = '';
     while ($row = mysqli_fetch_array($query)) {
+		$message_type = $row['message_type'];
         $color = toColor($row["message_color"]);
         $stt = $row['status'];
         $rdt = $row['read_time'];
@@ -33,23 +34,46 @@
         }
 		if (($stt < 3 && $uid != $row['sender_id']) || $stt == 3)
 			$icon = '<span class="_4jzq _jf5"><img class="_jf2 img" alt="Seen by '.$friendname.' at 17:27" src="'.$avatar.'" title="Seen by '.$friendname.' at '.$rdt.'"></span>';
-
-		if ($uid == $row['sender_id']) {
-			$mename = $row['alias'];
-			$display_me = $row['display_name'];
-			$msgrow = sprintf('<div class="message-row"><div class="message-content me"><span class="msg-status">%s</span> <span class="user1" style="background-color: #%s; border-color: #%s">%s</span> <span class="tooltiptext me">%s</span></div></div>', $icon, $color, $color, $row["message_content"], $row['time']);
-            setcookie('conversion_color', $color, time() + 86400, "/");
-			// mình đã là người gửi thì message đó phải đánh dấu là đã đọc
-			$readMsg .= $msgrow;
-		}
-		else {
-			$msgrow = sprintf('<div class="message-row"><div class="message-content friend"><span class="msg-status">%s</span> <span class="user2">%s</span> <span class="tooltiptext friend">%s</span></div></div>', $icon, $row["message_content"], $row['time']);
-			// $readMsg .= $msgrow;
-			// tạm thời bỏ
-			if ($row['status'] == 3)
-				$readMsg .= $msgrow;
-			else
-				$unreadMsg .= $msgrow;
+		switch ($message_type) {
+			case 0:
+				if ($uid == $row['sender_id']) {
+					$mename = $row['alias'];
+					$display_me = $row['display_name'];
+					$msgrow = sprintf('<div class="message-row"><div class="message-content me"><span class="msg-status">%s</span> <span class="user1" style="background-color: #%s; border-color: #%s">%s</span> <span class="tooltiptext me">%s</span></div></div>', $icon, $color, $color, $row["message_content"], $row['time']);
+					setcookie('conversion_color', $color, time() + 86400, "/");
+					// mình đã là người gửi thì message đó phải đánh dấu là đã đọc
+					$readMsg .= $msgrow;
+				}
+				else {
+					$msgrow = sprintf('<div class="message-row"><div class="message-content friend"><span class="msg-status">%s</span> <span class="user2">%s</span> <span class="tooltiptext friend">%s</span></div></div>', $icon, $row["message_content"], $row['time']);
+					// $readMsg .= $msgrow;
+					// tạm thời bỏ
+					if ($row['status'] == 3)
+						$readMsg .= $msgrow;
+					else
+						$unreadMsg .= $msgrow;
+				}
+				break;
+			case 1:
+				$sender = '';
+				if ($uid == $row['sender_id']) {
+					$sender = 'You';
+				}
+				else {
+					$sender = $friendname;
+				}
+				$readMsg .= '<div class="message-row"><center style="color: #0006">'.$sender.' changed the nicknames</center></div>';
+				break;
+			case 2:
+				$sender = '';
+				if ($uid == $row['sender_id']) {
+					$sender = 'You';
+				}
+				else {
+					$sender = $friendname;
+				}
+				$readMsg .= '<div class="message-row"><center style="color: #0006">'.$sender.' changed the chat colours</center></div>';
+				break;
 		}
     }
 	$obj = new stdClass();

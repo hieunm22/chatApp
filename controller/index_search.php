@@ -10,6 +10,7 @@
     $l = $_REQUEST['l'];    // limit
     $unreadCount = 0;
     $html = '';
+    $msg = '';
 
     if (trim($t)==='') {
         $con->query("call markAsReceived($id)");
@@ -25,8 +26,20 @@
             return;
         }
         while ($row = mysqli_fetch_array($query)) {
-            $msg = $row['message_content'];
-            if (strlen($msg) > 25) $msg = substr($msg, 0, 25).'...';
+            switch ($row['message_type']) {
+                case 0:
+                    $msg = $row['message_content'];
+                    if (strlen($msg) > 25) $msg = substr($msg, 0, 25).'...';
+                    break;
+                case 1:
+                    if ($id == $row["last_sender_id"]) {
+                        $msg = 'You changed the nicknames';
+                    }
+                    else {
+                        $msg = $row['display_name'].' changed the nicknames';
+                    }
+                    break;
+            }
             // chỉ bôi đậm khi message status là đã nhận và người gửi cuối không phải là mình
             $isunread = $row["msgstatus"] == 2 && $id != $row["last_sender_id"];
             if ($isunread) $unreadCount++;
@@ -43,15 +56,15 @@
 		</div>
         <div class="last-msg-row">
 			';
-			if ($id == $row["last_sender_id"]) {
-				$html .= '<span class="last-message'.$txt_unread.'">You: '.$msg.'</span>';
-				if ($row["msgstatus"] == 3) {
-					$html .= '<span class="me" style="margin-right: 17px;"><img class="_jf2 img" src="'.$row["avatar_url"].'" /></span>';
-				}
-			}
-			else {
-				$html .= '<span class="last-message'.$txt_unread.'">'.$msg.'</span>';
-			}
+            if ($id == $row["last_sender_id"]) {
+                $html .= '<span class="last-message'.$txt_unread.'">'.($row['message_type'] == 0 ? 'You: ' : '').$msg.'</span>';
+                if ($row["msgstatus"] == 3) {
+                    $html .= '<span class="me" style="margin-right: 17px;"><img class="_jf2 img" src="'.$row["avatar_url"].'" /></span>';
+                }
+            }
+            else {
+                $html .= '<span class="last-message'.$txt_unread.'">'.$msg.'</span>';
+            }
 			$html .= '
 		</div>
     </div>';
