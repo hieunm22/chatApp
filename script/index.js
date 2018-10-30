@@ -19,10 +19,11 @@ function searchList(loaded) {
 				unreadCount = 0;
 			}
 			unreadCount += json.unread;
+			var title = $('title').text();
 			if (unreadCount > 0)
-				$('title').text('(' + unreadCount + ') Home');
+				$('title').text('(' + unreadCount + ') ' + title);
 			else
-				$('title').text('Home');
+				$('title').text(title);
 
             // var sl = $('div#search-list').height();
             // var sb = $('div#searchbox').height();
@@ -103,6 +104,7 @@ function openChat(id, interval) {
 				disMe = json.display_me;
 				var msgstt = $('._4jzq._jf5:not(:last)');
 				if (msgstt.length > 0) msgstt.css('display', 'none');
+				$('title').text(json.display_fr);
             },
             error: showError
         });
@@ -110,6 +112,7 @@ function openChat(id, interval) {
 }
 
 function sendMessage(txt) {
+	if (!txt || txt.trim() == '') return;
     var d = new Date();
     var h = checkTime(d.getHours());
     var m = checkTime(d.getMinutes());
@@ -120,7 +123,6 @@ function sendMessage(txt) {
     // scroll to end
     var div = document.getElementById("messagePanel");
     div.scrollTop = div.scrollHeight;
-	if (txt.trim() == '') return;
 
     $.ajax({
         url: "controller/index_sendmessage.php",
