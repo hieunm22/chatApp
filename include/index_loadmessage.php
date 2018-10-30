@@ -49,24 +49,20 @@
 				}
 				break;
 			case 1:
-				$sender = '';
 				if ($uid == $row['sender_id']) {
-					$readMsg .= '<div class="message-row message-alert">You changed the nicknames</div>';
+					$readMsg .= '<div class="message-row"><div class="message-alert" title="'.$row['time'].'">You changed the nicknames</div></div>';
 				}
 				else {
-					$readMsg .= '<div class="message-row message-alert">'.$friendname.' changed the nicknames</div>';
+					$readMsg .= '<div class="message-row"><div class="message-alert" title="'.$row['time'].'">'.$friendname.' changed the nicknames</div></div>';
 				}
-				$unreadMsg = '';
 				break;
 			case 2:
-				$sender = '';
 				if ($uid == $row['sender_id']) {
-					$readMsg .= '<div class="message-row message-alert">You changed the chat colours</div>';
+					$readMsg .= '<div class="message-row"><div class="message-alert" title="'.$row['time'].'">You changed the chat colours</div></div>';
 				}
 				else {
-					$readMsg .= '<div class="message-row message-alert">'.$friendname.' changed the chat colours</div>';
+					$readMsg .= '<div class="message-row"><div class="message-alert" title="'.$row['time'].'">'.$friendname.' changed the chat colours</div></div>';
 				}
-				$unreadMsg = '';
 				break;
 		}
     }
