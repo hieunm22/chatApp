@@ -1,5 +1,13 @@
 <?php
-	$query = $con->query("select u.*, cu.display_name from users u inner join conversion_users cu on u.id=cu.user_id where u.id=".$fid);
+	//$query = $con->query("call getFriendInfo(".$uid.", ".$fid.")");
+	$query = $con->query("select u.*, cu.display_name 
+	from conversion_users cu 
+	inner join users u on cu.user_id = u.id
+	where u.id=1
+	and cu.conversion_id in (Select C1.`conversion_id`
+		From conversion_users As C1
+		inner join conversion_users As C2 On C1.`conversion_id` = C2.`conversion_id`
+		Where C1.`user_id` = ".$uid." And C2.`user_id` = ".$fid.")");
 	$row = mysqli_fetch_array($query);
     $friendname = $row['alias'];
     $display_fr = $row['display_name'];
