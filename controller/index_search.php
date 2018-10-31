@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 	include('../default.php');
 	session_start();
 
@@ -29,7 +29,7 @@
             switch ($row['message_type']) {
                 case 0:
                     $msg = $row['message_content'];
-                    if (strlen($msg) > 25) $msg = substr($msg, 0, 25).'...';
+                    if (strlen($msg) > 25) $msg = mb_substr($msg, 0, 25, "utf-8").'...';
                     break;
                 case 1:
                     if ($id == $row["last_sender_id"]) {

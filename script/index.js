@@ -53,10 +53,6 @@ function openChat(id, interval) {
         friend_id = id;
 
 		if ($('div#user' + id + ' > span.chatname').hasClass('unread-txt')) unreadCount--;
-		if (unreadCount > 0)
-			$('title').text('(' + unreadCount + ') Home');
-		else
-			$('title').text('Home');
 		// mark as read message
 		$('div#user' + id + ' > span.me').css('color', '#0006');
 		var parent = $('div#user' + id).parent();
@@ -103,8 +99,11 @@ function openChat(id, interval) {
 				meName = json.mename;
 				disMe = json.display_me;
 				var msgstt = $('._4jzq._jf5:not(:last)');
-				if (msgstt.length > 0) msgstt.css('display', 'none');
-				$('title').text(json.display_fr);
+                if (msgstt.length > 0) msgstt.css('display', 'none');
+                if (unreadCount > 0)
+                    $('title').text('(' + unreadCount + ') ' + json.friendname);
+                else
+                    $('title').text(json.friendname);
             },
             error: showError
         });
