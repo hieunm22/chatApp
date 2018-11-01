@@ -3,7 +3,7 @@
 	$query = $con->query("select u.*, cu.display_name 
 	from conversion_users cu 
 	inner join users u on cu.user_id = u.id
-	where u.id=1
+	where u.id=".$fid."
 	and cu.conversion_id in (Select C1.`conversion_id`
 		From conversion_users As C1
 		inner join conversion_users As C2 On C1.`conversion_id` = C2.`conversion_id`
