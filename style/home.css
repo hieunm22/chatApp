@@ -137,7 +137,7 @@ div.lbl.search-result-text {
 	/* width: 93%;	if included scroll */
 	width: 96%;
 	height: 30px;
-	padding: 0 5px 0 15px ;
+	padding: 0 5px 0 7px ;
 	cursor: pointer;
 }
 div.lbl.search-result-text:hover {
