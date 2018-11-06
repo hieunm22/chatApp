@@ -100,10 +100,11 @@ function openChat(id, interval) {
 				disMe = json.display_me;
 				var msgstt = $('._4jzq._jf5:not(:last)');
                 if (msgstt.length > 0) msgstt.css('display', 'none');
+                var frName = (json.friendname || $('.active-msg').find('.chatname').text());
                 if (unreadCount > 0)
-                    $('title').text('(' + unreadCount + ') ' + json.friendname);
+                    $('title').text('(' + unreadCount + ') ' + frName);
                 else
-                    $('title').text(json.friendname);
+                    $('title').text(frName);
             },
             error: showError
         });
