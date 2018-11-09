@@ -47,7 +47,7 @@
 					$readMsg .= $msgrow;
 				}
 				else {
-					$msgrow = sprintf('<div class="message-row"><div class="message-content friend"><span class="msg-status">%s</span> <span class="user2">%s</span> <span class="tooltiptext friend">%s</span></div></div>', $icon, $row["message_content"], $row['time']);
+					$msgrow = sprintf('<div class="message-row"><div class="message-content friend"><span class="msg-status">%s</span> <img class="avatar-friend" src="'.$avatar_fr.'" width="30px" height="30px" ><span class="user2">%s</span> <span class="tooltiptext friend">%s</span></div></div>', $icon, $row["message_content"], $row['time']);
 					// $readMsg .= $msgrow;
 					// tạm thời bỏ
 					if ($row['status'] == 3)
