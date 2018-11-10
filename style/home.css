@@ -114,10 +114,6 @@ div#info {
 /*#searchbox {
 }*/
 #search-content {
-    overflow: hidden;
-    height: 95%;
-}
-#search-content:hover {
     overflow: auto;
 }
 #searchtb {

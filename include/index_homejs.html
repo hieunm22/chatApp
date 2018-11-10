@@ -7,12 +7,7 @@
                 searchList(0);
 				$('input#searchtb').on('keyup', function(e) {
 					if (e.keyCode == 13) {
-						if ($('#searchtb').val() == '') {
-							searchList();
-						}
-						else {
-							searchList();
-						}
+						searchList();
 					}
 				});
 				$('input#searchbt').on('click', function(e) {
@@ -38,12 +33,12 @@
                         loadMoreMsg();
                     }
                 });
-                $('div#search-content').on('mouseover', function(e) {
-                    $('span.me').css('margin-right', '1px');
-                });
-                $('div#search-content').on('mouseleave', function(e) {
-                    $('span.me').css('margin-right', '17px');
-                });
+                // $('div#search-content').on('mouseover', function(e) {
+                //     $('span.me').css('margin-right', '1px');
+                // });
+                // $('div#search-content').on('mouseleave', function(e) {
+                //     $('span.me').css('margin-right', '17px');
+                // });
                 $('td.dot').on('click', changeConversionColor);
 				$('#myModal1').on('show.bs.modal', function () {
 					checkConversionColor();
