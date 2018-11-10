@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	include('../default.php');
 	session_start();
 
