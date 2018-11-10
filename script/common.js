@@ -42,6 +42,7 @@ function resizeWindow() {
     var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
     $('div#search-list').css('height', (h - 100) + 'px');
+    $('div#search-content').css('height', (h - 128) + 'px');
     $('div#chatmain').css('width', (w - 360) + 'px');
     $('div#chatmain').css('height', (h - 100) + 'px');
     $('div#messagePanel').css('height', (h - 210) + 'px');
