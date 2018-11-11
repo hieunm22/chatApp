@@ -18,8 +18,8 @@ function searchList(loaded) {
 				$('div#search-content').html(json.html);
 				unreadCount = 0;
 			}
-			unreadCount += json.unread;
-			var title = $('title').text();
+            unreadCount += json.unread;
+            var title = disFr || "Home";
 			if (unreadCount > 0)
 				$('title').text('(' + unreadCount + ') ' + title);
 			else
@@ -55,8 +55,9 @@ function openChat(id, interval) {
 		if ($('div#user' + id + ' > span.chatname').hasClass('unread-txt')) unreadCount--;
 		// mark as read message
 		$('div#user' + id + ' > span.me').css('color', '#0006');
-		var parent = $('div#user' + id).parent();
-		var unread = $(parent).find('.unread-txt').removeClass('unread-txt');
+        var parent = $('div#user' + id).parent();
+        var findUnread = parent.find('.unread-txt')
+        if (findUnread.length > 0) findUnread.removeClass('unread-txt');
 
 		var status = $('div#user' + id).attr('status');
         var tb = $('input#chatmessage');
@@ -102,9 +103,9 @@ function openChat(id, interval) {
                 if (msgstt.length > 0) msgstt.css('display', 'none');
                 var frName = (json.friendname || $('.active-msg').find('.chatname').text());
                 if (unreadCount > 0)
-                    $('title').text('(' + unreadCount + ') ' + frName);
+                    $('title').text('(' + unreadCount + ') ' + disFr);
                 else
-                    $('title').text(frName);
+                    $('title').text(disFr);
             },
             error: showError
         });
