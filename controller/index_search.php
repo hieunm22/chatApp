@@ -38,7 +38,7 @@
                     else {
                         $msg = $row['display_name'].' changed the nicknames';
                     }
-                    if (strlen($msg) > 32) $msg = substr($msg, 0, 32).'...';
+                    if (strlen($msg) > 32) $msg = mb_substr($msg, 0, 32, "utf-8").'...';
                     break;
             }
             // chỉ bôi đậm khi message status là đã nhận và người gửi cuối không phải là mình
@@ -53,14 +53,14 @@
             $html .= '<div class="lbl search-result" draggable="true">
 		<div class="avatar-img"><img class="img-search" src="'.$avatar.'"></div>
 		<div id="user'.$row["id"].'" class="username-search" status="'.$row["usrstatus"].'">
-			<span class="chatname'.$txt_unread.'">'.$row["display_name"].'</span> <span class="me" style="color: '.($isunread ? '#0084ff' : '#0006').'; margin-right: 17px;" title="'.$row['date'].'">'.$row['time'].'</span>
+			<span class="chatname'.$txt_unread.'">'.$row["display_name"].'</span> <span class="me" style="color: '.($isunread ? '#0084ff' : '#0006').';" title="'.$row['date'].'">'.$row['time'].'</span>
 		</div>
         <div class="last-msg-row">
 			';
             if ($id == $row["last_sender_id"]) {
                 $html .= '<span class="last-message'.$txt_unread.'">'.($row['message_type'] == 0 ? 'You: ' : '').$msg.'</span>';
                 if ($row["msgstatus"] == 3) {
-                    $html .= '<span class="me" style="margin-right: 17px;"><img class="_jf2 img" src="'.$row["avatar_url"].'" /></span>';
+                    $html .= '<span class="me"><img class="_jf2 img" src="'.$row["avatar_url"].'" /></span>';
                 }
             }
             else {
