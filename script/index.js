@@ -113,7 +113,9 @@ function openChat(id, interval) {
 }
 
 function sendMessage(txt) {
-	if (!txt || txt.trim() == '') return;
+    if (!txt || txt.trim() == '') return;
+    txt = txt.replaceAll('\n' ,'<br />');
+    
     var d = new Date();
     var h = checkTime(d.getHours());
     var m = checkTime(d.getMinutes());
@@ -121,6 +123,7 @@ function sendMessage(txt) {
     if (txt.trim().length > 0)
         $('div#messagePanel').append('<div class="message-row"><div class="message-content me"><span class="msg-status"><span class="_2her" style="color:#' + conversion_color + '" title="Sending"></span></span> <span class="user1" style="background-color: #' + conversion_color + '; border-color: #' + conversion_color + '">' + txt + '</span> <span class="tooltiptext me">' + (h + ":" + m) + '</span></div></div>');
     $('#chatmessage').val('');
+    $('#chatmessage').height('34px');
     // scroll to end
     var div = document.getElementById("messagePanel");
     div.scrollTop = div.scrollHeight;

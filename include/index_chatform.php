@@ -36,7 +36,7 @@
                 </table>
             </div>
             <div id="messagePanel"></div>
-            <input type="text" id="chatmessage" placeholder="Nhập tin nhắn..." disabled />
+            <textarea id="chatmessage" placeholder="Nhập tin nhắn..." disabled></textarea>
             <input type="button" id="sendmessage" value="Gửi" />
         </div>
 

@@ -8,10 +8,13 @@
 				$('input#searchtb').on('keyup', function(e) {
 					searchList();
 				});
-				$('input#chatmessage').on('keyup', function(e) {
+				$('#chatmessage').on('keyup', function(e) {
 					if (e.keyCode == 13) {
 						sendMessage($('#chatmessage').val());
 					}
+				});
+				$('#chatmessage').bind('input propertychange', function() {
+					$('textarea').height(Math.min(this.scrollHeight, 120));
 				});
 				$('input#sendmessage').on('click', function(e) {
 					sendMessage($('#chatmessage').val());
