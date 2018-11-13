@@ -7,7 +7,7 @@
 
 		$row = mysqli_fetch_array($query);
 		$msg = $row['message_content'];
-		if (strlen($msg) > 35) $msg = mb_substr($msg, 0, 35, "utf-8").'...';
+		if (strlen($msg) > 25) $msg = mb_substr($msg, 0, 25, "utf-8").'...';
 		// chỉ bôi đậm khi message status là đã nhận và người gửi cuối không phải là mình
 		$isunread = $row["msgstatus"] == 2 && $uid != $row["last_sender_id"];
 		if ($isunread) $unreadCount++;
