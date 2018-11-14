@@ -186,13 +186,13 @@ div.lbl.search-result:active {
     height: 82%;
     position: relative;
     top: 2px;
-    left: 25px;
+    left: 15px;
     padding-top: 15px;
 }
 #chatmessage {
     position: absolute;
 	bottom: 15px;
-	margin-left: 25px;
+	margin-left: 15px;
 }
 #sendmessage {
     position: absolute;
