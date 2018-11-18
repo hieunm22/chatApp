@@ -33,7 +33,7 @@
                     break;
                 case 1:
                     if ($id == $row["last_sender_id"]) {
-                        $msg = 'You changed the nicknames';
+                        $msg = 'Bạn đã đổi nicknames';
                     }
                     else {
                         $msg = $row['display_name'].' changed the nicknames';
@@ -58,7 +58,7 @@
         <div class="last-msg-row">
 			';
             if ($id == $row["last_sender_id"]) {
-                $html .= '<span class="last-message'.$txt_unread.'">'.($row['message_type'] == 0 ? 'You: ' : '').$msg.'</span>';
+                $html .= '<span class="last-message'.$txt_unread.'">'.($row['message_type'] == 0 ? 'Bạn: ' : '').$msg.'</span>';
                 if ($row["msgstatus"] == 3) {
                     $html .= '<span class="me"><img class="_jf2 img" src="'.$row["avatar_url"].'" /></span>';
                 }

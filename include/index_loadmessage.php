@@ -58,18 +58,18 @@
 				break;
 			case 1:
 				if ($uid == $row['sender_id']) {
-					$readMsg .= '<div class="message-row"><div class="message-alert" title="'.$row['time'].'">You changed the nicknames</div></div>';
+					$readMsg .= '<div class="message-row"><div class="message-alert" title="'.$row['time'].'">Bạn đã đổi nicknames</div></div>';
 				}
 				else {
-					$readMsg .= '<div class="message-row"><div class="message-alert" title="'.$row['time'].'">'.$friendname.' changed the nicknames</div></div>';
+					$readMsg .= '<div class="message-row"><div class="message-alert" title="'.$row['time'].'">'.$friendname.' đã đổi nicknames</div></div>';
 				}
 				break;
 			case 2:
 				if ($uid == $row['sender_id']) {
-					$readMsg .= '<div class="message-row"><div class="message-alert" title="'.$row['time'].'">You changed the chat colours</div></div>';
+					$readMsg .= '<div class="message-row"><div class="message-alert" title="'.$row['time'].'">Bạn đã đổi màu cuộc hội thoại</div></div>';
 				}
 				else {
-					$readMsg .= '<div class="message-row"><div class="message-alert" title="'.$row['time'].'">'.$friendname.' changed the chat colours</div></div>';
+					$readMsg .= '<div class="message-row"><div class="message-alert" title="'.$row['time'].'">'.$friendname.' đã đổi màu cuộc hội thoại</div></div>';
 				}
 				break;
 		}

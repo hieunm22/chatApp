@@ -4,7 +4,7 @@
 	}
 	else {
 		$user = $_SESSION['user'] === null ? $_SESSION['user']['name'] : $_SESSION['user']['alias'];
-		include('include/index_homejs.html');
+		include('include/index_homejs.php');
 	}
 ?>
 
