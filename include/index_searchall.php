@@ -17,11 +17,12 @@
 			$avatar = $row["gender"] == 1 ? 'images\\\\2Q==.jpg' : 'images\\\\9k=.jpg';
 		else
 			$avatar = $row["avatar_url"];
+		$first_msg_time = $row['time'];
         // khi send message thì conversion với friend đó sẽ lên đầu -> focus vào conversion đó luôn
-		echo '<div class="lbl search-result active-msg" draggable="true">
+		$html = '<div class="lbl search-result active-msg" draggable="true">
 		<div class="avatar-img"><img class="img-search" src="'.($avatar).'"></div>
         <div id="user'.$row["id"].'" class="username-search" status="'.$row["usrstatus"].'"><span class="chatname'.$txt_unread.'">'.$row["alias"].'</span> <span class="me" style="color: '.($isunread ? '#0084ff' : '#0006').';" title="'.$row['date'].'">'.$row['time'].'</span></div>
-        <div class="last-msg-row"><div class="last-message'.$txt_unread.'">'.($uid == $row["last_sender_id"] &&  $row['message_type'] == 0 ? 'You: ' : '').$msg.'</div></div>
+        <div class="last-msg-row"><div class="last-message'.$txt_unread.'">'.($uid == $row["last_sender_id"] &&  $row['message_type'] == 0 ? 'Bạn: ' : '').$msg.'</div></div>
             </div>';
 
         while ($row = mysqli_fetch_array($query)) {
@@ -32,10 +33,10 @@
                     break;
                 case 1:
                     if ($id == $row["last_sender_id"]) {
-                        $msg = 'You changed the nicknames';
+                        $msg = 'Bạn đã đổi nicknames';
                     }
                     else {
-                        $msg = $row['display_name'].' changed the nicknames';
+                        $msg = $row['display_name'].' đã đổi nicknames';
                     }
                     if (strlen($msg) > 32) $msg = mb_substr($msg, 0, 32, "utf-8").'...';
                     break;
@@ -49,10 +50,15 @@
                 $avatar = $row["gender"] == 1 ? 'images\\\\2Q==.jpg' : 'images\\\\9k=.jpg';
             else
                 $avatar = $row["avatar_url"];
-            echo '<div class="lbl search-result" draggable="true">
+            $html .= '<div class="lbl search-result" draggable="true">
             <div class="avatar-img"><img class="img-search" src="'.($avatar).'"></div>
             <div id="user'.$row["id"].'" class="username-search" status="'.$row["usrstatus"].'"><span class="chatname'.$txt_unread.'">'.$row["alias"].'</span> <span class="me" style="color: '.($isunread ? '#0084ff' : '#0006').';" title="'.$row['date'].'">'.$row['time'].'</span></div>
-            <div class="last-msg-row"><div class="last-message'.$txt_unread.'">'.($uid == $row["last_sender_id"] &&  $row['message_type'] == 0 ? 'You: ' : '').$msg.'</div></div>
+            <div class="last-msg-row"><div class="last-message'.$txt_unread.'">'.($uid == $row["last_sender_id"] &&  $row['message_type'] == 0 ? 'Bạn: ' : '').$msg.'</div></div>
                 </div>';
         }
+		$obj = new stdClass();
+		$obj->html = $html;
+		$obj->avatar = $avatar;
+		$obj->msgtime = $first_msg_time;
+		echo json_encode($obj);
 ?>

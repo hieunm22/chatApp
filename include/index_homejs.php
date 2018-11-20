@@ -2,8 +2,6 @@
 				var currentLoaded = 0;
 				var user_id = <?php echo $_SESSION["user"]["id"] ?>;
 				var ws = new WebSocket("ws://localhost:8080/");
-				$(document).ready(function(){
-					// document.cookie = 'conversion_color=0084ff';
 					ws.onopen = function(e) {
 				};
 				ws.onerror = function(e) {
@@ -25,6 +23,8 @@
 					}
 					searchList();
 				}
+				$(document).ready(function(){
+					// document.cookie = 'conversion_color=0084ff';
 				// Events
 				$('title').text('Home');
 				$(window).resize(resizeWindow);

@@ -1,4 +1,6 @@
 var unreadCount = 0;
+var msgType = "message";
+
 function searchList(loaded) {
 	var text = $('#searchtb').val();
     $.ajax({
@@ -45,7 +47,7 @@ var meName = '';
 var disFr = '';
 var disMe = '';
 var conversion_color = "0084ff";
-function openChat(id, interval) {
+function openChat(id, ws) {
     var chat = document.getElementById('chatmessage')
     if (chat) {
         chat.disabled = false;
@@ -59,6 +61,8 @@ function openChat(id, interval) {
         var findUnread = parent.find('.unread-txt')
         if (findUnread.length > 0) findUnread.removeClass('unread-txt');
 
+        $('textarea').height(34);
+
 		var status = $('div#user' + id).attr('status');
         var tb = $('input#chatmessage');
         if (status == '0') {
@@ -68,7 +72,7 @@ function openChat(id, interval) {
         }
         else {
             tb.attr('disabled', false);
-            if (!interval) tb.val('');
+            tb.val('');
             tb.attr('style', 'display: inherit');
         }
         $('#chatmessage').css('width', (Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 510) + 'px');
@@ -91,10 +95,19 @@ function openChat(id, interval) {
 				$('a._30yy').css('display', 'inline');
 				changeConversionObjectsColor();
                 var json = $.parseJSON(response);
+                ws.send(
+                    JSON.stringify({
+                        'type': "action",    //'friend action read message',
+                        'sender_id': -1,
+                        'txt': "",
+                        'msgtime': "",
+                        'avatar': ""
+                    })
+                );
                 $('div#messagePanel').html(json.readMsg);
+                $('div#messagePanel').append(json.unreadMsg);
                 var div = document.getElementById("messagePanel");
                 if (div) div.scrollTop = div.scrollHeight;
-                $('div#messagePanel').append(json.unreadMsg);
 				friendName = json.friendname;
 				disFr = json.display_fr;
 				meName = json.mename;
@@ -112,16 +125,17 @@ function openChat(id, interval) {
     }
 }
 
-function sendMessage(txt) {
+function sendMessage(txt, ws) {
     if (!txt || txt.trim() == '') return;
-    txt = txt.replaceAll('\n' ,'<br />');
+    txt = txt.trim().replaceAll('\n' ,'<br />');
     
     var d = new Date();
     var h = checkTime(d.getHours());
     var m = checkTime(d.getMinutes());
-
+	
+	var append = '<div class="message-row"><div class="message-content me"><span class="msg-status"><span class="_2her" style="color:#' + conversion_color + '" title="Sending"></span></span> <span class="user1" style="background-color: #' + conversion_color + '; border-color: #' + conversion_color + '">' + txt + '</span> <span class="tooltiptext me">' + (h + ":" + m) + '</span></div></div>';
     if (txt.trim().length > 0)
-        $('div#messagePanel').append('<div class="message-row"><div class="message-content me"><span class="msg-status"><span class="_2her" style="color:#' + conversion_color + '" title="Sending"></span></span> <span class="user1" style="background-color: #' + conversion_color + '; border-color: #' + conversion_color + '">' + txt + '</span> <span class="tooltiptext me">' + (h + ":" + m) + '</span></div></div>');
+        $('div#messagePanel').append(append);
     $('#chatmessage').val('');
     $('#chatmessage').height('34px');
     // scroll to end
@@ -137,10 +151,18 @@ function sendMessage(txt) {
         dataType: 'html',
         type: 'GET',
         success: function (response) {
-            // sending -> sent
-            $('span.msg-status:last').html('<span class="_2her" style="color:#' + conversion_color + '" title="Sent"><i aria-label="Sent" aria-roledescription="Status icon" class="_57e_" role="img"></i></span>');
+            var json = JSON.parse(response);
+			ws.send(
+				JSON.stringify({
+					'type':msgType,    //'message',
+					'sender_id': user_id,
+					'txt': txt,
+					'msgtime': json.msgtime,
+					'avatar': json.avatar
+				})
+			);
             // send xong update lai user list
-            $('div#search-content').html(response);
+            $('div#search-content').html(json.html);
         },
         error: showError
     });
@@ -211,7 +233,7 @@ function changeNickNames() {
 			// $('#myModal2').modal('toggle');
 			$('td#chatname').text(fr);
             $('div#user' + friend_id + ' > span.chatname').text(fr);
-            $('div#messagePanel').append('<div class="message-row message-alert">You changed the nicknames</div>');
+            $('div#messagePanel').append('<div class="message-row message-alert">Bạn đã đổi nicknames</div>');
         },
         error: showError
     });
