@@ -30,23 +30,19 @@ class Chat implements MessageComponentInterface {
 		$from_id = $from->resourceId;
 		$data = json_decode($data);
 		$type = $data->type;
-		switch ($type) {
-			case 'message':
-				$sender_id = $data->sender_id;
-				$txt = $data->txt;
-				$msgtime = $data->msgtime;
-				$avatar = $data->avatar;
-				// Output
-				$from->send(json_encode(array("txt"=>$txt,"sender_id"=>$sender_id,"msgtime"=>$msgtime,"avatar"=>$avatar)));
-				foreach($this->clients as $client)
-				{
-					// send to clients
-					if($from!=$client)
-					{
-						$client->send(json_encode(array("txt"=>$txt,"sender_id"=>$sender_id,"msgtime"=>$msgtime,"avatar"=>$avatar)));
-					}
-				}
-				break;
+		$sender_id = $data->sender_id;
+		$txt = $data->txt;
+		$msgtime = $data->msgtime;
+		$avatar = $data->avatar;
+		// Output
+		$from->send(json_encode(array("txt"=>$txt,"sender_id"=>$sender_id,"msgtime"=>$msgtime,"avatar"=>$avatar,"type"=>$type)));
+		foreach($this->clients as $client)
+		{
+			// send to clients
+			if($from!=$client)
+			{
+				$client->send(json_encode(array("txt"=>$txt,"sender_id"=>$sender_id,"msgtime"=>$msgtime,"avatar"=>$avatar,"type"=>$type)));
+			}
 		}
 	}
 
