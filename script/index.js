@@ -1,11 +1,9 @@
 var unreadCount = 0;
-var msgType = "message";
-
-function searchList(loaded) {
-	var text = $('#searchtb').val();
+function searchUsers(isKey) {
+	var txt = $('#searchtb').val();
     $.ajax({
         url: "controller/index_search.php",
-        data: { t: text, l: (loaded | 0) },
+        data: { t: txt },
         dataType: 'html',
         type: 'GET',
         success: function (response) {
@@ -13,120 +11,123 @@ function searchList(loaded) {
             if (response == '')
                 return;
             var json = $.parseJSON(response);
-			if (loaded != undefined) {
-				$('div#search-content').append(json.html);
+            $('div#search-content').html(json.html);
+            $('.lbl.search-result').removeClass('active-msg');
+            if (current_connect != -1 && !isKey) {
+                $('#user' + current_connect).parent().addClass('active-msg');
+                openChat(current_connect, ws);
             }
-			else {
-				$('div#search-content').html(json.html);
-				unreadCount = 0;
-			}
+            unreadCount = 0;
             unreadCount += json.unread;
-            var title = disFr || "Home";
+            var title = display_fr || "Home";
 			if (unreadCount > 0)
 				$('title').text('(' + unreadCount + ') ' + title);
 			else
 				$('title').text(title);
 
-            // var sl = $('div#search-list').height();
-            // var sb = $('div#searchbox').height();
-			// $('div#search-content').css('height', sl - sb);
+            var sl = $('div#search-list').height();
+            var sb = $('div#searchbox').height();
+			$('div#search-content').css('height', sl - sb);
 			// nếu đã chọn 1 conversion thì vẫn focus conversion đó
-			if (friend_id != -1) {
-				$('div.lbl.search-result').removeClass('active-msg');
-				$('div#user' + friend_id).parent('div.lbl.search-result').addClass('active-msg');
-			}
-            resizeWindow();
+			// if (current_connect != -1) {
+				// $('div.lbl.search-result').removeClass('active-msg');
+				// $('div#user' + current_connect).parent('div.lbl.search-result').addClass('active-msg');
+			// }
         },
         error: showError
     });
 }
 
-var friend_id = -1;
 var friendName = '';
 var meName = '';
-var disFr = '';
-var disMe = '';
+var display_fr = '';
+var display_me = '';
 var conversion_color = "0084ff";
-function openChat(id, ws) {
+
+function openChat(fid, ws) {
     var chat = document.getElementById('chatmessage')
-    if (chat) {
-        chat.disabled = false;
-        chat.focus();
-        friend_id = id;
+    if (!chat) return;
+    chat.disabled = false;
+    chat.focus();
+    current_connect = fid;
 
-		if ($('div#user' + id + ' > span.chatname').hasClass('unread-txt')) unreadCount--;
-		// mark as read message
-		$('div#user' + id + ' > span.me').css('color', '#0006');
-        var parent = $('div#user' + id).parent();
-        var findUnread = parent.find('.unread-txt')
-        if (findUnread.length > 0) findUnread.removeClass('unread-txt');
+    if ($('div#user' + fid + ' > span.chatname').hasClass('unread-txt')) unreadCount--;
+    // mark as read message
+    $('div#user' + fid + ' > span.me').css('color', '#0006');
+    var usr_chat = document.getElementById('user' + fid);
+    var parent = usr_chat.parentElement;
+    var findUnread = $(parent).find('.unread-txt')
+    if (findUnread.length > 0) findUnread.removeClass('unread-txt');
 
-        $('textarea').height(34);
+    $('textarea').height(45);
 
-		var status = $('div#user' + id).attr('status');
-        var tb = $('input#chatmessage');
-        if (status == '0') {
-            tb.attr('disabled', true);
-            tb.val('Bạn không thể gửi tin nhắn cho người này');
-            tb.attr('style', 'border: 0px none; background-color: transparent');
-        }
-        else {
-            tb.attr('disabled', false);
-            tb.val('');
-            tb.attr('style', 'display: inherit');
-        }
-        $('#chatmessage').css('width', (Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 510) + 'px');
-        if (friend_id != -1) {
-            var alias = $('div[id="user' + id + '"] span.chatname').text();
-            $('#chatname').text(alias);
-        }
-        else {
-            $('#chatname').text('');
-        }
-		$('a#row3').attr('href', 'profile.php?id=' + friend_id);
-		$('a#row3').attr('target', '_blank');
-        $.ajax({
-            url: "controller/index_openchat.php",
-            data: { id: id },
-            dataType: 'html',
-            type: 'GET',
-            success: function (response) {
-                conversion_color = getCookie('conversion_color');
-				$('a._30yy').css('display', 'inline');
-				changeConversionObjectsColor();
-                var json = $.parseJSON(response);
-                ws.send(
-                    JSON.stringify({
-                        'type': "action",    //'friend action read message',
-                        'sender_id': -1,
-                        'txt': "",
-                        'msgtime': "",
-                        'avatar': ""
-                    })
-                );
-                $('div#messagePanel').html(json.readMsg);
-                $('div#messagePanel').append(json.unreadMsg);
-                var div = document.getElementById("messagePanel");
-                if (div) div.scrollTop = div.scrollHeight;
-				friendName = json.friendname;
-				disFr = json.display_fr;
-				meName = json.mename;
-				disMe = json.display_me;
-				var msgstt = $('._4jzq._jf5:not(:last)');
-                if (msgstt.length > 0) msgstt.css('display', 'none');
-                var frName = (json.friendname || $('.active-msg').find('.chatname').text());
-                if (unreadCount > 0)
-                    $('title').text('(' + unreadCount + ') ' + disFr);
-                else
-                    $('title').text(disFr);
-            },
-            error: showError
-        });
+    var status = usr_chat.getAttribute('status');
+    if (status == '0') {
+        chat.disabled = true;
+        chat.value = 'Bạn không thể gửi tin nhắn cho người này';
+        chat.style.border = '0px none';
+        chat.style.backgroundColor = 'transparent';
     }
+    else {
+        chat.disabled = false;
+        chat.value = '';
+        chat.style.display = 'inherit';
+    }
+    chat.style.width = (Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 480) + 'px';
+    if (current_connect != -1) {
+        var alias = $('div[id="user' + fid + '"] span.chatname').text();
+        $('#chatname').text(alias);
+    }
+    else {
+        $('#chatname').text('');
+    }
+    $('a#row3').attr('href', 'profile.php?id=' + current_connect);
+    $('a#row3').attr('target', '_blank');
+    $.ajax({
+        url: "controller/index_openchat.php",
+        data: { fid: fid, cur: current_connect },
+        dataType: 'html',
+        type: 'GET',
+        success: function (response) {
+            $('a._30yy').css('display', 'inline');
+            conversion_color = getCookie('conversion_color');
+            changeConversionObjectsColor();
+            var json = $.parseJSON(response);
+            if (ws && ws.readyState == 1) ws.send(
+                JSON.stringify({
+                    'type': "open_message",    //'friend action open message',
+                    'sender_id': user_id,
+                    'txt': "",
+                    'msgtime': "",
+                    'avatar': ""
+                })
+            );
+
+            var div = document.getElementById("messagePanel");
+            // load những message có trạng thái đã đọc lên trước
+            div.innerHTML = json.readMsg;
+            // load những message chưa đọc lên sau
+            div.innerHTML += json.unreadMsg;
+            // cuộn xuống dưới cùng
+            div.scrollTop = div.scrollHeight;
+            friendName = json.friendname;
+            display_fr = json.display_fr;
+            meName = json.mename;
+            display_me = json.display_me;
+            var msgstt = $('._4jzq._jf5:not(:last)');
+            if (msgstt.length > 0) msgstt.css('display', 'none');
+            var frName = (json.friendname || $('.active-msg').find('.chatname').text());
+            if (unreadCount > 0)
+                $('title').text('(' + unreadCount + ') ' + display_fr);
+            else
+                $('title').text(display_fr);
+        },
+        error: showError
+    });
 }
 
 function sendMessage(txt, ws) {
-    if (!txt || txt.trim() == '') return;
+    if (!txt) return;
     txt = txt.trim().replaceAll('\n' ,'<br />');
     
     var d = new Date();
@@ -134,19 +135,19 @@ function sendMessage(txt, ws) {
     var m = checkTime(d.getMinutes());
 	
 	var append = '<div class="message-row"><div class="message-content me"><span class="msg-status"><span class="_2her" style="color:#' + conversion_color + '" title="Sending"></span></span> <span class="user1" style="background-color: #' + conversion_color + '; border-color: #' + conversion_color + '">' + txt + '</span> <span class="tooltiptext me">' + (h + ":" + m) + '</span></div></div>';
-    if (txt.trim().length > 0)
-        $('div#messagePanel').append(append);
-    $('#chatmessage').val('');
-    $('#chatmessage').height('34px');
+    var chatmsg = document.getElementById('chatmessage');
+    chatmsg.value = '';
+    chatmsg.style.height = '45px';
     // scroll to end
     var div = document.getElementById("messagePanel");
+    div.innerHTML += append;
     div.scrollTop = div.scrollHeight;
 
     $.ajax({
         url: "controller/index_sendmessage.php",
         data: {
-            m: decodeURIComponent(txt.trim().replace('\n', '<br />')),
-            f: friend_id,
+            m: decodeURIComponent(txt.replace('\n', '<br />')),
+            f: current_connect,
         },
         dataType: 'html',
         type: 'GET',
@@ -154,86 +155,19 @@ function sendMessage(txt, ws) {
             var json = JSON.parse(response);
 			ws.send(
 				JSON.stringify({
-					'type':msgType,    //'message',
+					'type': 'sent_message',    //'sent_message',
 					'sender_id': user_id,
 					'txt': txt,
-					'msgtime': json.msgtime,
+					'msgtime': (h + ":" + m),
 					'avatar': json.avatar
 				})
 			);
-            // send xong update lai user list
+            // send xong update lai user list   ('active-msg')
             $('div#search-content').html(json.html);
-        },
-        error: showError
-    });
-}
-
-function loadMoreMsg() {
-    var count = $('div#search-content').children().length;
-    // var count = $('div.lbl.search-result').length;
-    if (count < 15 || $('input#searchtb').val() != '') return;
-    searchList(count);
-}
-
-function changeConversionColor(e) {
-	// var _colorIndex = e.target.id.substr(5) - 1;
-	var _intValue = convertColor(e.target.style.backgroundColor || e.target.parentElement.style.backgroundColor);
-	conversion_color = getHexColor(_intValue);
-	$('span.user1').attr('style', 'background-color: #' + conversion_color + '; border-color: #' + conversion_color);
-	$('span._2her').css('color', '#' + conversion_color);
-	changeConversionObjectsColor();
-    $.ajax({
-        url: "controller/index_changecolor.php",
-        data: { id: friend_id, c: _intValue },
-        dataType: 'html',
-        type: 'GET',
-        success: function (response) {
-			// close modal dialog
-			$('#myModal1').modal('toggle');
-        },
-        error: showError
-    });
-}
-
-function checkConversionColor() {
-	$('td.dot').html('');
-	$('td.dot[style="background-color: #' + conversion_color + '"]').html('<i class="_gs2 img sp_tRueZ17UPsM sx_4affb5" alt=""></i>');
-}
-
-function editnickname(e) {
-	if (e.currentTarget.style.cursor != "text") {
-		$('input[id^="nickname"]').attr('style', '');
-		e.currentTarget.style.cursor = "text";
-		e.currentTarget.style.border = "1px solid #d0c9c9";
-		e.currentTarget.readOnly = false;
-	}
-}
-
-function loadNickNames() {
-	var meElem = document.getElementById('nickname1');
-	meElem.value = disMe;
-	meElem.placeholder = meName;
-	var friendElem = document.getElementById('nickname2');
-	var nameInSearch = $('.active-msg > .username-search > .chatname').text();
-	friendElem.value = nameInSearch;
-	friendElem.placeholder = friendName;
-	$('input[id^="nickname"]').attr('style', '');
-}
-
-function changeNickNames() {
-	var me = $('input#nickname1').val() || $('input#nickname1').attr('placeholder');
-	var fr = $('input#nickname2').val() || $('input#nickname2').attr('placeholder');
-    $.ajax({
-        url: "controller/index_changenicknames.php",
-        data: { fid: friend_id, nick1: me, nick2: fr },
-        dataType: 'html',
-        type: 'GET',
-        success: function (response) {
-			// close modal dialog
-			// $('#myModal2').modal('toggle');
-			$('td#chatname').text(fr);
-            $('div#user' + friend_id + ' > span.chatname').text(fr);
-            $('div#messagePanel').append('<div class="message-row message-alert">Bạn đã đổi nicknames</div>');
+            // set active cho message vua gui
+            $('.lbl.search-result')[0].classList.add('active-msg');
+            // sending -> sent
+            $('span.msg-status:last').html('<span class="_2her" style="color:#' + conversion_color + '" title="Sent"><i aria-label="Sent" aria-roledescription="Status icon" class="_57e_" role="img"></i></span>');
         },
         error: showError
     });

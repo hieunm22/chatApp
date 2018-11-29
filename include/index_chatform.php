@@ -1,8 +1,6 @@
 
 		<div id="search-list">
-			<div id="searchbox">
-				<input type="text" id="searchtb" placeholder="Tìm kiếm thành viên" autofocus="true" />
-			</div>
+			<input type="text" id="searchtb" placeholder="Tìm kiếm" autofocus="true" />
 			<div id="search-content"></div>
 		</div>
 		<div id="chatmain">

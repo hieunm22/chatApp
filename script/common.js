@@ -41,13 +41,14 @@ function getCookie(name) {
 function resizeWindow() {
     var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-    $('div#search-list').css('height', (h - 100) + 'px');
-    $('div#search-content').css('height', (h - 128) + 'px');
-    $('div#chatmain').css('width', (w - 360) + 'px');
-    $('div#chatmain').css('height', (h - 100) + 'px');
-    $('div#messagePanel').css('width', (w - 390) + 'px');
-    $('div#messagePanel').css('height', (h - 220) + 'px');
-    $('#chatmessage').css('width', (w - 510) + 'px');
+    //$('div#search-list').css('height', (h - 100) + 'px');
+    $('div#search-content').height(h - 120);
+    $('div#chatmain').width(w - 360);
+    $('div#chatmain').height(h - 92);
+    $('div#messagePanel').width(w - 390);
+    $('div#messagePanel').height(h - 220);
+    $('#chatmessage').width(w - 480);
+    $('#chatmessage').height(45);
 }
 
 function showError(data) {
@@ -66,6 +67,73 @@ function showDropDown() {
 	// $('.dropdown-row:hover').attr('style', 'background-color: #' + conversion_color);
 }
 
+function changeConversionColor(e) {
+	// var _colorIndex = e.target.id.substr(5) - 1;
+	var _intValue = convertColor(e.target.style.backgroundColor || e.target.parentElement.style.backgroundColor);
+	conversion_color = getHexColor(_intValue);
+	$('span.user1').attr('style', 'background-color: #' + conversion_color + '; border-color: #' + conversion_color);
+	$('span._2her').css('color', '#' + conversion_color);
+	changeConversionObjectsColor();
+    $.ajax({
+        url: "controller/index_changecolor.php",
+        data: { fid: current_connect, c: _intValue },
+        dataType: 'html',
+        type: 'GET',
+        success: function (response) {
+			// close modal dialog
+			$('#myModal1').modal('toggle');
+        },
+        error: showError
+    });
+}
+
+function checkConversionColor() {
+	$('td.dot').html('');
+	$('td.dot[style="background-color: #' + conversion_color + '"]').html('<i class="_gs2 img sp_tRueZ17UPsM sx_4affb5" alt=""></i>');
+}
+
+function editnickname(e) {
+	if (e.currentTarget.style.cursor != "text") {
+		$('input[id^="nickname"]').attr('style', '');
+		e.currentTarget.style.cursor = "text";
+		e.currentTarget.style.border = "1px solid #d0c9c9";
+		e.currentTarget.readOnly = false;
+	}
+}
+
+function loadNickNames() {
+	var meElem = document.getElementById('nickname1');
+	meElem.value = display_me;
+	meElem.placeholder = meName;
+	var friendElem = document.getElementById('nickname2');
+	var nameInSearch = $('.active-msg > .username-search > .chatname').text();
+	friendElem.value = nameInSearch;
+	friendElem.placeholder = friendName;
+	$('input[id^="nickname"]').attr('style', '');
+}
+
+function saveNickNames() {
+	var me = $('input#nickname1').val() || $('input#nickname1').attr('placeholder');
+	var fr = $('input#nickname2').val() || $('input#nickname2').attr('placeholder');
+    $.ajax({
+        url: "controller/index_changenicknames.php",
+        data: { fid: current_connect, nick1: me, nick2: fr },
+        dataType: 'html',
+        type: 'GET',
+        success: function (response) {
+            $('input#nickname2').val(fr);
+			// close modal dialog
+			// $('#myModal2').modal('toggle');
+			$('td#chatname').text(fr);
+            $('div#user' + current_connect + ' > span.chatname').text(fr);
+            $('title').text(fr);
+            $('div#messagePanel').append('<div class="message-row message-alert">Bạn đã đổi nicknames</div>');
+            $('#search-content').html(response);
+        },
+        error: showError
+    });
+}
+
 window.onclick = function(e) {
 	if ($(e.target).parents('._30yy').length == 0) {
 		var dropdowns = document.getElementsByClassName("dropdown-content");
@@ -77,6 +145,31 @@ window.onclick = function(e) {
 			}
 		}
 	}
+}
+
+function wsReceivedMessage(e)
+{
+    // nhận message ở đây
+    var json = JSON.parse(e.data);
+    if (json.sender_id == user_id) return;
+    switch (json.type) {
+        case "sent_message":
+            if (json.sender_id != current_connect) {	// message từ người bạn mà máy mình đang không focus vào
+                searchUsers();
+            }
+            else 								        // message từ người bạn mà máy mình đang focus vào
+            {
+                // load message here
+                searchUsers();   
+                var div = document.getElementById("messagePanel");
+                // scroll to end
+                div.scrollTop = div.scrollHeight;
+            }
+            break;
+        case "open_message":
+            openChat(current_connect);
+            break;
+    }
 }
 
 String.prototype.replaceAll = function(search, replacement) {

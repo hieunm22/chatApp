@@ -8,7 +8,7 @@
 		<?php
 			include('default.php');
 			session_start();
-            include('include/index_showmaincontent.php');
+			include('include/index_showmaincontent.php');
 		?>
 	</body>
 </html>
