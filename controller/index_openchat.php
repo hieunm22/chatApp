@@ -23,6 +23,7 @@
     $mename = '';
 	$display_me = '';
 	$previous_sid = -1;
+	$previous_mst = 0;
     while ($row = mysqli_fetch_array($query)) {
 		$message_type = $row['message_type'];
         $color = toColor($row["message_color"]);
@@ -42,7 +43,8 @@
 			$icon = '<span class="_4jzq _jf5"><img class="_jf2 img" alt="Seen by '.$friendname.' at 17:27" src="'.$avatar_fr.'" title="Seen by '.$friendname.' at '.$rdt.'"></span>';
 		switch ($message_type) {
 			case 0:
-				$check_sid = $previous_sid != $row['sender_id'];
+				// true nếu sender trước đó != sender hiện tại hoặc message type của message trước đó != 0
+				$check_sid = $previous_sid != $row['sender_id'] || $previous_mst > 0;
 				$message_content = $row["message_content"];
 				$sent_time = $row['sent_time'];
 				if ($uid == $row['sender_id']) {
@@ -81,6 +83,7 @@
 				break;
 		}
 		$previous_sid = $row['sender_id'];
+		$previous_mst = $message_type;
     }
 	$obj = new stdClass();
 	$obj->readMsg = $readMsg;
