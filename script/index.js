@@ -121,6 +121,18 @@ function openChat(fid, ws) {
                 $('title').text('(' + unreadCount + ') ' + display_fr);
             else
                 $('title').text(display_fr);
+            var friend_row = $('img.avatar-friend').closest('.message-row');
+            friend_row.each(function(index) {
+                var avatar_friend = this.querySelector('img.avatar-friend');
+                if (index < friend_row.length - 1) {
+                    var avatar_next = this.nextElementSibling.querySelector('img.avatar-friend');
+                    if (avatar_next && avatar_next.src == avatar_friend.src) {
+                        avatar_friend.style = "display: none";
+                        var msg = this.querySelector('.user2');
+                        msg.classList.add('msg-no-avatar');
+                    }
+                }
+            });
         },
         error: showError
     });

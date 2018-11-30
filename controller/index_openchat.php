@@ -43,8 +43,6 @@
 			$icon = '<span class="_4jzq _jf5"><img class="_jf2 img" alt="Seen by '.$friendname.' at 17:27" src="'.$avatar_fr.'" title="Seen by '.$friendname.' at '.$rdt.'"></span>';
 		switch ($message_type) {
 			case 0:
-				// true nếu sender trước đó != sender hiện tại hoặc message type của message trước đó != 0
-				$check_sid = $previous_sid != $row['sender_id'] || $previous_mst > 0;
 				$message_content = $row["message_content"];
 				$sent_time = $row['sent_time'];
 				if ($uid == $row['sender_id']) {
@@ -56,7 +54,7 @@
 					$readMsg .= $msgrow;
 				}
 				else {
-					$msgrow = "<div class=\"message-row\"><div class=\"message-content friend\"><span class=\"msg-status\">$icon</span> ".($check_sid ? "<img class=\"avatar-friend\" src=\"$avatar_fr\" width=\"30px\" height=\"30px\" > <span class=\"user2\">$message_content</span>" : "<span class=\"user2 msg-no-avatar\">$message_content</span>")." <span class=\"tooltiptext friend\">$sent_time</span></div></div>";
+					$msgrow = "<div class=\"message-row\"><div class=\"message-content friend\"><span class=\"msg-status\">$icon</span> <img class=\"avatar-friend\" src=\"$avatar_fr\" width=\"30px\" height=\"30px\" > <span class=\"user2\">$message_content</span> <span class=\"tooltiptext friend\">$sent_time</span></div></div>";
 					// $readMsg .= $msgrow;
 					// tạm thời bỏ
 					if ($row['status'] == 3)
