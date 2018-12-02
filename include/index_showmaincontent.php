@@ -5,10 +5,10 @@
 		$usr = str_replace("'","\\'",$usr);
 		$pwd = $_POST['password'];
 		$pwd = str_replace("'","\\'",$pwd);
-		$sql = "call loginVertification('".$usr."', '".$pwd."')";
+		$sql = "call loginVertification($usr, $pwd)";
 		$query = mysqli_query($con, $sql);
-		$rowcount = mysqli_num_rows($query);
-		if ($rowcount==1) {
+		$rowcount = $query->num_rows;
+		if ($rowcount == 1) {
 			$_SESSION['user'] = mysqli_fetch_array($query);
 			$_SESSION['current_connect'] = $_SESSION['user']['current_connect'];
 			// update trang thai toan bo cac message trong cac conversion cua minh thanh 2

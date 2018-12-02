@@ -34,12 +34,12 @@
 						var txt = document.getElementById('chatmessage').value.trim();
 						sendMessage(txt, ws);
 					});
-				});
 
-				$('td.dot').on('click', changeConversionColor);
-				$('#myModal1').on('show.bs.modal', checkConversionColor);
-				$('#myModal2').on('show.bs.modal', loadNickNames);
-				$('a._30yy').on('click', showDropDown);
-				$('a#save-nickname').on('click', saveNickNames);
-				$('input[type="text"]#nickname1, input[type="text"]#nickname2').on('click', editnickname);
+					$('td.dot').on('click', changeConversionColor);
+					$('#myModal1').on('show.bs.modal', checkConversionColor);
+					$('#myModal2').on('show.bs.modal', loadNickNames);
+					$('a._30yy').on('click', showDropDown);
+					$('a#save-nickname').on('click', saveNickNames);
+					$('input[type="text"]#nickname1, input[type="text"]#nickname2').on('click', editnickname);
+				});
 		</script>
