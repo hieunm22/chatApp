@@ -1,8 +1,7 @@
 <?php
     $html_return = '';
     $avatar_first = '';
-
-    $ii = 0;
+    $current_connect = $_SESSION['current_connect'];
 
     while ($row = mysqli_fetch_array($query)) {
         switch ($row['message_type']) {
@@ -29,12 +28,22 @@
             $avatar = $row["gender"] == 1 ? 'images\\\\2Q==.jpg' : 'images\\\\9k=.jpg';
         else
             $avatar = $row["avatar_friend"];
-        $html_return .= '<div class="lbl search-result '.($ii == 0 ? 'active-msg' : '').'" draggable="true">
+        $html_return .= '<div class="lbl search-result'.($current_connect == $row['friend_id'] ? ' active-msg' : '').'" draggable="true">
         <div class="avatar-img"><img class="img-search" src="'.($avatar).'"></div>
         <div id="user'.$row["friend_id"].'" class="username-search" status="'.$row["usrstatus"].'"><span class="chatname'.$txt_unread.'">'.$row["display_name"].'</span> <span class="me" style="color: '.($isunread ? '#0084ff' : '#0006').';" title="'.$row['sent_date'].'">'.$row['sent_time'].'</span></div>
-        <div class="last-msg-row"><div class="last-message'.$txt_unread.'">'.($uid == $row["last_sender_id"] &&  $row['message_type'] == 0 ? 'Bạn: ' : '').str_replace("<br />"," ",$msg).'</div></div>
-            </div>';
-        $ii++;
+        <div class="last-msg-row">';
+        if ($uid == $row["last_sender_id"]) {
+            $html_return .= '<span class="last-message'.$txt_unread.'">'.($row['message_type'] == 0 ? 'Bạn: ' : '').$msg.'</span>';
+            if ($row["msgstatus"] == 3) {
+                $html_return .= '<span class="me"><img class="_jf2 img" src="'.$row["avatar_friend"].'" /></span>';
+            }
+        }
+        else {
+            $html_return .= '<span class="last-message'.$txt_unread.'">'.$msg.'</span>';
+        }
+        $html_return .= '
+    </div>
+</div>';
     }
     return $html_return;
 ?>
