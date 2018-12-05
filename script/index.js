@@ -1,4 +1,26 @@
 var unreadCount = 0;
+function searchUsersAndLoadMessage() {
+    $.ajax({
+        url: "controller/index_searchandload.php",
+        // data: { t: txt },
+        dataType: 'html',
+        type: 'GET',
+        success: function (response) {
+            // hiển thị kết quả tìm kiếm
+            if (response == '')
+                return;
+            var json = $.parseJSON(response);
+            // load search
+            searchOnLoad(json, false);
+
+            preOpenChatOnLoad(current_connect);
+            // load message
+            openChatOnLoad(json.load);
+        },
+        error: showError
+    }); 
+}
+
 function searchUsers(isKey) {
 	var txt = $('#searchtb').val();
     $.ajax({
@@ -11,28 +33,7 @@ function searchUsers(isKey) {
             if (response == '')
                 return;
             var json = $.parseJSON(response);
-            $('div#search-content').html(json.html);
-            $('.lbl.search-result').removeClass('active-msg');
-            if (current_connect != -1 && !isKey) {
-                $('#user' + current_connect).parent().addClass('active-msg');
-                openChat(current_connect, ws);
-            }
-            unreadCount = 0;
-            unreadCount += json.unread;
-            var title = display_fr || "Home";
-			if (unreadCount > 0)
-				$('title').text('(' + unreadCount + ') ' + title);
-			else
-				$('title').text(title);
-
-            var sl = $('div#search-list').height();
-            var sb = $('div#searchbox').height();
-			$('div#search-content').css('height', sl - sb);
-			// nếu đã chọn 1 conversion thì vẫn focus conversion đó
-			// if (current_connect != -1) {
-				// $('div.lbl.search-result').removeClass('active-msg');
-				// $('div#user' + current_connect).parent('div.lbl.search-result').addClass('active-msg');
-			// }
+            searchOnLoad(json, isKey);
         },
         error: showError
     });
@@ -89,9 +90,6 @@ function openChat(fid, ws) {
         dataType: 'html',
         type: 'GET',
         success: function (response) {
-            $('a._30yy').css('display', 'inline');
-            conversion_color = getCookie('conversion_color');
-            changeConversionObjectsColor();
             var json = $.parseJSON(response);
             if (ws && ws.readyState == 1) ws.send(
                 JSON.stringify({
@@ -103,39 +101,21 @@ function openChat(fid, ws) {
                 })
             );
 
-            var div = document.getElementById("messagePanel");
-            // load những message có trạng thái đã đọc lên trước
-            div.innerHTML = json.readMsg;
-            // load những message chưa đọc lên sau
-            div.innerHTML += json.unreadMsg;
-            // cuộn xuống dưới cùng
-            div.scrollTop = div.scrollHeight;
-            friendName = json.friendname;
-            display_fr = json.display_fr;
-            meName = json.mename;
-            display_me = json.display_me;
-            var msgstt = $('._4jzq._jf5:not(:last)');
-            if (msgstt.length > 0) msgstt.css('display', 'none');
-            var frName = (json.friendname || $('.active-msg').find('.chatname').text());
-            if (unreadCount > 0)
-                $('title').text('(' + unreadCount + ') ' + display_fr);
-            else
-                $('title').text(display_fr);
-            var friend_row = $('img.avatar-friend').closest('.message-row');
-            friend_row.each(function(index) {
-                var avatar_friend = this.querySelector('img.avatar-friend');
-                if (index < friend_row.length - 1) {
-                    var avatar_next = this.nextElementSibling.querySelector('img.avatar-friend');
-                    if (avatar_next && avatar_next.src == avatar_friend.src) {
-                        avatar_friend.style = "display: none";
-                        var msg = this.querySelector('.user2');
-                        msg.classList.add('msg-no-avatar');
-                    }
-                }
-            });
+            openChatOnLoad(json);
         },
         error: showError
     });
+}
+
+function setTitle() {
+    if (unreadCount > 0) {
+        $('title').text('(' + unreadCount + ') ' + display_fr);
+        document.getElementById('appIcon').href = "images/YlPmwLaTSI9.ico";
+    }
+    else {
+        $('title').text(display_fr);
+        document.getElementById('appIcon').href = "images/O6n_HQxozp9.ico";
+    }
 }
 
 function sendMessage(txt, ws) {

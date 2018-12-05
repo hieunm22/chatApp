@@ -7,36 +7,37 @@
     // $pattern = '%'.$t.'%';
     $uid = $_SESSION['user']['id'];  // 1
     $unreadCount = 0;
-    $html = '';
+    $search = '';
     $msg = '';
+    $con = initConnection();
     if (trim($t)==='') {
         $con->query("call markAsReceived($uid)");
         $sql = "call searchUsers($uid)";
         $query = mysqli_query($con, $sql);
-        $rowcount = mysqli_num_rows($query);
+        $rowcount = $query->num_rows;
         if ($rowcount==0) {
-            $html = '';
-			echo '{ "html": "", "unread": 0 }';
+            $search = '';
+			echo '{ "search": "", "unread": 0 }';
             return;
         }
-        $html = (include '../include/searchusers.php');
+        $search = (include '../include/searchusers.php');
     }
     else {
         $sql = "call searchUsersText('$t', $uid)";
         $query = mysqli_query($con, $sql);
         while ($row = mysqli_fetch_array($query)) {
-            $html .= '<div class="lbl search-result-text" draggable="true">
+            $search .= '<div class="lbl search-result-text" draggable="true">
         <div id="user'.$row["friend_id"].'" class="username-search" status="'.$row["status"].'"><span><img src="'.$row["avatar_url"].'" class="avatar-search-text" /></span><span class="chatname">'.$row["alias"].'</span></div>
             </div>';
         }
     }
 	$obj = new stdClass();
-	$html = str_replace("\"", "\\\"", $html);
-	$html = str_replace("\r", "", $html);
-	$html = str_replace("\n", "", $html);
-	$html = str_replace("\t", "", $html);
-	$obj->html = $html;
+	$search = str_replace("\"", "\\\"", $search);
+	$search = str_replace("\r", "", $search);
+	$search = str_replace("\n", "", $search);
+	$search = str_replace("\t", "", $search);
+	$obj->search = $search;
 	$obj->unread = $unreadCount;
 	// echo json_encode($obj);
-    echo '{ "html": "'.$html.'", "unread": '.$unreadCount.' }';
+    echo '{ "search": "'.$search.'", "unread": '.$unreadCount.' }';
 ?>

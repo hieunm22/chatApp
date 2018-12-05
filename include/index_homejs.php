@@ -11,7 +11,7 @@
 				$(document).ready(function(){
 					resizeWindow();
 					$(window).resize(resizeWindow);
-					searchUsers();
+					searchUsersAndLoadMessage();
 					$('input#searchtb').on('keyup', function(e) {
 						searchUsers(true);
 					});

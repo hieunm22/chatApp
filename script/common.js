@@ -149,27 +149,114 @@ window.onclick = function(e) {
 
 function wsReceivedMessage(e)
 {
-    // nhận message ở đây
     var json = JSON.parse(e.data);
     if (json.sender_id == user_id) return;
     switch (json.type) {
         case "sent_message":
             if (json.sender_id != current_connect) {	// message từ người bạn mà máy mình đang không focus vào
+                // reload lại search users
                 searchUsers();
             }
             else 								        // message từ người bạn mà máy mình đang focus vào
             {
-                // load message here
-                searchUsers();   
+                searchUsersAndLoadMessage();
                 var div = document.getElementById("messagePanel");
-                // scroll to end
                 div.scrollTop = div.scrollHeight;
+                // reload lại search users và load lại message của conversion đó
             }
             break;
         case "open_message":
             openChat(current_connect);
             break;
     }
+}
+
+function preOpenChatOnLoad(fid) {
+    var chat = document.getElementById('chatmessage')
+    chat.disabled = false;
+    chat.focus();
+    current_connect = fid;
+
+    if ($('div#user' + fid + ' > span.chatname').hasClass('unread-txt')) unreadCount--;
+    // mark as read message
+    $('div#user' + fid + ' > span.me').css('color', '#0006');
+    var usr_chat = document.getElementById('user' + fid);
+    var parent = usr_chat.parentElement;
+    var findUnread = $(parent).find('.unread-txt')
+    if (findUnread.length > 0) findUnread.removeClass('unread-txt');
+
+    $('textarea').height(45);
+
+    var status = usr_chat.getAttribute('status');
+    if (status == '0') {
+        chat.disabled = true;
+        chat.value = 'Bạn không thể gửi tin nhắn cho người này';
+        chat.style.border = '0px none';
+        chat.style.backgroundColor = 'transparent';
+    }
+    else {
+        chat.disabled = false;
+        chat.value = '';
+        chat.style.display = 'inherit';
+    }
+    chat.style.width = (Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 480) + 'px';
+    if (current_connect != -1) {
+        var alias = $('div[id="user' + fid + '"] span.chatname').text();
+        $('#chatname').text(alias);
+    }
+    else {
+        $('#chatname').text('');
+    }
+}
+
+function openChatOnLoad(jsonstr) {
+    $('a._30yy').css('display', 'inline');
+    conversion_color = getCookie('conversion_color');
+    changeConversionObjectsColor();
+    var div = document.getElementById("messagePanel");
+    // load những message có trạng thái đã đọc lên trước
+    div.innerHTML = jsonstr.readMsg;
+    // load những message chưa đọc lên sau
+    div.innerHTML += jsonstr.unreadMsg;
+    // cuộn xuống dưới cùng
+    div.scrollTop = div.scrollHeight;
+    friendName = jsonstr.friendname;
+    display_fr = jsonstr.display_fr;
+    meName = jsonstr.mename;
+    display_me = jsonstr.display_me;
+    // xoá seen icon
+    var msgstt = $('._4jzq._jf5:not(:last)');
+    if (msgstt.length > 0) msgstt.css('display', 'none');
+    setTitle();
+    // xoá avatar friend ở message panel, giữ lại avatar cuối cùng
+    var friend_row = $('img.avatar-friend').closest('.message-row');
+    friend_row.each(function(index) {
+        var avatar_friend = this.querySelector('img.avatar-friend');
+        if (index < friend_row.length - 1) {
+            var avatar_next = this.nextElementSibling.querySelector('img.avatar-friend');
+            if (avatar_next && avatar_next.src == avatar_friend.src) {
+                avatar_friend.style = "display: none";
+                var msg = this.querySelector('.user2');
+                msg.classList.add('msg-no-avatar');
+            }
+        }
+    });
+}
+
+function searchOnLoad(jsonstr, isKey) {
+    $('div#search-content').html(jsonstr.search);
+    unreadCount = 0;
+    unreadCount += jsonstr.unread;
+    setTitle();
+
+    var sl = $('div#search-list').height();
+    var sb = $('div#searchbox').height();
+    $('div#search-content').css('height', sl - sb);
+    // nếu đã chọn 1 conversion thì vẫn focus conversion đó
+    // if (current_connect != -1) {
+        // $('div.lbl.search-result').removeClass('active-msg');
+        // $('div#user' + current_connect).parent('div.lbl.search-result').addClass('active-msg');
+    // }
 }
 
 String.prototype.replaceAll = function(search, replacement) {

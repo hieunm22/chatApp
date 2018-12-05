@@ -1,8 +1,8 @@
 <?php
     $html_return = '';
-    $avatar_first = '';
+    $avatar = '';
     $current_connect = $_SESSION['current_connect'];
-
+    $ii = 0;
     while ($row = mysqli_fetch_array($query)) {
         switch ($row['message_type']) {
             case 0:
@@ -25,11 +25,12 @@
         if ($isunread) $unreadCount++;
         $txt_unread = $isunread ? ' unread-txt' : '';
         if ($row['avatar_friend'] == null) 
-            $avatar = $row["gender"] == 1 ? 'images\\\\2Q==.jpg' : 'images\\\\9k=.jpg';
+            $avatar_for = $row["gender"] == 1 ? 'images\\\\2Q==.jpg' : 'images\\\\9k=.jpg';
         else
-            $avatar = $row["avatar_friend"];
+            $avatar_for = $row["avatar_friend"];
+        if ($ii == 0) $avatar = $avatar_for;
         $html_return .= '<div class="lbl search-result'.($current_connect == $row['friend_id'] ? ' active-msg' : '').'" draggable="true">
-        <div class="avatar-img"><img class="img-search" src="'.($avatar).'"></div>
+        <div class="avatar-img"><img class="img-search" src="'.$avatar_for.'"></div>
         <div id="user'.$row["friend_id"].'" class="username-search" status="'.$row["usrstatus"].'"><span class="chatname'.$txt_unread.'">'.$row["display_name"].'</span> <span class="me" style="color: '.($isunread ? '#0084ff' : '#0006').';" title="'.$row['sent_date'].'">'.$row['sent_time'].'</span></div>
         <div class="last-msg-row">';
         if ($uid == $row["last_sender_id"]) {
@@ -44,6 +45,7 @@
         $html_return .= '
     </div>
 </div>';
+        $ii++;
     }
     return $html_return;
 ?>

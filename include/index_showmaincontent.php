@@ -1,4 +1,5 @@
 <?php
+	$con = initConnection();
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         # code dang nhap o day
 		$usr = $_POST['username'];
