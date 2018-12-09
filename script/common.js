@@ -159,9 +159,8 @@ function wsReceivedMessage(e)
             }
             else 								        // message từ người bạn mà máy mình đang focus vào
             {
-                searchUsersAndLoadMessage();
-                var div = document.getElementById("messagePanel");
-                div.scrollTop = div.scrollHeight;
+                searchUsersAndLoadMessage(false);
+                msgPN.scrollTop = msgPN.scrollHeight;
                 // reload lại search users và load lại message của conversion đó
             }
             break;
@@ -199,6 +198,7 @@ function preOpenChatOnLoad(fid) {
         chat.value = '';
         chat.style.display = 'inherit';
     }
+    setTitle();
     chat.style.width = (Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 480) + 'px';
     if (current_connect != -1) {
         var alias = $('div[id="user' + fid + '"] span.chatname').text();
@@ -207,19 +207,27 @@ function preOpenChatOnLoad(fid) {
     else {
         $('#chatname').text('');
     }
+    ws.send(
+        JSON.stringify({
+            'type': "open_message",    //'friend action open message',
+            'sender_id': user_id,
+            'txt': "",
+            'msgtime': "",
+            'avatar': ""
+        })
+    );
 }
 
 function openChatOnLoad(jsonstr) {
     $('a._30yy').css('display', 'inline');
     conversion_color = getCookie('conversion_color');
     changeConversionObjectsColor();
-    var div = document.getElementById("messagePanel");
     // load những message có trạng thái đã đọc lên trước
-    div.innerHTML = jsonstr.readMsg;
+    msgPN.innerHTML = jsonstr.readMsg;
     // load những message chưa đọc lên sau
-    div.innerHTML += jsonstr.unreadMsg;
+    msgPN.innerHTML += jsonstr.unreadMsg;
     // cuộn xuống dưới cùng
-    div.scrollTop = div.scrollHeight;
+    msgPN.scrollTop = msgPN.scrollHeight;
     friendName = jsonstr.friendname;
     display_fr = jsonstr.display_fr;
     meName = jsonstr.mename;
@@ -252,6 +260,17 @@ function searchOnLoad(jsonstr, isKey) {
     var sl = $('div#search-list').height();
     var sb = $('div#searchbox').height();
     $('div#search-content').css('height', sl - sb);
+    // mark as received
+    ws.send(
+        JSON.stringify({
+            'type': "open_message",    //'friend action open message',
+            'sender_id': user_id,
+            'txt': "",
+            'msgtime': "",
+            'avatar': ""
+        })
+    );
+
     // nếu đã chọn 1 conversion thì vẫn focus conversion đó
     // if (current_connect != -1) {
         // $('div.lbl.search-result').removeClass('active-msg');

@@ -1,6 +1,7 @@
 <script type="text/javascript">
 				var user_id = <?php echo $_SESSION["user"]["id"] ?>;
 				var current_connect = <?php echo ($_SESSION['current_connect'] != null ? $_SESSION['current_connect'] : -1); ?>;
+				var msgPN = document.getElementById('messagePanel');
 				var ws = new WebSocket("ws://localhost:8080");
 				ws.onopen = function(e) {
 				};
@@ -11,7 +12,13 @@
 				$(document).ready(function(){
 					resizeWindow();
 					$(window).resize(resizeWindow);
-					searchUsersAndLoadMessage();
+					searchUsersAndLoadMessage(true);
+					// $('#messagePanel').on('mousemove', function(e) {
+					// 	var usr = document.getElementById('user' + current_connect);
+					// 	if (usr.parentElement.classList.contains('active-msg') && usr.childNodes[0].classList.contains('unread-txt')) {							
+					// 		preOpenChatOnLoad(current_connect);
+					// 	}
+					// });
 					$('input#searchtb').on('keyup', function(e) {
 						searchUsers(true);
 					});

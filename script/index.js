@@ -1,5 +1,5 @@
 var unreadCount = 0;
-function searchUsersAndLoadMessage() {
+function searchUsersAndLoadMessage(isLoaded) {
     $.ajax({
         url: "controller/index_searchandload.php",
         // data: { t: txt },
@@ -12,8 +12,9 @@ function searchUsersAndLoadMessage() {
             var json = $.parseJSON(response);
             // load search
             searchOnLoad(json, false);
-
-            preOpenChatOnLoad(current_connect);
+            if (isLoaded) {
+                preOpenChatOnLoad(current_connect);
+            }
             // load message
             openChatOnLoad(json.load);
         },
@@ -131,9 +132,8 @@ function sendMessage(txt, ws) {
     chatmsg.value = '';
     chatmsg.style.height = '45px';
     // scroll to end
-    var div = document.getElementById("messagePanel");
-    div.innerHTML += append;
-    div.scrollTop = div.scrollHeight;
+    msgPN.innerHTML += append;
+    msgPN.scrollTop = msgPN.scrollHeight;
 
     $.ajax({
         url: "controller/index_sendmessage.php",
