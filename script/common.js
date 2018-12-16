@@ -261,7 +261,7 @@ function searchOnLoad(jsonstr, isKey) {
     var sb = $('div#searchbox').height();
     $('div#search-content').css('height', sl - sb);
     // mark as received
-    ws.send(
+    if (ws && ws.readyState) ws.send(
         JSON.stringify({
             'type': "open_message",    //'friend action open message',
             'sender_id': user_id,

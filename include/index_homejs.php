@@ -8,6 +8,13 @@
 				ws.onerror = function(e) {
 					// Errorhandling
 				}
+				msgPN.onclick = function(e) {
+					// get current chat friend id
+					var active_id = $('.active-msg').find('[id*=user]').attr('id').substr(4);
+					if (current_connect == active_id) {
+						preOpenChatOnLoad(current_connect);
+					}
+				}
 				ws.onmessage = wsReceivedMessage;
 				$(document).ready(function(){
 					resizeWindow();
