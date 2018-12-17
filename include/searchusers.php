@@ -35,8 +35,16 @@
         <div class="last-msg-row">';
         if ($uid == $row["last_sender_id"]) {
             $html_return .= '<span class="last-message'.$txt_unread.'">'.($row['message_type'] == 0 ? 'Bạn: ' : '').$msg.'</span>';
-            if ($row["msgstatus"] == 3) {
-                $html_return .= '<span class="me"><img class="_jf2 img" src="'.$row["avatar_friend"].'" /></span>';
+            switch ($row["msgstatus"]) {
+                case 1:
+                    $html_return .= '<span class="_2her reh" title="Sent"><i aria-label="Sent" aria-roledescription="Status icon" class="_57e_" role="img"></i></span>';
+                    break;
+                case 2:
+                    $html_return .= '<span class="_2her _9ah reh" title="Delivered"><i aria-label="Delivered" aria-roledescription="Status icon" class="_57e_" role="img"></i></span>';
+                    break;
+                case 3:
+                    $html_return .= '<span class="me"><img class="_jf2 img" src="'.$row["avatar_friend"].'" /></span>';
+                    break;
             }
         }
         else {

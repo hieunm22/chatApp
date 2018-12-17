@@ -8,6 +8,7 @@
 		<?php
 			include('default.php');
             session_start();
+            $con = initConnection();
             if (!isset($_SESSION['user'])) {
                 include('include/non_authorize.php');
                 return;
