@@ -32,12 +32,6 @@ function checkTime(i) {
     return i < 10 ? "0" + i : i;
 }
 
-function getCookie(name) {
-    var parts = decodeURIComponent(document.cookie).split("; ");
-    var filter = parts.filter(function(v) { return v.startsWith("conversion_color="); });
-    return filter.length > 0 ? filter[filter.length - 1].substr(17) : '#0084ff';
-}
-
 function resizeWindow() {
     var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
@@ -220,7 +214,7 @@ function preOpenChatOnLoad(fid) {
 
 function openChatOnLoad(jsonstr) {
     $('a._30yy').css('display', 'inline');
-    conversion_color = getCookie('conversion_color');
+    conversion_color = jsonstr.conversion_color;
     changeConversionObjectsColor();
     // load những message có trạng thái đã đọc lên trước
     msgPN.innerHTML = jsonstr.readMsg;

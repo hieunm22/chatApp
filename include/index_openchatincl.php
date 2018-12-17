@@ -18,6 +18,7 @@
     $unreadMsg = '';
     $mename = '';
 	$display_me = '';
+	$color = '';
     while ($row = mysqli_fetch_array($query)) {
 		$message_type = $row['message_type'];
         $color = toColor($row["message_color"]);
@@ -43,7 +44,6 @@
 					$mename = $row['alias'];
 					$display_me = $row['display_name'];					
 					$msgrow = "<div class=\"message-row\"><div class=\"message-content me\"><span class=\"msg-status\">$icon</span> <span class=\"user1\" style=\"background-color: #$color; border-color: #$color\">$message_content</span> <span class=\"tooltiptext me\">$sent_time</span></div></div>";
-					setcookie('conversion_color', $color, time() + 86400, "/");
 					// mình đã là người gửi thì message đó phải đánh dấu là đã đọc
 					$readMsg .= $msgrow;
 				}
@@ -77,6 +77,7 @@
     }
 	$obj = new stdClass();
 	$obj->readMsg = $readMsg;
+	$obj->conversion_color = $color;
 	$obj->unreadMsg = $unreadMsg;
 	$obj->friendname = $friendname;
 	$obj->mename = $mename;
