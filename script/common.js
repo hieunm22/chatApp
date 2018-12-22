@@ -164,10 +164,10 @@ function wsReceivedMessage(e)
     }
 }
 
-function preOpenChatOnLoad(fid) {
+function preOpenChatOnLoad(fid, focus) {
     var chat = document.getElementById('chatmessage')
     chat.disabled = false;
-    chat.focus();
+    if (focus) chat.focus();
     current_connect = fid;
 
     if ($('div#user' + fid + ' > span.chatname').hasClass('unread-txt')) unreadCount--;

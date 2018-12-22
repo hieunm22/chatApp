@@ -13,13 +13,13 @@ function searchUsersAndLoadMessage(isLoaded) {
             // load search
             searchOnLoad(json, false);
             if (isLoaded) {
-                preOpenChatOnLoad(current_connect);
+                preOpenChatOnLoad(current_connect, true);
             }
             // load message
             openChatOnLoad(json.load);
         },
         error: showError
-    }); 
+    });
 }
 
 function searchUsers(isKey) {
