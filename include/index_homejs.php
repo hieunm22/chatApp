@@ -5,6 +5,7 @@
 				var chatTB = document.getElementById('chatmessage');
 				var ws = new WebSocket("ws://localhost:8080");
 				ws.onopen = function(e) {
+					// on open
 				};
 				ws.onerror = function(e) {
 					// Errorhandling
@@ -27,14 +28,15 @@
 					$('#chatmessage').on('keyup', function(e) {
 						if (e.keyCode == 13) {
 							sendMessage(e.currentTarget.value, ws);
+							chatTB.value = '';
 						}
 					});
 					// $('#chatmessage').bind('input propertychange', function() {
 						// $('textarea').height(Math.min(this.scrollHeight, 120));
 					// });
 					$('#sendmessage').on('click', function(e) {
-						var txt = chatTB.value;
-						sendMessage(txt, ws);
+						sendMessage(chatTB.value, ws);
+						chatTB.value = '';
 					});
 
 					$('td.dot').on('click', changeConversionColor);

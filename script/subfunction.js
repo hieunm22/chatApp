@@ -19,7 +19,6 @@ function openChatPrepare(fid) {
     }
     else {
         chatTB.disabled = false;
-        chatTB.value = '';
         chatTB.focus();
     }
     chatTB.style.width = (Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 480) + 'px';
