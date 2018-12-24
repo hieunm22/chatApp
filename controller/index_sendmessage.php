@@ -15,10 +15,13 @@
     $rowcount = $query->num_rows;
     $unreadCount = 0;
 
-    $html = (include '../include/searchusers.php');
+    $search = (include '../include/searchusers.php');
+    $fid = $current_connect;
+	$load = (include '../include/index_openchatincl.php');
 
     $obj = new stdClass();
-    $obj->html = $html;
+    $obj->search = $search;
+    $obj->load = json_decode($load);
     $obj->avatar = $avatar;
     $obj->msgtime = date("H:i");
     echo json_encode($obj);

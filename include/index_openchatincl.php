@@ -6,6 +6,22 @@
 	inner join users u on cu.user_id = u.id
 	where u.id=".$fid."
 	and cu.conversion_id = getConversionID($uid, $fid)");
+	// chưa có conversion giữa 2 người dùng này thì set mặc định cho các field object rồi return
+	if ($query->num_rows == 0) {
+		$con = initConnection();
+		$query = mysqli_query($con, "select alias from users where id=$fid");
+		$row = mysqli_fetch_array($query);
+		$obj = new stdClass();
+		$obj->fid = $fid;
+		$obj->readMsg = "";
+		$obj->conversion_color = "0084ff";
+		$obj->unreadMsg = "";
+		$obj->mename = $_SESSION['user']['alias'];
+		$obj->display_me = $_SESSION['user']['alias'];
+		$obj->friendname = $row['alias'];
+		$obj->display_fr = $row['alias'];
+		return json_encode($obj);
+	}
 	$row = mysqli_fetch_array($query);
     $friendname = $row['alias'];
     $display_fr = $row['display_name'];
@@ -76,6 +92,7 @@
 		}
     }
 	$obj = new stdClass();
+	$obj->fid = $fid;
 	$obj->readMsg = $readMsg;
 	$obj->conversion_color = $color;
 	$obj->unreadMsg = $unreadMsg;

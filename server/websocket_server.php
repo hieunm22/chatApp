@@ -29,19 +29,20 @@ class Chat implements MessageComponentInterface {
 	public function onMessage(ConnectionInterface $from,  $data) {
 		$from_id = $from->resourceId;
 		$data = json_decode($data);
-		$type = $data->type;
+		$frommsg = $data->frommsg;
+		$tomsg = $data->tomsg;
 		$sender_id = $data->sender_id;
 		$txt = $data->txt;
 		$msgtime = $data->msgtime;
 		$avatar = $data->avatar;
 		// Output
-		$from->send(json_encode(array("txt"=>$txt,"sender_id"=>$sender_id,"msgtime"=>$msgtime,"avatar"=>$avatar,"type"=>$type)));
+		$from->send(json_encode(array("txt"=>$txt,"sender_id"=>$sender_id,"msgtime"=>$msgtime,"avatar"=>$avatar,"frommsg"=>$frommsg,"tomsg"=>$tomsg)));
 		foreach($this->clients as $client)
 		{
 			// send to clients
 			if($from!=$client)
 			{
-				$client->send(json_encode(array("txt"=>$txt,"sender_id"=>$sender_id,"msgtime"=>$msgtime,"avatar"=>$avatar,"type"=>$type)));
+				$client->send(json_encode(array("txt"=>$txt,"sender_id"=>$sender_id,"msgtime"=>$msgtime,"avatar"=>$avatar,"frommsg"=>$frommsg,"tomsg"=>$tomsg)));
 			}
 		}
 	}
