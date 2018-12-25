@@ -1,5 +1,10 @@
 <?php
 	//$query = $con->query("call getFriendInfo(".$uid.", ".$fid.")");
+
+	if ($fid == null) {
+		return 'false';
+	}
+
 	$con = initConnection();
 	$query = mysqli_query($con, "select u.*, cu.display_name 
 	from conversion_users cu 
@@ -26,14 +31,23 @@
     $friendname = $row['alias'];
     $display_fr = $row['display_name'];
     $avatar_fr = $row['avatar_url'];	// bien luu avatar cua friend
+
+	// $con = initConnection();
+	$query = mysqli_query($con, "select u.*, cu.display_name 
+	from conversion_users cu 
+	inner join users u on cu.user_id = u.id
+	where u.id=".$uid."
+	and cu.conversion_id = getConversionID($uid, $fid)");
+	$row = mysqli_fetch_array($query);
+	$mename = $row['alias'];
+    $display_me = $row['display_name'];
+
 	$_SESSION['current_connect'] = $fid;
 	$con = initConnection();
 	$query = mysqli_query($con, "call openChat($uid , $fid)");
     $msgrow = '';
     $readMsg = '';
     $unreadMsg = '';
-    $mename = '';
-	$display_me = '';
 	$color = '';
     while ($row = mysqli_fetch_array($query)) {
 		$message_type = $row['message_type'];
@@ -56,9 +70,7 @@
 			case 0:
 				$message_content = $row["message_content"];
 				$sent_time = $row['sent_time'];
-				if ($uid == $row['sender_id']) {
-					$mename = $row['alias'];
-					$display_me = $row['display_name'];					
+				if ($uid == $row['sender_id']) {				
 					$msgrow = "<div class=\"message-row\"><div class=\"message-content me\"><span class=\"msg-status\">$icon</span> <span class=\"user1\" style=\"background-color: #$color; border-color: #$color\">$message_content</span> <span class=\"tooltiptext me\">$sent_time</span></div></div>";
 					// mình đã là người gửi thì message đó phải đánh dấu là đã đọc
 					$readMsg .= $msgrow;

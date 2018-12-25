@@ -17,11 +17,11 @@ function blinkText(selector, txt, sender) {
 function setTitle() {
     let unreadCount = $('span.chatname.unread-txt').length;
     if (unreadCount > 0) {
-        $('title').text('(' + unreadCount + ') ' + currentConversion.display_fr);
+        $('title').text('(' + unreadCount + ') ' + (currentConversion.display_fr || "Home"));
         document.getElementById('appIcon').href = "images/YlPmwLaTSI9.ico";
     }
     else {
-        $('title').text(currentConversion.display_fr);
+        $('title').text(currentConversion.display_fr || "Home");
         document.getElementById('appIcon').href = "images/O6n_HQxozp9.ico";
     }
 }

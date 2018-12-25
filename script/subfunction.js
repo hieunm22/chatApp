@@ -9,7 +9,7 @@ function openChatPrepare(fid) {
     var usr_chat = document.getElementById('user' + fid);
     var findUnread = $(usr_chat.parentElement).find('.unread-txt')
     if (findUnread.length > 0) findUnread.removeClass('unread-txt');
-
+    
     chatTB.style.height = 45;
     // chat textbox enabled status via status property
     var status = usr_chat.getAttribute('status');
@@ -77,7 +77,8 @@ function searchOnLoad(jsonstr){
  * xử lý các sự kiện ở client và response trả về khi người dùng click mở 1 conversion
  * @param {*} jsonstr object json server trả về
  */
-function loadMessageOnLoad(jsonstr) { 
+function loadMessageOnLoad(jsonstr) {
+    if (!jsonstr) return;
     openChatPrepare(+jsonstr.fid);
     loadMessageFromServer(jsonstr);
 }
