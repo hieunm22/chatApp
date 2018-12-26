@@ -6,7 +6,7 @@
 		$usr = str_replace("'","\\'",$usr);
 		$pwd = $_POST['password'];
 		$pwd = str_replace("'","\\'",$pwd);
-		$sql = "call loginVertification($usr, $pwd)";
+		$sql = "call loginVertification('$usr', '$pwd')";
 		$query = mysqli_query($con, $sql);
 		$rowcount = $query->num_rows;
 		if ($rowcount == 1) {
