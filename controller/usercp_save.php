@@ -24,7 +24,16 @@
     $pwd = $_REQUEST['p'];
     $pwd = str_replace("'","\\'",$pwd);
 
-    $sql = "Call updateUser('".$usr."', '".md5($pwd)."'";
+    $sql = "Call updateUser('".$usr."'";
+    if (!isset($pwd) || trim($pwd)==='') {
+        $sql .= ", null";
+    }
+    else {
+        $sql .= ", '".md5($pwd)."'";
+    }
+    if (!isset($eml) || trim($eml)==='') {
+        $sql .= ", null";
+    }
     if (!isset($eml) || trim($eml)==='') {
         $sql .= ", null";
     }
