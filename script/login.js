@@ -82,6 +82,10 @@ function save() {
         blinkText('div.login-message', 'Xác nhận mật khẩu không đúng');
         return;
     }
+    if ($('input#oldpwd').val() == "" && $('input#pwd').val() != "") {
+        blinkText('div.login-message', 'Chưa nhập mật khẩu cũ');
+        return;
+    }
     $.ajax({
         url: "controller/usercp_save.php",
         data: {
