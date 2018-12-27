@@ -25,6 +25,7 @@ function openChatPrepare(fid) {
 
     $('a#row3').attr('href', 'profile.php?id=' + current_connect);
     $('a#row3').attr('target', '_blank');
+    $('a._30yy').css('display', 'inherit')
 }
 /**
  * load message từ response message trả về
