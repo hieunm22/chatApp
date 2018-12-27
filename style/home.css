@@ -43,8 +43,11 @@
 	display: table;
 	color: red;
 }
+.userinfo {
+    width: 300px;
+}
 .register {
-    margin-left:50px;
+    margin-left:15px;
 	width: 140px;
 }
 .lbl {
