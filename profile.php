@@ -44,6 +44,8 @@
                 $sql = "SELECT * FROM users where `id`=".$_SESSION['user']['id']." and status=1";
                 $query = mysqli_query($con, $sql);
                 $profile = mysqli_fetch_array($query);
+                $sql = "update users set avatar_url='images/".$_SESSION['user']['id'].".jpg' where id=".$_SESSION['user']['id'];
+                $query = mysqli_query($con, $sql);
                 echo '
             <script id="temp">(function changeTitle() { $("title").text("'.$profile['alias'].'"); $("script#temp").remove(); })();</script>';
                 include('include/navigation.php');
