@@ -2,7 +2,7 @@
 <?php
     $path = basename($_SERVER['SCRIPT_FILENAME']);
     $strNav = '
-    <a href="">Trang chủ</a>';
+    <a href=".">Trang chủ</a>';
     switch ($path) {
         case 'register.php': $strNav .= ' > Đăng ký';
             break;
