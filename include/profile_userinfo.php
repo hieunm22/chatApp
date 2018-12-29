@@ -19,7 +19,7 @@
         </tr>
 <?php
     if ($_GET['id'] == $_SESSION['user']['id']) {
-        include('include/profile_uploadavatar.html');
+        include('include/profile_uploadavatar.php');
     }
 ?>
     </table>
