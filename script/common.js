@@ -46,19 +46,6 @@ function checkTime(i) {
     return i < 10 ? "0" + i : i;
 }
 
-function resizeWindow() {
-    var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-    var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-    //$('div#search-list').css('height', (h - 100) + 'px');
-    $('div#search-content').height(h - 120);
-    $('div#chatmain').width(w - 360);
-    $('div#chatmain').height(h - 92);
-    $('div#messagePanel').width(w - 390);
-    $('div#messagePanel').height(h - 220);
-    $('#chatmessage').width(w - 480);
-    $('#chatmessage').height(45);
-}
-
 function showError(data) {
     console.log(data.responseText);
 }

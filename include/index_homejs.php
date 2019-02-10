@@ -12,8 +12,6 @@
 				}
 				ws.onmessage = wsReceivedMessage;
 				$(document).ready(function(){
-					resizeWindow();
-					$(window).resize(resizeWindow);
 					searchUsersAndLoadMessage(true);
 					$('input#searchtb').on('keyup', function(e) {
 						searchUsers(true);

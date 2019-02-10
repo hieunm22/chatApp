@@ -10,7 +10,6 @@ function openChatPrepare(fid) {
     var findUnread = $(usr_chat.parentElement).find('.unread-txt')
     if (findUnread.length > 0) findUnread.removeClass('unread-txt');
     
-    chatTB.style.height = 45;
     // chat textbox enabled status via status property
     var status = usr_chat.getAttribute('status');
     if (status == '0') {
@@ -21,7 +20,6 @@ function openChatPrepare(fid) {
         chatTB.disabled = false;
         chatTB.focus();
     }
-    chatTB.style.width = (Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 480) + 'px';
 
     $('a#row3').attr('href', 'profile.php?id=' + current_connect);
     $('a#row3').attr('target', '_blank');

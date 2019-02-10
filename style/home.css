@@ -108,16 +108,16 @@ div#info {
 #search-list {
     border: 1px solid #b7b3b3;
     /* border-radius: 10px; */
-    /* overflow-y: scroll; */
+    overflow-y: scroll;
 	width: 320px;
-	/* height: 85%;*/
+	height: calc(100vh - 90px);
     display: inline-block;
 	margin-top: 10px;
 }
 /*#searchbox {
 }*/
 #search-content {
-    overflow: auto;
+    height: calc(100vh - 117px);
 }
 #searchtb {
     width: 98%;
@@ -127,6 +127,8 @@ div#info {
     position:absolute;
     border: 1px solid #b7b3b3;
     border-radius: 5px;
+    height: calc(100vh - 90px);
+    width: calc(100% - 360px);
     display: inline-block;
 	margin-top: 10px;
 	margin-left: 15px;
@@ -164,11 +166,11 @@ div.lbl.search-result:active {
 }
 #conversionName {
     /* border: 1px solid #b7b3b3; */
-    width: 95%;
+    width: calc(100% - 28px);
     height: 38px;
     position: relative;
     top: 3px;
-    left: 25px;
+    left: 15px;
     /* padding-top: 5px; */
 }
 .chatname {
@@ -185,8 +187,8 @@ div.lbl.search-result:active {
 #messagePanel {
     border: 1px solid #b7b3b3;
     overflow-y: scroll;
-    width: 95%;
-    height: 82%;
+    width: calc(100% - 30px);
+    height: calc(100% - 120px);
     position: relative;
     top: 2px;
     left: 15px;
@@ -197,12 +199,17 @@ div.lbl.search-result:active {
 	bottom: 15px;
     margin-left: 15px;
     max-height: 100px;
+    width: calc(100% - 120px);
     resize: none;
 }
 #sendmessage {
-    position: absolute;
-	bottom: 42px;
-	right: 14px;
+    position: fixed;
+    float: right;
+    bottom: 50px;
+    right: 27px;
+    border: none;
+    border-radius: 5px;
+    height: 25px;
 }
 .message-alert {
     color: #0006; 
