@@ -55,6 +55,7 @@ function changeConversionObjectsColor() {
     $('polygon').css('fill', '#' + currentConversion.conversion_color);
     $('circle').css('fill', '#' + currentConversion.conversion_color);
     $('path').css('stroke', '#' + currentConversion.conversion_color);
+    $('#sendmessage').attr('style', 'background-color: #' + currentConversion.conversion_color);
 }
 
 function showDropDown() {
@@ -98,12 +99,12 @@ function editnickname(e) {
 
 function loadNickNames() {
     var meElem = document.getElementById('nickname1');
-    meElem.value = display_me;
-    meElem.placeholder = meName;
+    meElem.value = currentConversion.display_me;
+    meElem.placeholder = currentConversion.meName;
     var friendElem = document.getElementById('nickname2');
     var nameInSearch = $('.active-msg > .username-search > .chatname').text();
     friendElem.value = nameInSearch;
-    friendElem.placeholder = friendName;
+    friendElem.placeholder = currentConversion.friendName;
     $('input[id^="nickname"]').attr('style', '');
 }
 
