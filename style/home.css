@@ -191,30 +191,34 @@ div.lbl.search-result:active {
 #messagePanel {
     border: 1px solid #b7b3b3;
     overflow-y: scroll;
-    width: calc(100% - 30px);
-    height: calc(100% - 120px);
+    width: 100%;
+    height: calc(100% - 110px);
     position: relative;
     top: 2px;
-    left: 15px;
+    left: -1px;
     padding-top: 15px;
 }
 #chatmessage {
     position: absolute;
-	bottom: 15px;
-    margin-left: 15px;
-    max-height: 100px;
-    width: calc(100% - 120px);
+    bottom: -1px;
+    margin-left: -1px;
+    width: calc(100% - 4px);
     resize: none;
+    height: 49px;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
 }
 #sendmessage {
     position: fixed;
-    float: right;
-    bottom: 52px;
-    right: 27px;
-    border: none;
-    border-radius: 5px;
-    height: 25px;
-    color: white;
+    bottom: 50px;
+    right: 40px;
+    font-weight: bold;
+    /* cursor: pointer; */
+    letter-spacing: 2px;
+}
+#sendmessage:hover {
+    text-decoration: none;
+    /* cursor: pointer; */
 }
 .message-alert {
     color: #0006; 

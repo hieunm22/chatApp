@@ -55,7 +55,7 @@ function changeConversionObjectsColor() {
     $('polygon').css('fill', '#' + currentConversion.conversion_color);
     $('circle').css('fill', '#' + currentConversion.conversion_color);
     $('path').css('stroke', '#' + currentConversion.conversion_color);
-    $('#sendmessage').attr('style', 'background-color: #' + currentConversion.conversion_color);
+    $('#sendmessage').attr('style', 'color: #' + currentConversion.conversion_color);
 }
 
 function showDropDown() {
