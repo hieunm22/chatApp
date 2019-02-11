@@ -114,15 +114,22 @@ div#info {
 	margin-top: 10px;
 }
 #search-content {
-    height: calc(100vh - 125px);
+    height: calc(100vh - 121px);
     overflow-y: scroll;
 }
 #searchtb {
-    width: calc(100% - 16px);
-    margin: -1px 0 0 -1px;
+    width: calc(100% - 30px);
+    margin: -1px 0 0px -1px;
     height: 30px;
-    padding: 0 7px;
+    padding: 0 5px 0 25px;
+    background-image: url(../images/search-icon.png);
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    background-position-x: 5px;
+    background-position-y: 8px;
+    border: solid 1px #aaa;
 }
+
 #searchtb:focus {
     outline: none;
     /* border-color: #a6c8ff; */
@@ -169,13 +176,10 @@ div.lbl.search-result:active {
 	background-color: #f2f2f2;
 }
 #conversionName {
-    /* border: 1px solid #b7b3b3; */
-    width: calc(100% - 28px);
+    width: 100%;
     height: 38px;
     position: relative;
     top: 3px;
-    left: 15px;
-    /* padding-top: 5px; */
 }
 .chatname {
     vertical-align: top;
@@ -202,23 +206,25 @@ div.lbl.search-result:active {
     position: absolute;
     bottom: -1px;
     margin-left: -1px;
-    width: calc(100% - 4px);
+    padding: 0 30px 0 5px;
+    width: calc(100% - 35px);
     resize: none;
     height: 49px;
     border-top: none;
     border-radius: 0 0 5px 5px;
 }
+#chatmessage:focus {
+    outline: none;
+}
 #sendmessage {
     position: fixed;
-    bottom: 50px;
+    bottom: 42px;
     right: 40px;
     font-weight: bold;
-    /* cursor: pointer; */
     letter-spacing: 2px;
 }
 #sendmessage:hover {
     text-decoration: none;
-    /* cursor: pointer; */
 }
 .message-alert {
     color: #0006; 

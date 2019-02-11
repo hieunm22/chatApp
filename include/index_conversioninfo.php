@@ -1,8 +1,8 @@
 <table border="0" width="100%">
                     <tr>
                         <td id="none" width="33%"></td>
-                        <td id="chatname" width="33%" align="center"></td>
-                        <td id="empty" width="30%" align="center"></td>
+                        <td id="chatname" width="34%" align="center"></td>
+                        <td id="empty" width="33%" align="center"></td>
                         <td id="colorpicker" width="32px" align="right">
 							<a class="_30yy" style="display:none">
 								<div style="height: 32px; width: 32px;">
