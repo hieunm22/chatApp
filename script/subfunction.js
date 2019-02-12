@@ -46,6 +46,7 @@ function loadMessageFromServer(jsonstr) {
     if (msgstt.length > 0) msgstt.css('display', 'none');
     // chat textbox enabled status via status property
     changeConversionObjectsColor();
+    chatTB.focus();
     $('#chatname').text(currentConversion.display_fr);
 
     setTitle();
