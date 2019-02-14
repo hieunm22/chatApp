@@ -3,6 +3,8 @@
 				var current_connect = <?php echo ($_SESSION['current_connect'] != null ? $_SESSION['current_connect'] : -1); ?>;
 				var msgPN = document.getElementById('messagePanel');
 				var chatTB = document.getElementById('chatmessage');
+				var searchTb = document.getElementById('searchtb');
+				var clearText = $('#clear-text');
 				var ws = new WebSocket("ws://localhost:8080");
 				ws.onopen = function(e) {
 					// on open
@@ -14,6 +16,13 @@
 				$(document).ready(function(){
 					searchUsersAndLoadMessage(true);
 					$('input#searchtb').on('keyup', function(e) {
+						var clearText = $('#clear-text');
+						if (searchTb.value.trim().length === 0) {
+							clearText.addClass('hidden');
+						}
+						else {
+							clearText.removeClass('hidden');
+						}
 						searchUsers(true);
 					});
 					$('div#search-content').delegate('div.lbl.search-result, div.lbl.search-result-text', 'click', function() {
@@ -43,5 +52,6 @@
 					$('a._30yy').on('click', showDropDown);
 					$('a#save-nickname').on('click', saveNickNames);
 					$('input[type="text"]#nickname1, input[type="text"]#nickname2').on('click', editnickname);
+					$('span#clear-text').on('click', clearTextSearch);
 				});
 		</script>

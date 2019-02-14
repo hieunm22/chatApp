@@ -130,6 +130,13 @@ function saveNickNames() {
     });
 }
 
+function clearTextSearch() {
+    searchTb.value = "";
+    searchUsers(true);
+    clearText.addClass('hidden');
+    searchTb.focus();
+}
+
 window.onclick = function(e) {
 	if ($(e.target).parents('._30yy').length == 0) {
 		var dropdowns = document.getElementsByClassName("dropdown-content");
