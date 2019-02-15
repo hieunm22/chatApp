@@ -15,10 +15,13 @@ function openChatPrepare(fid) {
     if (status == '0') {
         chatTB.disabled = true;
         chatTB.value = 'Bạn không thể gửi tin nhắn cho người này';
+        $('#sendmessage').addClass('hidden');
     }
     else {
         chatTB.disabled = false;
+        chatTB.value = '';
         chatTB.focus();
+        $('#sendmessage').removeClass('hidden');
     }
 
     $('a#row3').attr('href', 'profile.php?id=' + current_connect);

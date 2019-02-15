@@ -38,7 +38,7 @@ function searchUsersAndLoadMessage(sendSocketAfterComplete) {
  * @param {*} sendSocketAfterComplete biến cờ xác định có send socket message sang các clients khác không
  */
 function openChatClick(fid, sendSocketAfterComplete) { 
-    openChatPrepare(fid);
+    // openChatPrepare(fid);
     $.ajax({
         url: "controller/index_openchat.php",
         data: { fid: fid, cur: current_connect },
@@ -47,6 +47,7 @@ function openChatClick(fid, sendSocketAfterComplete) {
         success: function (response) {
             var json = $.parseJSON(response);
             loadMessageFromServer(json);
+            openChatPrepare(fid);
             if (sendSocketAfterComplete) ws.send(
                 JSON.stringify({
                     'frommsg': 'search_user',
@@ -99,6 +100,7 @@ function searchUsers(sendSocketAfterComplete) {
  */
 function sendMessage(txt, ws) {
     if (!txt) return;
+    if (!chatTB.value) return;
     txt = txt.trim().replaceAll('\n' ,'<br />');
     
     var d = new Date();

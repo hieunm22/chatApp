@@ -11,7 +11,7 @@
             <div id="messagePanel"></div>
             <textarea id="chatmessage" placeholder="Nhập tin nhắn..." disabled autofocus="true"></textarea>
             <!-- <img src="images/send-icon.png" alt="Send message" id="sendmessage" /> -->
-            <a href="#" id="sendmessage">Gửi</a>
+            <span id="sendmessage">Gửi</span>
          </div>
 
    <?php include('include/index_script.php'); ?>

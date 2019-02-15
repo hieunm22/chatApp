@@ -213,7 +213,7 @@ div.lbl.search-result:active {
     border: 1px solid #b7b3b3;
     overflow-y: scroll;
     width: 100%;
-    height: calc(100% - 110px);
+    height: calc(100% - 106px);
     position: relative;
     top: 2px;
     left: -1px;
@@ -238,9 +238,7 @@ div.lbl.search-result:active {
     right: 40px;
     font-weight: bold;
     letter-spacing: 2px;
-}
-#sendmessage:hover {
-    text-decoration: none;
+    cursor: pointer;
 }
 .message-alert {
     color: #0006; 
