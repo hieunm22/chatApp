@@ -5,7 +5,7 @@
 				var chatTB = document.getElementById('chatmessage');
 				var searchTb = document.getElementById('searchtb');
 				var clearText = $('#clear-text');
-				var ws = new WebSocket("ws://localhost:8080");
+				var ws = new WebSocket("ws://" + window.location.hostname + ":8080");
 				ws.onopen = function(e) {
 					// on open
 				};
