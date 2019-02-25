@@ -160,7 +160,7 @@ div#info {
     position:absolute;
     border: 1px solid #b7b3b3;
     height: calc(100vh - 90px);
-    width: calc(100% - 360px);
+    width: calc(100% - 350px);
     display: inline-block;
 	margin-top: 10px;
 	margin-left: -1px;
@@ -213,7 +213,7 @@ div.lbl.search-result:active {
     border: 1px solid #b7b3b3;
     overflow-y: scroll;
     width: 100%;
-    height: calc(100% - 106px);
+    height: calc(100% - 111px);
     position: relative;
     top: 2px;
     left: -1px;
@@ -223,11 +223,10 @@ div.lbl.search-result:active {
     position: absolute;
     bottom: -1px;
     margin-left: -1px;
-    padding: 0 30px 0 5px;
+    padding: 5px 30px 0 5px;
     width: calc(100% - 35px);
     resize: none;
     height: 49px;
-    border-top: none;
 }
 #chatmessage:focus {
     outline: none;
