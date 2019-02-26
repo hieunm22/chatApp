@@ -7,6 +7,7 @@ function openChatPrepare(fid) {
     // mark selected conversion as read
     $('div#user' + fid + ' > span.me').css('color', '#0006');
     var usr_chat = document.getElementById('user' + fid);
+    if (!usr_chat) return;
     var findUnread = $(usr_chat.parentElement).find('.unread-txt')
     if (findUnread.length > 0) findUnread.removeClass('unread-txt');
     
