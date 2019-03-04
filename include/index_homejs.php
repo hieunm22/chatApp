@@ -42,6 +42,7 @@
 						// $('textarea').height(Math.min(this.scrollHeight, 120));
 					// });
 					$('#sendmessage').on('click', function(e) {
+						if (!chatTB.value) chatTB.focus();
 						sendMessage(chatTB.value, ws);
 						chatTB.value = '';
 					});
