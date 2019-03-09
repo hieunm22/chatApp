@@ -1,6 +1,6 @@
 <form action="" method="post">
 	<div class="cont">
-		<center><h3>chatApp Login error</h3></center>
+		<center><h3>chatApp Login</h3></center>
 		<hr class="seperator" />
 		<div class="login-info">
 			<svg class="login__icon name svg-icon" viewBox="0 0 20 20">
