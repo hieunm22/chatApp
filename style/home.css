@@ -104,6 +104,7 @@ svg {
 }
 #usr:focus, #pwd:focus {
     outline: none;
+		border-bottom: solid 2px #1a73e8;
 }
 
 .lbl {
@@ -115,7 +116,8 @@ svg {
     height: 30px;
     border: none;
     border-radius: 15px;
-    background-color: #0f8848;
+    /* background-color: #0f8848; */
+    background-color: #0084ff;
     color: white;
     cursor: pointer;
 }
