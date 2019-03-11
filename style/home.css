@@ -25,10 +25,14 @@
 .cont {
     border: solid 1px gray;
     border-radius: 5px;
-    width: 45%;
+    width: 550px;
     margin: 0 auto;
-    height: 250px;
+    height: 280px;
     top: 50%;
+}
+.login-title {
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .login-info {
@@ -90,19 +94,39 @@ svg {
     animation: animatePath 2s 0.5s forwards;
 }
 /*------------------------------------------*/
-
+@keyframes glowme {
+    0% {
+        left: 0px;
+    }
+    50% {
+        left: 15px;
+    }
+    100% {
+        left: -15px;
+    }
+}
+.ios-shake-incorrect-passcode {
+    position: relative;
+    left: 0%;
+    animation-name: glowme;
+    animation-iteration-count: 3;
+    animation-duration: 0.15s;
+    animation-timing-function: ease-in-out;
+    animation-delay: 0s;
+}
+/*------------------------------------------*/
 .seperator {
     margin-bottom: 20px;
 }
 
-#usr, #pwd {
+#usr-login, #pwd-login {
     width: 450px;
     height: 35px;
     border: none;
     border-bottom: solid 1px gray;
     padding-left: 7px;
 }
-#usr:focus, #pwd:focus {
+#usr-login:focus, #pwd-login:focus {
     outline: none;
 		border-bottom: solid 2px #1a73e8;
 }
@@ -130,7 +154,8 @@ svg {
 }
 select {
 	border-radius: 5px;
-	height: 27px;
+    height: 27px;
+    width: 305px;
 	margin-left:-5px;
 }
 a {

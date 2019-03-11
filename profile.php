@@ -3,12 +3,6 @@
 	<head>
 		<title>chatApp</title>
         <?php include('include/header.html');?>
-		<script type="text/javascript">
-			$(document).ready(function(){
-				$(window).resize(resizeWindow);
-				// $('#change-avatar').on('click', uploadavatar);
-			});
-		</script>
 	</head>
 	<body>
 		<?php
