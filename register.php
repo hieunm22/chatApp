@@ -33,7 +33,7 @@
         <div class="login-info login-message"></div>
         <div class="login-info">
             <center>
-                <input type="button" name="register" class="register" value="Đăng ký" onclick="register()" />
+                <input type="button" name="register" class="register-btn" value="Đăng ký" onclick="register()" />
             </center>
         </div>
 	</body>
