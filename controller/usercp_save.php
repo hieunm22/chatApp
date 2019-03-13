@@ -2,14 +2,16 @@
     include('../default.php');
     session_start();
     $id = $_SESSION["user"]["id"];
-    $old = $_REQUEST['o'];
 
+    $old = $_REQUEST['o'];
     $old = str_replace("'","\\'",$old);
+
     $con = initConnection();
-	$sql = "select * from `users` where `id`=".$id;
-	$query = mysqli_query($con, $sql);
-	if ($query->num_rows==0) {
-		echo 0;
+	$sql = "select * from `users` where `id`=".$id." and `password`=md5('".$old."')";
+    $query = mysqli_query($con, $sql);
+    // có nhập mật khẩu cũ nhưng không đúng
+	if ($query->num_rows==0 && $old !== '') {
+        echo 0;
 		return;
 	}
 
@@ -53,8 +55,8 @@
         $sql .= ", '".$pho."'";
     }
     $sql .= ", ".$id.")";
-	$query = mysqli_query($con, $sql);
-    $sql = "SELECT * FROM users where `id`='".$id."'";
+    $query = mysqli_query($con, $sql);
+    $sql = "SELECT * FROM users where `id`=".$id;
 	$query = mysqli_query($con, $sql);
     $row = mysqli_fetch_array($query);
     $_SESSION["user"] = $row;

@@ -54,7 +54,7 @@ function register() {
         success: function (response) {
             switch (+response) {
                 case 0:
-                    window.location.href = "/chatApp";
+                    window.location.href = ".";
                     break;
                 case 1:
                     blinkText('div.login-message', 'User đã tồn tại');
@@ -103,7 +103,7 @@ function save() {
 				blinkText('div.login-message', 'Mật khẩu cũ không đúng');
 				return;
 			}
-            window.location.href = "/chatApp";
+            window.location.href = ".";
         },
         error: function(data) {
             console.log('error');
