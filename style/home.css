@@ -3,23 +3,27 @@
     font-size: 13px;
 }
 
-.form-control {
-    display: block;
-    /* width: 100%; */
-    /* height: 36px; */
-    padding: 8px 12px;
-    font-size: 13px;
-    /* line-height: 1.42857143; */
-    color: #777777;
-    background-color: #ffffff;
-    background-image: none;
-    border: 1px solid #dddddd;
-    border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
-    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+.register-info > input {
+    border: none;
+    border-bottom: solid 1px gray;
+}
+
+.register-info > input:focus {
+    border-bottom: solid 2px #0084ff;
+    outline: none;
+}
+
+.register-info > center > input[type="button"] {
+    border: none;
+    width: 100px;
+    height: 30px;
+    background-color: #0084ff;
+    border-radius: 5px;
+    color: white;
+}
+#cancel {
+    background-color: gray;
+    margin-left: 20px;
 }
 
 .cont {
@@ -150,7 +154,7 @@ svg {
 }
 .header {
 	font-size: 18px;
-	color: #4ebf82;
+	color: #0084ff;
 }
 select {
     border-radius: 5px;
