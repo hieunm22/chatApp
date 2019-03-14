@@ -2,7 +2,7 @@
  * các actions tại client khi mở 1 conversion
  * @param fid id của người đang chat
  */
-function openChatPrepare(fid) {
+function openChatPrepare(fid, doNotClearText) {
     current_connect = fid;
     // mark selected conversion as read
     $('div#user' + fid + ' > span.me').css('color', '#0006');
@@ -20,7 +20,7 @@ function openChatPrepare(fid) {
     }
     else {
         chatTB.disabled = false;
-        chatTB.value = '';
+        if (!doNotClearText) chatTB.value = '';
         chatTB.focus();
         $('#sendmessage').removeClass('hidden');
     }
@@ -81,8 +81,8 @@ function searchOnLoad(jsonstr){
  * xử lý các sự kiện ở client và response trả về khi người dùng click mở 1 conversion
  * @param {*} jsonstr object json server trả về
  */
-function loadMessageOnLoad(jsonstr) {
+function loadMessageOnLoad(jsonstr, doNotClearText) {
     if (!jsonstr) return;
-    openChatPrepare(+jsonstr.fid);
+    openChatPrepare(+jsonstr.fid, doNotClearText);
     loadMessageFromServer(jsonstr);
 }

@@ -162,7 +162,7 @@ function wsReceivedMessage(e) {
     else								        // message từ người bạn mà máy mình đang focus vào
     {
         // reload lại search users và load lại message của conversion đó
-        searchUsersAndLoadMessage(sendSocket);
+        searchUsersAndLoadMessage(sendSocket, true);
     }
 }
 

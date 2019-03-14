@@ -30,7 +30,7 @@
 						$('div.lbl.search-result-text').removeClass('active-msg');
 						this.classList.add('active-msg');
 						var fid = this.querySelector('div.username-search').id.substr(4);
-						openChatClick(+fid, ws);
+						openChatClick(+fid, true);
 					});
 					$('#chatmessage').on('keyup', function(e) {
 						if (e.keyCode == 13) {

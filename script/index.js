@@ -3,7 +3,7 @@ var currentConversion = new Object();
  * load search list và open conversion đã được chọn từ trước
  * @param {*} sendSocketAfterComplete biến cờ xác định có send socket message sang các clients khác không
  */
-function searchUsersAndLoadMessage(sendSocketAfterComplete) {
+function searchUsersAndLoadMessage(sendSocketAfterComplete, doNotClearText) {
     $.ajax({
         url: "controller/index_searchandload.php",
         // data: { t: txt },
@@ -16,7 +16,7 @@ function searchUsersAndLoadMessage(sendSocketAfterComplete) {
             // load search
             searchOnLoad(json);
             // load message
-            loadMessageOnLoad(json.load);
+            loadMessageOnLoad(json.load, doNotClearText);
             if (sendSocketAfterComplete) ws.send(
                 JSON.stringify({
                     'frommsg': 'search_user',
