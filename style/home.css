@@ -3,6 +3,14 @@
     font-size: 13px;
 }
 
+input[type="button"] {
+    cursor: pointer;
+}
+
+input[type="button"]:focus {
+    outline: none;
+}
+
 .register-info > input {
     border: none;
     border-bottom: solid 1px gray;
@@ -17,12 +25,14 @@
     border: none;
     width: 100px;
     height: 30px;
-    background-color: #0084ff;
+    background-color: #4986ea;
     border-radius: 5px;
     color: white;
 }
 #cancel {
-    background-color: gray;
+    background-color: white;
+    color: #4986ea;
+    border: solid 1px #dadce0;
     margin-left: 20px;
 }
 
