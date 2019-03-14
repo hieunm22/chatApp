@@ -1,6 +1,7 @@
 /**
  * các actions tại client khi mở 1 conversion
  * @param fid id của người đang chat
+ * @param doNotClearText biến cờ xác định có xoá textbox chat khi mở 1 cuộc hội thoại hay không
  */
 function openChatPrepare(fid, doNotClearText) {
     current_connect = fid;
@@ -81,8 +82,8 @@ function searchOnLoad(jsonstr){
  * xử lý các sự kiện ở client và response trả về khi người dùng click mở 1 conversion
  * @param {*} jsonstr object json server trả về
  */
-function loadMessageOnLoad(jsonstr, doNotClearText) {
+function loadMessageOnLoad(jsonstr) {
     if (!jsonstr) return;
-    openChatPrepare(+jsonstr.fid, doNotClearText);
+    openChatPrepare(+jsonstr.fid, true);
     loadMessageFromServer(jsonstr);
 }

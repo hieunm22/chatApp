@@ -3,7 +3,7 @@ var currentConversion = new Object();
  * load search list và open conversion đã được chọn từ trước
  * @param {*} sendSocketAfterComplete biến cờ xác định có send socket message sang các clients khác không
  */
-function searchUsersAndLoadMessage(sendSocketAfterComplete, doNotClearText) {
+function searchUsersAndLoadMessage(sendSocketAfterComplete) {
     $.ajax({
         url: "controller/index_searchandload.php",
         // data: { t: txt },
@@ -16,7 +16,7 @@ function searchUsersAndLoadMessage(sendSocketAfterComplete, doNotClearText) {
             // load search
             searchOnLoad(json);
             // load message
-            loadMessageOnLoad(json.load, doNotClearText);
+            loadMessageOnLoad(json.load);
             if (sendSocketAfterComplete) ws.send(
                 JSON.stringify({
                     'frommsg': 'search_user',
@@ -38,7 +38,6 @@ function searchUsersAndLoadMessage(sendSocketAfterComplete, doNotClearText) {
  * @param {*} sendSocketAfterComplete biến cờ xác định có send socket message sang các clients khác không
  */
 function openChatClick(fid, sendSocketAfterComplete) { 
-    // openChatPrepare(fid);
     $.ajax({
         url: "controller/index_openchat.php",
         data: { fid: fid, cur: current_connect },
@@ -47,7 +46,7 @@ function openChatClick(fid, sendSocketAfterComplete) {
         success: function (response) {
             var json = $.parseJSON(response);
             loadMessageFromServer(json);
-            openChatPrepare(fid);
+            openChatPrepare(fid, false);
             if (sendSocketAfterComplete) ws.send(
                 JSON.stringify({
                     'frommsg': 'search_user',
