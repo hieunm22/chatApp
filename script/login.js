@@ -73,17 +73,13 @@ function register() {
 }
 
 function save() {
-    if ($('input#oldpwd').val() == '' && ($('input#pwd').val() != '' || $('input#pwd2').val() != '')) {
+    var ckb = document.getElementById('change-pwd');
+    if ($('input#oldpwd').val() == "" && ckb.checked) {
         blinkText('div.login-message', 'Chưa nhập mật khẩu cũ');
-		$('input#oldpwd').focus();
         return;
     }
     if ($('input#pwd').val() != $('input#pwd2').val()) {
         blinkText('div.login-message', 'Xác nhận mật khẩu không đúng');
-        return;
-    }
-    if ($('input#oldpwd').val() == "" && $('input#pwd').val() != "") {
-        blinkText('div.login-message', 'Chưa nhập mật khẩu cũ');
         return;
     }
     if ($('input#oldpwd').val() != "" && $('input#pwd').val() == "") {
@@ -98,7 +94,8 @@ function save() {
             a: $('input#alias').val(),
             f: $('input#phone').val(),
             o: $('input#oldpwd').val(),
-            p: $('input#pwd').val()
+            p: $('input#pwd').val(),
+            c: ckb.checked
         },
         dataType: 'html',
         type: 'GET',

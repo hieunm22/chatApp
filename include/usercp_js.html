@@ -1,0 +1,22 @@
+
+        <script type="text/javascript">
+			$(document).ready(function(){
+				$('input#save').on('click', function(e) {
+					save();
+				});
+				$('input#cancel').on('click', function(e) {
+					window.location.href='.';
+				});
+				$('input[type="checkbox"]').on('click', function(e) {
+					var pwds = $('span.lbl.register').slice(4);
+					$('input[type="password"]').attr('disabled', !this.checked);
+					$('input[type="password"]').val('');
+					if (this.checked) {
+						$(pwds).removeClass('disabled-lbl');
+					}
+					else {
+						$(pwds).addClass('disabled-lbl');
+					}
+				});
+			});
+		</script>

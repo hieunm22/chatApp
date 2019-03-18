@@ -42,7 +42,7 @@ input[type="button"]:focus {
     width: 550px;
     margin: 0 auto;
     height: 280px;
-    top: 50%;
+    margin-top: calc(100vh - 500px);
 }
 .login-title {
     font-size: 20px;
@@ -76,6 +76,14 @@ input[type="button"]:focus {
 .register {
     margin-left:15px;
 	width: 140px;
+}
+#change-pwd {
+    border: none;
+}
+div.register-info label {
+    color: #0084ff;
+    font-weight: bold;
+    cursor: pointer;
 }
 /*------------------------------------------*/
 .login__icon {
@@ -147,6 +155,9 @@ svg {
 
 .lbl {
 	display: inline-block;
+}
+.disabled-lbl {
+    color: gray;
 }
 .login-btn, .register-btn {
     margin-top: 10px;

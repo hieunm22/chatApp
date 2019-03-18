@@ -17,7 +17,7 @@
                     // dataType: 'json',
                     type: 'GET',
                     success: function (response) {
-                        window.location.href = "/chatApp";
+                        window.location.href = ".";
                     },
                     error: function(data) {
                         console.log('error');

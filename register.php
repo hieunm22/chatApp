@@ -8,6 +8,7 @@
                 $('input#usr').on('change', function() {
                     $('input#alias').val($('input#usr').val());
 				});
+                $('input.register-btn').on('click', register);
             });
         </script>
 	</head>

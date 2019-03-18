@@ -25,8 +25,12 @@
     $pho = str_replace("'","\\'",$pho);
     $pwd = $_REQUEST['p'];
     $pwd = str_replace("'","\\'",$pwd);
+    $chp = $_REQUEST['c'];
 
-    $sql = "Call updateUser('".$usr."'";
+    if ($chp === 'true')
+        $sql = "Call updateUser('".$usr."'";
+    else
+        $sql = "Call updateUserInfo('".$usr."'";
     if (!isset($pwd) || trim($pwd)==='') {
         $sql .= ", null";
     }
