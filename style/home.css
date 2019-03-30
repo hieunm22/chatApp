@@ -3,8 +3,12 @@
     font-size: 13px;
 }
 
-input[type="button"] {
+input[type="button"], input[type="submit"] {
+    border: none;
     cursor: pointer;
+    background-color: #4986ea;
+    border-radius: 5px;
+    color: white;
 }
 
 input[type="button"]:focus {
@@ -22,12 +26,8 @@ input[type="button"]:focus {
 }
 
 .register-info > center > input[type="button"] {
-    border: none;
     width: 100px;
     height: 30px;
-    background-color: #4986ea;
-    border-radius: 5px;
-    color: white;
 }
 #cancel {
     background-color: white;
@@ -73,6 +73,12 @@ input[type="button"]:focus {
 .userinfo {
     width: 300px;
 }
+
+#change-avatar {
+    width: 90px;
+    height: 25px;
+}
+
 .register {
     margin-left:15px;
 	width: 140px;

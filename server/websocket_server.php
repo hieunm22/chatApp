@@ -6,7 +6,8 @@ use Ratchet\ConnectionInterface;
 use Ratchet\Server\IoServer;
 use Ratchet\Http\HttpServer;
 use Ratchet\WebSocket\WsServer;
-require_once 'c:/xampp/vendor/autoload.php';
+// require_once 'c:/xampp/vendor/autoload.php';	// windows
+require_once '/opt/lampp/vendor/autoload.php';	// ubuntu, linux
 
 class Chat implements MessageComponentInterface {
 	protected $clients;
